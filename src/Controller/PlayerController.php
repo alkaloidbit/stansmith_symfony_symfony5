@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Track;
+use App\Service\FileStreamer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Class PlayerController
+ *
+ */
+class PlayerController extends AbstractController
+{
+    private $media_path;
+
+    /**
+     * @param string $mediaLibrary
+     */
+    public function __construct(string $media_path)
+    {
+        $this->media_path = $media_path;
+    }
+    
+    /**
+     * @Route("/api/player/{id}/stream", name="player")
+     */
+    public function streamResponse(Track $track, FileStreamer $fileStreamer)
+    {
+        $response = new StreamedResponse(function () use ($track, $fileStreamer) {
+            $outputStream = fopen('php://output', 'wb');
+            $pathToStream = str_replace($this->media_path, '', $track->getPath());
+            $fileStream = $fileStreamer->readStream($pathToStream, false);
+            stream_copy_to_stream($fileStream, $outputStream);
+        });
+
+        /* $response->headers->set('Content-Type', $track->getMimeType()); */
+        
+        $response->headers->set('Content-Type', 'Access-Control-Allow-Headers');
+
+        return $response;
+    }
+}

@@ -1,0 +1,45 @@
+
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  
+  {# {{ encore_entry_link_tags('main') }} #}
+
+{% endblock %}
+
+{% block body %}
+    <script charset="utf-8">
+        window.user = {{ user|raw }}; 
+        window.api_entrypoint = "{{ path('api_entrypoint') }}";
+
+        {% if albums is defined %}
+          window.albums = {{ albums|jsonld }};
+        {% endif %}
+
+        {% if artists is defined %}
+          window.artists = {{ artists|jsonld }};
+        {% endif %}
+
+        {% if currentAlbumId is defined %}
+          window.currentAlbumId = '{{ currentAlbumId|e('js') }}';
+        {% else %}
+          window.currentAlbumId = null;
+        {% endif %}
+
+        {% if currentArtistId is defined %}
+          window.currentArtistId = '{{ currentArtistId|e('js') }}';
+        {% else %}
+          window.currentArtistId = null;
+        {% endif %}
+
+    </script>
+    <div id="app" data-is-authenticated="{{ isAuthenticated }}" data-user="{{ user }}"></div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  {{ encore_entry_script_tags('main') }}
+
+{% endblock %}
