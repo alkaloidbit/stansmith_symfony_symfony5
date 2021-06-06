@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
+@import '~bulma/sass/utilities/_all';
+
+// Customizing bulma's variable
+// $family-primary: 'IBM Plex Sans', sans-serif;
+
+// $primary: $blue;
+// $primary-light: findLightColor($primary);
+// $primary-dark: findDarkColor($primary);
+// $primary-invert: findColorInvert($primary);
+// $custom-colors: null !default;
+// $link: $primary;
+// $link-invert: $primary-invert;
+// $link-focus-border: $primary;
+
+// $colors: mergeColorMaps(
+    // (
+        // "primary": (
+            // $primary,
+            // $primary-invert,
+            // $primary-light,
+            // $primary-dark,
+        // ),
+    // ),
+    // $custom-colors
+// );
+
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+@import '~@mdi/font/css/materialdesignicons.min.css';
+
+
+.is-album-cover {
+    position: relative;
+    width: 100%;
+    .img-cover {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+    &:hover .overlay {
+        display: block;
+        opacity: 1;
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+        );
+    }
+}
+
+.is-album-info strong{
+    color: $grey-darker;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    opacity: 0;
+    transition: .5s ease;
+}
+
+.playlist-item-renderer {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .icon {
+        display: none;
+    }
+    &:hover {
+        .tracknumber {
+            display: none;
+        }
+    }
+    &.selected {
+        background-color: $primary;
+        color: white;
+        .tracknumber {
+            display: none;
+        }
+    }
+    &:hover {
+        .icon {
+            display: block;
+            margin-left: 5px ;
+            margin-bottom: 3px;
+        }
+    }
+    &.selected {
+        .left-item {
+            margin: 0 24px 0 12px;
+        }
+        &.is-playing {
+            .sound-bars {
+                width: 20px;
+                height: 20px;
+                background: url('../images/animated-sound-bars.gif') no-repeat center;
+                background-size: cover;
+            }
+            .icon {
+                display: none;
+            }
+        }
+        .icon {
+            display: block;
+            margin-left: -1px;
+            margin-bottom: 0px;
+        }
+    }
+    .left-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 32px;
+        height: 32px;
+        margin: 0 24px 0 5px;
+    }
+    .title-wrapper {
+        display: flex;
+        flex: 1;
+        flex-wrap: nowrap;
+        align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 700;
+    }
+    .duration {
+        width: 54px;
+        text-align: end;
+        margin: 0 15px 0 15px;
+    }
+}
+.control {
+    cursor: pointer;
+}
+
+.player-bar svg {
+    cursor: pointer;
+}
+.svg-wrapper {
+    line-height: 1;
+}
+
+.catalogRootContainer, .playlistRootContainer, .trackListIndexRootContainer {
+    margin-bottom: 90px;
+}
+
+
+.b-slider {
+    .b-slider-thumb-wrapper {
+        &.is-dragging {
+            .b-slider-thumb {
+                transform: scale(2.25);
+            }
+        }
+    }
+}
+
+.progress-bar {
+    display: flex;
+    cursor: pointer;
+    position: fixed;
+    bottom: 90px;
+    height: 5px;
+    background-color: $grey-lightest;
+    #progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        transition: width .1s;        
+        background-color: $body-color;
+        z-index: -1;
+    }
+    #progress-knob {
+        width: 20px;
+        background-color: $red;
+        border-radius: 50%;
+        height: 20px;
+        position: absolute;
+    }
+}

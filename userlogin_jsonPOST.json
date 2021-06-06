@@ -1,0 +1,8 @@
+{
+  "email": "fredbadlieutenant@gmail.com",
+  "roles": [
+    "ROLE_ADMIN", "ROLE_ADMIN_ALBUM", "ROLE_USER"
+  ],
+  "password": "foo",
+  "username": "fredbadlieutenant"
+}

@@ -1,0 +1,23 @@
+
+{% extends "admin_base.html.twig" %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  
+  {{ encore_entry_link_tags('admin') }}
+
+{% endblock %}
+
+{% block body %}
+  <script charset="utf-8">
+    window.user = {{ user|raw }};
+  </script>
+  <div id="admin_app" data-is-authenticated="{{ isAuthenticated }}" data-user="{{ user }}"></div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  {{ encore_entry_script_tags('admin') }}
+
+{% endblock %}
