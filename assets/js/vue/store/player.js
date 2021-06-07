@@ -36,9 +36,5 @@ export default {
         toggleLoopCurrentTrack({ commit }) {
             commit(constants.TOGGLE_LOOP_CURRENT_TRACK);
         },
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
     },
 };
