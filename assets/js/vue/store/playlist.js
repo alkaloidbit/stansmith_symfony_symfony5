@@ -21,9 +21,6 @@ export default {
         [constants.SET_CURRENT_INDEX](state, n) {
             state.currentIndex = n;
         },
-        [constants.INIT_CURRENT_INDEX](state) {
-            state.currentIndex = 0;
-        },
     },
     actions: {
         // Adding a track object to playlist
