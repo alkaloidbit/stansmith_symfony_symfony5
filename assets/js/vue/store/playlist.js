@@ -7,7 +7,7 @@ export default {
     },
     getters: {
         currentTrack(state, getters, rootState) {
-            return state.playlist[rootState.player.currentIndex];
+            return state.playlist[rootState.currentIndex.currentIndex];
         },
     },
     mutations: {
@@ -25,7 +25,7 @@ export default {
         },
 
         initPlaylist({ commit }) {
-            commit('player/SET_CURRENT_INDEX', 0, { root: true });
+            commit('currentIndex/SET_CURRENT_INDEX', 0, { root: true });
             commit(constants.CLEAR_PLAYLIST);
         },
 

@@ -9,10 +9,12 @@ export default {
             'duration',
             'loopCurrentTrack',
             'isPlaying',
-            'currentIndex',
         ]),
         ...mapState('playlist', [
             'playlist',
+        ]),
+        ...mapState('currentIndex', [
+            'currentIndex',
         ]),
     },
 
@@ -49,7 +51,7 @@ export default {
             }
 
             track.howl.play();
-            this.$store.dispatch('player/setCurrentIndex', index);
+            this.$store.dispatch('currentIndex/setCurrentIndex', index);
             this.$store.dispatch('player/play', null, { root: true });
         },
 

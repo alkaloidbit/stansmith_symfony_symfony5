@@ -54,7 +54,7 @@ export default {
                 }
             }
 
-            this.$store.dispatch('player/setCurrentIndex', selectedTrackIndex, { root: true });
+            this.$store.dispatch('currentIndex/setCurrentIndex', selectedTrackIndex, { root: true });
 
             this.play(selectedTrackIndex);
         },
