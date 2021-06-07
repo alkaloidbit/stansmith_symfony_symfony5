@@ -31,14 +31,17 @@ export default {
                     src: [src],
                     format: ['ogg'],
                     html5: false,
-                    loop: this.loopCurrentTrack,
                     onload: () => {
                     },
                     onplay: () => {
                         this.$store.dispatch('player/setDuration', { duration: track.howl.duration() }, { root: true });
                     },
                     onend: () => {
-                        this.skip('forward');
+                        if (!this.loopCurrentTrack) {
+                            this.skip('forward');
+                        } else {
+                            track.howl.play();
+                        }
                     },
                 });
             } else {
