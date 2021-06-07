@@ -32,12 +32,8 @@ export default {
         },
 
         initPlaylist({ commit }) {
-            commit(constants.INIT_CURRENT_INDEX);
+            commit(constants.SET_CURRENT_INDEX, 0);
             commit(constants.CLEAR_PLAYLIST);
-        },
-
-        initCurrentIndex({ commit }) {
-            commit(constants.INIT_CURRENT_INDEX);
         },
 
         setCurrentIndex({ commit }, index) {

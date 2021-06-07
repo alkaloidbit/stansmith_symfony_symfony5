@@ -71,7 +71,6 @@ export default {
             if (direction === 'forward') {
                 index = this.currentIndex + 1;
                 if (index >= this.playlist.length) {
-                    // this.store.dispatch('player/initCurrentIndex');
                     index = 0;
                 }
             } else {
