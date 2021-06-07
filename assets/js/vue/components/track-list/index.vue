@@ -48,9 +48,13 @@ export default {
             // finding selectedTrack index inside tracks prop
             const selectedTrackIndex = this.tracks.findIndex((item) => item === this.selectedTrack);
 
-            this.currentTrack.howl.stop();
+            if (this.currentTrack) {
+                if (this.currentTrack.howl) {
+                    this.currentTrack.howl.stop();
+                }
+            }
 
-            this.$store.dispatch('playlist/setCurrentIndex', selectedTrackIndex, { root: true });
+            this.$store.dispatch('currentIndex/setCurrentIndex', selectedTrackIndex, { root: true });
 
             this.play(selectedTrackIndex);
         },

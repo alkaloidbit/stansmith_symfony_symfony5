@@ -12,6 +12,8 @@ export default {
         ]),
         ...mapState('playlist', [
             'playlist',
+        ]),
+        ...mapState('currentIndex', [
             'currentIndex',
         ]),
     },
@@ -49,7 +51,7 @@ export default {
             }
 
             track.howl.play();
-            this.$store.dispatch('playlist/setCurrentIndex', index);
+            this.$store.dispatch('currentIndex/setCurrentIndex', index);
             this.$store.dispatch('player/play', null, { root: true });
         },
 
@@ -71,7 +73,6 @@ export default {
             if (direction === 'forward') {
                 index = this.currentIndex + 1;
                 if (index >= this.playlist.length) {
-                    // this.store.dispatch('player/initCurrentIndex');
                     index = 0;
                 }
             } else {

@@ -4,11 +4,10 @@ export default {
     namespaced: true,
     state: {
         playlist: [],
-        currentIndex: 0,
     },
     getters: {
-        currentTrack(state) {
-            return state.playlist[state.currentIndex];
+        currentTrack(state, getters, rootState) {
+            return state.playlist[rootState.currentIndex.currentIndex];
         },
     },
     mutations: {
@@ -18,12 +17,6 @@ export default {
         [constants.CLEAR_PLAYLIST](state) {
             state.playlist.length = 0;
         },
-        [constants.SET_CURRENT_INDEX](state, n) {
-            state.currentIndex = n;
-        },
-        [constants.INIT_CURRENT_INDEX](state) {
-            state.currentIndex = 0;
-        },
     },
     actions: {
         // Adding a track object to playlist
@@ -32,16 +25,9 @@ export default {
         },
 
         initPlaylist({ commit }) {
-            commit(constants.INIT_CURRENT_INDEX);
+            commit('currentIndex/SET_CURRENT_INDEX', 0, { root: true });
             commit(constants.CLEAR_PLAYLIST);
         },
 
-        initCurrentIndex({ commit }) {
-            commit(constants.INIT_CURRENT_INDEX);
-        },
-
-        setCurrentIndex({ commit }, index) {
-            commit(constants.SET_CURRENT_INDEX, index);
-        },
     },
 };

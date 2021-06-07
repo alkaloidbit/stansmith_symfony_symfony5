@@ -78,7 +78,9 @@ export default {
             const album = (await fetchOneAlbum(this.album['@id'])).data;
 
             if (this.currentTrack) {
-                this.currentTrack.howl.stop();
+                if (this.currentTrack.howl) {
+                    this.currentTrack.howl.stop();
+                }
             }
             this.$store.dispatch('playlist/initPlaylist');
 
