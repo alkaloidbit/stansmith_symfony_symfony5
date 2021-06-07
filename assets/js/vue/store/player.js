@@ -6,6 +6,7 @@ export default {
         duration: null,
         isPlaying: false,
         loopCurrentTrack: false,
+        currentIndex: 0,
     },
     getters: {
     },
@@ -18,6 +19,9 @@ export default {
         },
         [constants.TOGGLE_LOOP_CURRENT_TRACK](state) {
             state.loopCurrentTrack = !state.loopCurrentTrack;
+        },
+        [constants.SET_CURRENT_INDEX](state, n) {
+            state.currentIndex = n;
         },
     },
     actions: {
@@ -35,6 +39,10 @@ export default {
 
         toggleLoopCurrentTrack({ commit }) {
             commit(constants.TOGGLE_LOOP_CURRENT_TRACK);
+        },
+
+        setCurrentIndex({ commit }, index) {
+            commit(constants.SET_CURRENT_INDEX, index);
         },
     },
 };
