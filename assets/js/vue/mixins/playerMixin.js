@@ -12,6 +12,11 @@ export default {
         ]),
         ...mapState('playlist', [
             'playlist',
+<<<<<<< HEAD
+=======
+        ]),
+        ...mapState('currentIndex', [
+>>>>>>> develop
             'currentIndex',
         ]),
     },
@@ -22,8 +27,11 @@ export default {
 
             index = typeof index === 'number' ? index : this.currentIndex;
 
+<<<<<<< HEAD
             console.log('index', index);
 
+=======
+>>>>>>> develop
             const track = this.playlist[index];
             const splits = track['@id'].split('/');
             const src = `/api/player/${splits[3]}/stream`;
@@ -33,14 +41,25 @@ export default {
                     src: [src],
                     format: ['ogg'],
                     html5: false,
+<<<<<<< HEAD
                     loop: this.loopCurrentTrack,
+=======
+>>>>>>> develop
                     onload: () => {
                     },
                     onplay: () => {
                         this.$store.dispatch('player/setDuration', { duration: track.howl.duration() }, { root: true });
                     },
                     onend: () => {
+<<<<<<< HEAD
                         this.skip('forward');
+=======
+                        if (!this.loopCurrentTrack) {
+                            this.skip('forward');
+                        } else {
+                            track.howl.play();
+                        }
+>>>>>>> develop
                     },
                 });
             } else {
@@ -48,7 +67,11 @@ export default {
             }
 
             track.howl.play();
+<<<<<<< HEAD
             this.$store.dispatch('playlist/setCurrentIndex', index);
+=======
+            this.$store.dispatch('currentIndex/setCurrentIndex', index);
+>>>>>>> develop
             this.$store.dispatch('player/play', null, { root: true });
         },
 
@@ -70,7 +93,10 @@ export default {
             if (direction === 'forward') {
                 index = this.currentIndex + 1;
                 if (index >= this.playlist.length) {
+<<<<<<< HEAD
                     // this.store.dispatch('player/initCurrentIndex');
+=======
+>>>>>>> develop
                     index = 0;
                 }
             } else {

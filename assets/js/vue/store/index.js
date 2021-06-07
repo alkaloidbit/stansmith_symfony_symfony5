@@ -5,6 +5,7 @@ import VuexPersistence from 'vuex-persist';
 import SecurityModule from './security';
 import PlayerModule from './player';
 import PlaylistModule from './playlist';
+<<<<<<< HEAD
 
 Vue.use(Vuex);
 
@@ -14,12 +15,38 @@ Vue.use(Vuex);
 //     reducer: (state) => ({ playlist: state.playlist }),
 //     filter: (mutation) => mutation.type === 'playlist/ADD_TRACK' || mutation.type === 'playlist/CLEAR_PLAYLIST',
 // });
+=======
+import CurrentIndexModule from './currentIndex';
+
+Vue.use(Vuex);
+
+const vuexPlaylist = new VuexPersistence({
+    key: 'vuexPlaylist',
+    storage: window.localStorage,
+    supportCircular: true,
+    reducer: (state) => ({ playlist: state.playlist }),
+    filter: (mutation) => mutation.type === 'playlist/ADD_TRACK'
+    || mutation.type === 'playlist/CLEAR_PLAYLIST',
+});
+
+const vuexPlayer = new VuexPersistence({
+    key: 'vuexCurrentIndex',
+    storage: window.localStorage,
+    supportCircular: true,
+    reducer: (state) => ({ currentIndex: state.currentIndex }),
+    filter: (mutation) => mutation.type === 'currentIndex/SET_CURRENT_INDEX',
+});
+>>>>>>> develop
 
 export default new Vuex.Store({
     modules: {
         player: PlayerModule,
         playlist: PlaylistModule,
         security: SecurityModule,
+<<<<<<< HEAD
+=======
+        currentIndex: CurrentIndexModule,
+>>>>>>> develop
     },
     state: {
         /* User */
@@ -40,5 +67,9 @@ export default new Vuex.Store({
             }
         },
     },
+<<<<<<< HEAD
     // plugins: [vuexLocal.plugin],
+=======
+    plugins: [vuexPlaylist.plugin, vuexPlayer.plugin],
+>>>>>>> develop
 });
