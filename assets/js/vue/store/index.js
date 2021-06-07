@@ -8,12 +8,13 @@ import PlaylistModule from './playlist';
 
 Vue.use(Vuex);
 
-// const vuexLocal = new VuexPersistence({
-//     storage: window.localStorage,
-//     supportCircular: true,
-//     reducer: (state) => ({ playlist: state.playlist }),
-//     filter: (mutation) => mutation.type === 'playlist/ADD_TRACK' || mutation.type === 'playlist/CLEAR_PLAYLIST',
-// });
+const vuexLocal = new VuexPersistence({
+    storage: window.localStorage,
+    supportCircular: true,
+    reducer: (state) => ({ playlist: state.playlist }),
+    filter: (mutation) => mutation.type === 'playlist/ADD_TRACK'
+    || mutation.type === 'playlist/CLEAR_PLAYLIST',
+});
 
 export default new Vuex.Store({
     modules: {
@@ -40,5 +41,5 @@ export default new Vuex.Store({
             }
         },
     },
-    // plugins: [vuexLocal.plugin],
+    plugins: [vuexLocal.plugin],
 });
