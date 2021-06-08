@@ -23,7 +23,6 @@ export default {
             if (!this.currentTrack) return;
 
             index = typeof index === 'number' ? index : this.currentIndex;
-            console.log('index', index);
 
             const track = this.playlist[index];
             const splits = track['@id'].split('/');
