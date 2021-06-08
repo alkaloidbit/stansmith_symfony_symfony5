@@ -110,7 +110,7 @@ class FileSynchronizer
     {
         if ($dryrun) {
             $info = $this->getFileInfo($dryrun);
-            dd($info);
+            dump($info);
         } else {
             // file is not new
             // return !$this->trackEntity
@@ -174,6 +174,7 @@ class FileSynchronizer
                 $this->trackEntity->setMtime($this->fileModifiedTime);
                 $this->trackEntity->setMimeType($info['mime_type']);
                 $this->trackEntity->setTitle($info['title']);
+                $this->trackEntity->setFileformat($info['fileformat']);
 
                 $this->trackEntity->setMetaArtist($info['artist']);
                 $this->trackEntity->setMetaAlbum($info['album']);
@@ -223,11 +224,15 @@ class FileSynchronizer
             return $info;
         }
 
-        if (!isset($info['tags']['vorbiscomment'])) {
+        if (!isset($info['comments_html'])) {
             return ;
         }
 
-        $props = $this->extractPropsFromCommentsHtml($info['tags']['vorbiscomment']);
+        try {
+            $props = $this->extractPropsFromCommentsHtml($info['comments_html']);
+        } catch (\Exception $e) {
+            echo $this->filePath . 'is throwing exception :'. $e->getMessage();
+        }
 
         $props = array_merge(
             $props,
@@ -235,7 +240,8 @@ class FileSynchronizer
                 'filesize' => $info['filesize'],
                 'playtime_seconds' => $info['playtime_seconds'],
                 'playtime_string' => $info['playtime_string'],
-                'mime_type' => $info['mime_type']
+                'mime_type' => $info['mime_type'],
+                'fileformat' => $info['fileformat']
             )
         );
 
@@ -285,13 +291,30 @@ class FileSynchronizer
 
     public function extractPropsFromCommentsHtml(array $comments)
     {
+        if (isset($comments['date'][0]) && $comments['date'][0]) {
+            $date = $comments['date'][0];
+        } elseif (isset($comments['year'][0]) && $comments['year'][0]) {
+            $date = $comments['year'][0];
+        } else {
+            $date = '';
+        }
+
+        if (isset($comments['track_number'][0]) && $comments['track_number'][0]) {
+             $track_number = $comments['track_number'][0];
+        } elseif (isset($comments['tracknumber'][0]) && $comments['tracknumber'][0]) {
+            $track_number = $comments['tracknumber'][0];
+        } else {
+            $track_number = '';
+        }
+
         return array(
             'title' => $comments['title'][0],
             'artist' => $comments['artist'][0],
             'albumartist' => isset($comments['albumartist']) ? $comments['albumartist'][0] : null,
             'album' => $comments['album'][0],
             'genre' => (isset($comments['genre'][0]) && $comments['genre'][0]) ? $comments['genre'][0] : '',
-            'date' => $comments['date'][0],
-            'track_number' => $comments['tracknumber'][0] );
+            'date' => $date,
+            'track_number' => $track_number,
+        );
     }
 }
