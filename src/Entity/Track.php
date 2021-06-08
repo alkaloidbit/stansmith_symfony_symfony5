@@ -120,6 +120,12 @@ class Track
      */
     private $meta_filesize;
 
+    /**
+     * @Groups({"track:read", "album:read"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fileformat;
+
 
     public function getPath(): ?string
     {
@@ -297,6 +303,18 @@ class Track
     public function setMetaFilesize(?int $meta_filesize): self
     {
         $this->meta_filesize = $meta_filesize;
+
+        return $this;
+    }
+
+    public function getFileformat(): ?string
+    {
+        return $this->fileformat;
+    }
+
+    public function setFileformat(?string $fileformat): self
+    {
+        $this->fileformat = $fileformat;
 
         return $this;
     }

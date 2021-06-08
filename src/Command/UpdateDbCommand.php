@@ -41,7 +41,7 @@ class UpdateDbCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output, $showTableResults = false): int
+    protected function execute(InputInterface $input, OutputInterface $output, $showTableResults = true): int
     {
         $this->io = new SymfonyStyle($input, $output);
 
