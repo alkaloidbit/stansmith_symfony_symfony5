@@ -224,12 +224,12 @@ class FileSynchronizer
             return $info;
         }
 
-        if (!isset($info['comments_html'])) {
+        if (!isset($info['comments'])) {
             return ;
         }
 
         try {
-            $props = $this->extractPropsFromCommentsHtml($info['comments_html']);
+            $props = $this->extractPropsFromCommentsHtml($info['comments']);
         } catch (\Exception $e) {
             echo $this->filePath . 'is throwing exception :'. $e->getMessage();
         }
