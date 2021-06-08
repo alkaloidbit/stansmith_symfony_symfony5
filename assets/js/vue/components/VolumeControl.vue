@@ -77,7 +77,7 @@ export default {
             mdiVolumeMedium,
             mdiVolumeOff,
             size: 32,
-            volume: 0.05,
+            volume: 0.5,
             volumeMuted: null,
             max: 1,
             step: 0.05,

@@ -52,5 +52,5 @@ export default new Vuex.Store({
             }
         },
     },
-    plugins: [vuexPlaylist.plugin, vuexPlayer.plugin],
+    // plugins: [vuexPlaylist.plugin, vuexPlayer.plugin],
 });

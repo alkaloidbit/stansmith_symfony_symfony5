@@ -27,11 +27,12 @@ export default {
             const track = this.playlist[index];
             const splits = track['@id'].split('/');
             const src = `/api/player/${splits[3]}/stream`;
+
             if (!track.howl) {
                 /* eslint-disable-next-line no-undef */
                 track.howl = new Howl({
                     src: [src],
-                    format: ['ogg'],
+                    format: [track.fileformat],
                     html5: false,
                     loop: this.loopCurrentTrack,
                     onload: () => {
