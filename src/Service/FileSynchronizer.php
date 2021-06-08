@@ -110,7 +110,7 @@ class FileSynchronizer
     {
         if ($dryrun) {
             $info = $this->getFileInfo($dryrun);
-            dump($info);
+            dd($info);
         } else {
             // file is not new
             // return !$this->trackEntity
@@ -227,7 +227,7 @@ class FileSynchronizer
             return ;
         }
 
-        $props = $this->extractPropsFromVorbisComment($info['tags']['vorbiscomment']);
+        $props = $this->extractPropsFromCommentsHtml($info['tags']['vorbiscomment']);
 
         $props = array_merge(
             $props,
@@ -283,15 +283,15 @@ class FileSynchronizer
         }
     }
 
-    public function extractPropsFromVorbisComment(array $vorbiscomment)
+    public function extractPropsFromCommentsHtml(array $comments)
     {
         return array(
-            'title' => $vorbiscomment['title'][0],
-            'artist' => $vorbiscomment['artist'][0],
-            'albumartist' => isset($vorbiscomment['albumartist']) ? $vorbiscomment['albumartist'][0] : null,
-            'album' => $vorbiscomment['album'][0],
-            'genre' => (isset($vorbiscomment['genre'][0]) && $vorbiscomment['genre'][0]) ? $vorbiscomment['genre'][0] : '',
-            'date' => $vorbiscomment['date'][0],
-            'track_number' => $vorbiscomment['tracknumber'][0] );
+            'title' => $comments['title'][0],
+            'artist' => $comments['artist'][0],
+            'albumartist' => isset($comments['albumartist']) ? $comments['albumartist'][0] : null,
+            'album' => $comments['album'][0],
+            'genre' => (isset($comments['genre'][0]) && $comments['genre'][0]) ? $comments['genre'][0] : '',
+            'date' => $comments['date'][0],
+            'track_number' => $comments['tracknumber'][0] );
     }
 }
