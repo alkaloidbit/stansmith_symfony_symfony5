@@ -109,7 +109,7 @@ class FileSynchronizer
     public function synchronize($dryrun = false)
     {
         if ($dryrun) {
-            return $this->getFileInfo(true);
+            return $this->getFileInfo(false);
         } else {
             // file is not new
             // return !$this->trackEntity
@@ -230,7 +230,7 @@ class FileSynchronizer
         try {
             $props = $this->extractPropsFromCommentsHtml($info['comments']);
         } catch (\Exception $e) {
-            echo $this->filePath . ' is throwing exception: '. $e->getMessage();
+            echo $this->filePath . 'extractPropsFromCommentsHtml is throwing exception handling this file: '. $e->getMessage();
         }
 
         $props = array_merge(
