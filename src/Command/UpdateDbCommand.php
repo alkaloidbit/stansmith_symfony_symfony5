@@ -37,13 +37,14 @@ class UpdateDbCommand extends Command
         $this
             ->setDescription('Discover Files in configured directory and update Db')
             // configure an argument
-            ->addArgument('pathContains', InputArgument::OPTIONAL, 'path contains')
+            ->addArgument('pathContains', InputArgument::OPTIONAL, 'Path contains')
             ->addOption('dryrun', null, InputOption::VALUE_NONE, 'The command will do nothing but print info')
-            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'set path to the directory')
+            ->addOption('show_table', null, InputOption::VALUE_NONE, 'The command will print a table showing results')
+            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Set path to the directory')
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output, $showTableResults = true): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new SymfonyStyle($input, $output);
 
@@ -55,9 +56,13 @@ class UpdateDbCommand extends Command
             $this->mediaManager->setPathOption($pathContains);
         }
 
-        $results = $this->mediaManager->synchronize($input->getOption('dir'), $this, $input->getOption('dryrun'));
+        $dryrun = $input->getOption('dryrun');
+        $show_table = $input->getOption('show_table');
+
+        $results = $this->mediaManager->synchronize($input->getOption('dir'), $this, $dryrun);
         
-        if ($showTableResults) {
+        // results
+        if ($show_table && !$dryrun) {
             $this->buildTable($output, $results);
         }
 
@@ -90,7 +95,7 @@ class UpdateDbCommand extends Command
         $table->render();
     }
 
-    public function logSynchronizationStatus($result)
+    public function statsSynchronizationResult($result)
     {
         if ($result === 1) {
             $this->ignored++;
