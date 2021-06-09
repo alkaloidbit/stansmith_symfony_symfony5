@@ -109,8 +109,7 @@ class FileSynchronizer
     public function synchronize($dryrun = false)
     {
         if ($dryrun) {
-            $info = $this->getFileInfo($dryrun);
-            dump($info);
+            return $this->getFileInfo(true);
         } else {
             // file is not new
             // return !$this->trackEntity
@@ -308,7 +307,7 @@ class FileSynchronizer
         }
 
         return array(
-            'title' => $comments['title'][0],
+            'title' => isset($comments['title']) ? $comments['title'][0] : '',
             'artist' => $comments['artist'][0],
             'albumartist' => isset($comments['albumartist']) ? $comments['albumartist'][0] : null,
             'album' => $comments['album'][0],
