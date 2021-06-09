@@ -231,7 +231,7 @@ class FileSynchronizer
         try {
             $props = $this->extractPropsFromCommentsHtml($info['comments']);
         } catch (\Exception $e) {
-            echo $this->filePath . 'is throwing exception :'. $e->getMessage();
+            echo $this->filePath . ' is throwing exception: '. $e->getMessage();
         }
 
         $props = array_merge(

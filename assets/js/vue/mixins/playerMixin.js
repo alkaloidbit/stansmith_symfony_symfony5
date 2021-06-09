@@ -29,6 +29,7 @@ export default {
             const src = `/api/player/${splits[3]}/stream`;
 
             if (!track.howl) {
+                console.log('creating new Howl');
                 /* eslint-disable-next-line no-undef */
                 track.howl = new Howl({
                     src: [src],
@@ -49,7 +50,7 @@ export default {
                     },
                 });
             } else {
-                console.log('howl exists!');
+                console.log('Howl exists!');
             }
             track.howl.play();
             this.$store.dispatch('currentIndex/setCurrentIndex', index);

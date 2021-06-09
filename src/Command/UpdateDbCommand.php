@@ -36,8 +36,10 @@ class UpdateDbCommand extends Command
     {
         $this
             ->setDescription('Discover Files in configured directory and update Db')
-            ->addArgument('path', InputArgument::OPTIONAL, 'path')
-            ->addOption('dryrun', null, InputOption::VALUE_NONE, 'Option description')
+            // configure an argument
+            ->addArgument('pathContains', InputArgument::OPTIONAL, 'path contains')
+            ->addOption('dryrun', null, InputOption::VALUE_NONE, 'The command will do nothing but print info')
+            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'set path to the directory')
         ;
     }
 
@@ -47,18 +49,13 @@ class UpdateDbCommand extends Command
 
         $this->io->title('Update DB');
 
-        // Argument
-        $path = $input->getArgument('path');
-        if ($path) {
-            $this->io->note(sprintf('Processing files containing "%s" in their path...', $path));
-            $this->mediaManager->setPathOption($path);
+        $pathContains = $input->getArgument('pathContains');
+        if ($pathContains) {
+            $this->io->note(sprintf('Processing files containing "%s" in their path...', $pathContains));
+            $this->mediaManager->setPathOption($pathContains);
         }
-        
-        if ($input->getOption('dryrun')) {
-            $results = $this->mediaManager->synchronize(null, $this, true);
-        } else {
-            $results = $this->mediaManager->synchronize(null, $this, false);
-        }
+
+        $results = $this->mediaManager->synchronize($input->getOption('dir'), $this, $input->getOption('dryrun'));
         
         if ($showTableResults) {
             $this->buildTable($output, $results);
