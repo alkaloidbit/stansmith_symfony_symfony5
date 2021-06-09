@@ -41,7 +41,6 @@ export default {
                         this.$store.dispatch('player/setDuration', { duration: track.howl.duration() }, { root: true });
                     },
                     onend: () => {
-                        this.skip('forward');
                         if (!this.loopCurrentTrack) {
                             this.skip('forward');
                         } else {
@@ -52,7 +51,6 @@ export default {
             } else {
                 console.log('howl exists!');
             }
-
             track.howl.play();
             this.$store.dispatch('currentIndex/setCurrentIndex', index);
             this.$store.dispatch('player/play', null, { root: true });
