@@ -11,7 +11,7 @@
                 >
                     <img
                         v-if="album.cover[0]"
-                        :src="album.cover[0].contentUrl"
+                        v-lazy="album.cover[0].contentUrl"
                         alt=""
                         class="img-cover d-block mb-2"
                     >

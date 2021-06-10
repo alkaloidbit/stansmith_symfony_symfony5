@@ -16,7 +16,9 @@ import router from './router';
 import store from './store';
 
 Vue.use(Buefy);
-Vue.use(VueLazyload);
+Vue.use(VueLazyload, {
+    silent: false,
+});
 
 Vue.filter('minutes', (value) => {
     if (!value || typeof value !== 'number') return '00:00';
