@@ -52,3 +52,6 @@ services:
 
     App\Serializer\MediaObjectContentUrlNormalizer:
         decorates: 'api_platform.jsonld.normalizer.item'
+        
+    App\Serializer\ThumbnailObjectContentUrlNormalizer:
+        decorates: 'api_platform.jsonld.normalizer.item'

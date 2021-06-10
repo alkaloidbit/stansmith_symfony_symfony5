@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Album;
 use App\Entity\MediaObject;
+use App\Entity\ThumbnailObject;
 use Doctrine\ORM\EntityManagerInterface;
 use Intervention\Image\ImageManager;
 
@@ -45,11 +46,16 @@ class ImageService
             $extension = trim(strtolower($extension), '. ');
             $name = uniqid().'-'.$origname;
             $destination = $destination ?: $this->getAlbumCoverPath($name, $extension);
+
             $this->writeFromBinaryData($binaryData, $destination);
 
             $mediaObject = new MediaObject();
             $mediaObject->fileName = $name.'.'.$extension;
             $mediaObject->setAlbum($album);
+
+            /* $thumbnailObject = new ThumbnailObject(); */
+            /* $thumbnailObject->fileName = $name.'.'.$extension; */
+            /* $thumbnailObject->setAlbum($album); */
 
             $this->em->persist($mediaObject);
             $this->em->flush();
