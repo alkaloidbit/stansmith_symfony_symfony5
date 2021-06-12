@@ -100,6 +100,12 @@ class ThumbnailObject
      */
     private $album;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Track::class, inversedBy="thumbnail")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $track;
+
 
     public function getId(): ?int
     {
@@ -124,6 +130,18 @@ class ThumbnailObject
     public function setAlbum(?Album $album): self
     {
         $this->album = $album;
+
+        return $this;
+    }
+
+    public function getTrack(): ?Track
+    {
+        return $this->track;
+    }
+
+    public function setTrack(?Track $track): self
+    {
+        $this->track = $track;
 
         return $this;
     }

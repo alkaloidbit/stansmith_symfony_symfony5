@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TrackRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -125,6 +127,16 @@ class Track
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fileformat;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ThumbnailObject::class, mappedBy="track", orphanRemoval=true)
+     */
+    private $thumbnail;
+
+    public function __construct()
+    {
+        $this->thumbnail = new ArrayCollection();
+    }
 
 
     public function getPath(): ?string
@@ -315,6 +327,36 @@ class Track
     public function setFileformat(?string $fileformat): self
     {
         $this->fileformat = $fileformat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ThumbnailObject[]
+     */
+    public function getThumbnail(): Collection
+    {
+        return $this->thumbnail;
+    }
+
+    public function addThumbnail(ThumbnailObject $thumbnail): self
+    {
+        if (!$this->thumbnail->contains($thumbnail)) {
+            $this->thumbnail[] = $thumbnail;
+            $thumbnail->setTrack($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThumbnail(ThumbnailObject $thumbnail): self
+    {
+        if ($this->thumbnail->removeElement($thumbnail)) {
+            // set the owning side to null (unless already changed)
+            if ($thumbnail->getTrack() === $this) {
+                $thumbnail->setTrack(null);
+            }
+        }
 
         return $this;
     }

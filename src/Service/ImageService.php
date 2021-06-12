@@ -47,8 +47,10 @@ class ImageService
             $name = uniqid().'-'.$origname;
             $destination = $destination ?: $this->getAlbumCoverPath($name, $extension);
 
+            // write cover in covers directory
             $this->writeFromBinaryData($binaryData, $destination);
 
+            // Create MediaObject associated with album
             $mediaObject = new MediaObject();
             $mediaObject->fileName = $name.'.'.$extension;
             $mediaObject->setAlbum($album);
@@ -63,6 +65,7 @@ class ImageService
 
             if ($cleanup) {
                 $this->deleteAlbumCoverFiles($album);
+            // who's the artist ?
             }
            
             $album->addCover($mediaObject);

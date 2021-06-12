@@ -124,7 +124,6 @@ class FileSynchronizer
             }
 
             // file is new.
-            // who's the artist ?
             // get or Create new Artist
             if (!$artist = $this->artistRepository->findOneBy(array('name' => $info['artist']))) {
                 $artist = new Artist();
@@ -168,6 +167,7 @@ class FileSynchronizer
             if (!$this->trackEntity ||
                 $this->trackEntity->getMTime() !== $this->fileModifiedTime) {
                 $this->trackEntity = new Track();
+
                 $this->trackEntity->setId($this->fileHash);
                 $this->trackEntity->setPath($this->filePath);
                 $this->trackEntity->setMtime($this->fileModifiedTime);
@@ -187,8 +187,11 @@ class FileSynchronizer
                 $this->trackEntity->setArtist($artist);
                 $this->trackEntity->setAlbum($album);
 
+
                 $this->em->persist($this->trackEntity);
                 $this->em->flush();
+                
+                // dd($this->trackEntity->getAlbum());
             }
 
             return 2;
@@ -202,7 +205,6 @@ class FileSynchronizer
             dd($albumInfo);
         }
 
-        // check if there s a cover file in track directory
         if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
             $origname = $cover->getBasename('.' . $cover->getExtension());
