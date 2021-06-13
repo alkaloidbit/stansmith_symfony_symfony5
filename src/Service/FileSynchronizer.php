@@ -66,10 +66,10 @@ class FileSynchronizer
      */
     private $trackEntity;
 
-    private $imageService;
+    private $mediaImageService;
 
 
-    public function __construct(MetadataHelper $metadataHelper, TrackRepository $trackRepository, ArtistRepository $artistRepository, AlbumRepository $albumRepository, HelperService $helperService, EntityManagerInterface $em, ImageService $imageService)
+    public function __construct(MetadataHelper $metadataHelper, TrackRepository $trackRepository, ArtistRepository $artistRepository, AlbumRepository $albumRepository, HelperService $helperService, EntityManagerInterface $em, MediaImageService $mediaImageService)
     {
         $this->metadataHelper = $metadataHelper;
         $this->helperService = $helperService;
@@ -78,7 +78,7 @@ class FileSynchronizer
         $this->albumRepository = $albumRepository;
         $this->finder = new Finder();
         $this->em = $em;
-        $this->imageService = $imageService;
+        $this->mediaImageService = $mediaImageService;
     }
 
 
@@ -208,7 +208,7 @@ class FileSynchronizer
         if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
             $origname = $cover->getBasename('.' . $cover->getExtension());
-            $this->imageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
+            $this->mediaImageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
         }
     }
 
