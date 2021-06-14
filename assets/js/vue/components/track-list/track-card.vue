@@ -8,6 +8,10 @@
             <span class="icon is-medium">
                 <i class="mdi mdi-24px mdi-play" />
             </span>
+            <img
+                :src="track.thumbnail.contentUrl"
+                alt=""
+            >
             <span class="sound-bars" />
         </div>
         <div class="middle-item title-wrapper">

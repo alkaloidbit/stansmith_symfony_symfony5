@@ -187,6 +187,7 @@ class FileSynchronizer
                 $this->trackEntity->setArtist($artist);
                 $this->trackEntity->setAlbum($album);
 
+                $this->generateTrackThumbnail($this->trackEntity);
 
                 $this->em->persist($this->trackEntity);
                 $this->em->flush();
@@ -209,6 +210,15 @@ class FileSynchronizer
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
             $origname = $cover->getBasename('.' . $cover->getExtension());
             $this->mediaImageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
+        }
+    }
+
+    public function generateTrackThumbnail(Track $track)
+    {
+        if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
+            $extension = pathinfo($cover, PATHINFO_EXTENSION);
+            $origname = $cover->getBasename('.' . $cover->getExtension());
+            $this->mediaImageService->writeTrackThumbnail($track, file_get_contents($cover->getPathname()), $origname, $extension);
         }
     }
 

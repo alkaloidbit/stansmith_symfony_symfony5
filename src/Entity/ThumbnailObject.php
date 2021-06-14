@@ -94,17 +94,14 @@ class ThumbnailObject
     public $fileName;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="cover")
-     * @ORM\JoinColumn(nullable=true)
-     * @Groups({"thumbnail_object_read"})
+     * @ORM\OneToMany(targetEntity=Track::class, mappedBy="thumbnail")
      */
-    private $album;
+    private $tracks;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Track::class, inversedBy="thumbnail")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $track;
+    public function __construct()
+    {
+        $this->tracks = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -122,26 +119,32 @@ class ThumbnailObject
         return $this->createdAt;
     }
 
-    public function getAlbum(): ?Album
+    /**
+     * @return Collection|Track[]
+     */
+    public function getTracks(): Collection
     {
-        return $this->album;
+        return $this->tracks;
     }
 
-    public function setAlbum(?Album $album): self
+    public function addTrack(Track $track): self
     {
-        $this->album = $album;
+        if (!$this->tracks->contains($track)) {
+            $this->tracks[] = $track;
+            $track->setThumbnail($this);
+        }
 
         return $this;
     }
 
-    public function getTrack(): ?Track
+    public function removeTrack(Track $track): self
     {
-        return $this->track;
-    }
-
-    public function setTrack(?Track $track): self
-    {
-        $this->track = $track;
+        if ($this->tracks->removeElement($track)) {
+            // set the owning side to null (unless already changed)
+            if ($track->getThumbnail() === $this) {
+                $track->setThumbnail(null);
+            }
+        }
 
         return $this;
     }

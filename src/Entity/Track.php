@@ -129,14 +129,10 @@ class Track
     private $fileformat;
 
     /**
-     * @ORM\OneToMany(targetEntity=ThumbnailObject::class, mappedBy="track", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity=ThumbnailObject::class, inversedBy="tracks")
+     * @Groups({"track:read", "album:read"})
      */
     private $thumbnail;
-
-    public function __construct()
-    {
-        $this->thumbnail = new ArrayCollection();
-    }
 
 
     public function getPath(): ?string
@@ -331,32 +327,14 @@ class Track
         return $this;
     }
 
-    /**
-     * @return Collection|ThumbnailObject[]
-     */
-    public function getThumbnail(): Collection
+    public function getThumbnail(): ?ThumbnailObject
     {
         return $this->thumbnail;
     }
 
-    public function addThumbnail(ThumbnailObject $thumbnail): self
+    public function setThumbnail(?ThumbnailObject $thumbnail): self
     {
-        if (!$this->thumbnail->contains($thumbnail)) {
-            $this->thumbnail[] = $thumbnail;
-            $thumbnail->setTrack($this);
-        }
-
-        return $this;
-    }
-
-    public function removeThumbnail(ThumbnailObject $thumbnail): self
-    {
-        if ($this->thumbnail->removeElement($thumbnail)) {
-            // set the owning side to null (unless already changed)
-            if ($thumbnail->getTrack() === $this) {
-                $thumbnail->setTrack(null);
-            }
-        }
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
