@@ -47,7 +47,7 @@ class Track
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"track:read"})
+     * @Groups({"track:read", "album:read"})
      * @SerializedName("album")
      */
     private $meta_album;

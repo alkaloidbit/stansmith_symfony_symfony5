@@ -31,14 +31,16 @@
                     </div>
                 </div>
                 <div
+                    v-if="currentTrack !== undefined"
                     class="column is-one-third
                     is-flex is-align-items-center is-justify-content-center"
                 >
-                    <div
-                        v-if="currentTrack !== undefined"
+                    <img
+                        :src="getCurrentTrackInfo.thumbnail.contentUrl"
                     >
-                        <strong>{{ getCurrentTrackInfo.artist }} </strong> -
+                    <div class="content-info-wrapper">
                         <strong>{{ getCurrentTrackInfo.title }}</strong>
+                        <p>{{ getCurrentTrackInfo.artist }} - {{ getCurrentTrackInfo.album }}</p>
                     </div>
                 </div>
                 <div
@@ -112,9 +114,13 @@ export default {
             if (this.currentTrack) {
                 const artist = this.currentTrack.artist.name;
                 const { title } = this.currentTrack;
+                const { thumbnail } = this.currentTrack;
+                const { album } = this.currentTrack;
                 return {
                     artist,
+                    album,
                     title,
+                    thumbnail,
                 };
             }
             return null;
@@ -144,6 +150,9 @@ export default {
                 clearInterval(updateSeek);
             }
         },
+    },
+    created() {
+        // console.log(this.currentTrack);
     },
     methods: {
         seek(event) {
