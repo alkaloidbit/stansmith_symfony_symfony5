@@ -4,11 +4,15 @@
         @click.prevent="handleClick(track)"
     >
         <div class="left-item">
-            <span class="tracknumber">{{ track.tracknumber }}</span>
+            <span
+                v-if="!onPlaylist"
+                class="tracknumber"
+            >{{ track.tracknumber }}</span>
             <span class="icon is-medium">
                 <i class="mdi mdi-24px mdi-play" />
             </span>
             <img
+                v-if="onPlaylist"
                 :src="track.thumbnail.contentUrl"
                 alt=""
             >
@@ -16,6 +20,12 @@
         </div>
         <div class="middle-item title-wrapper">
             {{ track.title }}
+        </div>
+        <div
+            v-if="onPlaylist"
+            class="middle-item title-wrapper"
+        >
+            {{ track.album }}
         </div>
         <div class="duration right-item">
             {{ track.playtime_string }}
