@@ -151,16 +151,15 @@ class FileSynchronizer
                 }
 
                 $album->setArtist($artist);
-
-                // Cover collection === 0
-                if (count($album->getCover()) === 0) {
-                    $this->generateAlbumCover($album, $info);
-                }
-
                 $album->setActive(true);
 
                 $this->em->persist($album);
                 $this->em->flush();
+                
+                // Cover collection === 0
+                if (count($album->getCover()) === 0) {
+                    $this->generateAlbumCover($album, $info);
+                }
             }
 
             // Create new track
@@ -187,12 +186,11 @@ class FileSynchronizer
                 $this->trackEntity->setArtist($artist);
                 $this->trackEntity->setAlbum($album);
 
-                $this->generateTrackThumbnail($this->trackEntity);
-
+                $thumbnail = $album->getThumbnails()[0];
+                $this->trackEntity->setThumbnail($thumbnail);
+                
                 $this->em->persist($this->trackEntity);
                 $this->em->flush();
-                
-                // dd($this->trackEntity->getAlbum());
             }
 
             return 2;
@@ -210,15 +208,6 @@ class FileSynchronizer
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
             $origname = $cover->getBasename('.' . $cover->getExtension());
             $this->mediaImageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
-        }
-    }
-
-    public function generateTrackThumbnail(Track $track)
-    {
-        if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
-            $extension = pathinfo($cover, PATHINFO_EXTENSION);
-            $origname = $cover->getBasename('.' . $cover->getExtension());
-            $this->mediaImageService->writeTrackThumbnail($track, file_get_contents($cover->getPathname()), $origname, $extension);
         }
     }
 

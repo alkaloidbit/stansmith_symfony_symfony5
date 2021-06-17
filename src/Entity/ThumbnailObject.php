@@ -94,9 +94,17 @@ class ThumbnailObject
     public $fileName;
 
     /**
+     * "One ThumbnailObject to Many Tracks"
      * @ORM\OneToMany(targetEntity=Track::class, mappedBy="thumbnail")
      */
     private $tracks;
+
+    /**
+     * "Many ThumbnailObject to One Album"
+     * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="thumbnails")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $album;
 
     public function __construct()
     {
@@ -145,6 +153,18 @@ class ThumbnailObject
                 $track->setThumbnail(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAlbum(): ?Album
+    {
+        return $this->album;
+    }
+
+    public function setAlbum(?Album $album): self
+    {
+        $this->album = $album;
 
         return $this;
     }

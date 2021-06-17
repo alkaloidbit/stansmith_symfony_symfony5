@@ -18,6 +18,7 @@ class MediaImageService
         $this->mediaPathCover = $mediaPathCover;
         $this->em = $em;
     }
+
     public function writeAlbumCover(
         Album $album,
         string $binaryData,
@@ -37,15 +38,11 @@ class MediaImageService
             // Create MediaObject associated with album
             $mediaObject = new MediaObject();
             $mediaObject->fileName = $name.'.'.$extension;
-            $mediaObject->setAlbum($album);
-
-            /* $thumbnailObject = new ThumbnailObject(); */
-            /* $thumbnailObject->fileName = $name.'.'.$extension; */
-            /* $thumbnailObject->setAlbum($album); */
 
             $this->em->persist($mediaObject);
             $this->em->flush();
 
+            $this->writeTrackThumbnail($album, $binaryData, $origname, $extension);
 
             if ($cleanup) {
                 $this->deleteAlbumCoverFiles($album);
@@ -58,40 +55,31 @@ class MediaImageService
     }
 
     public function writeTrackThumbnail(
-        Track $track,
+        Album $album,
         string $binaryData,
         $origname,
         $extension,
-        $destination = '',
-        bool $cleanup = false
+        $destination = ''
     ) : void {
         try {
             $extension = trim(strtolower($extension), '. ');
-            $name = uniqid().'-'.$origname;
+            $name = uniqid().'-'.$origname.'-thumbnail';
             $destination = $destination ?: $this->getTrackThumbnailPath($name, $extension);
 
-            // write cover in covers directory
+            // write cover in thumbnail directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination, array('max_width'=> 60));
 
             // Create MediaObject associated with album
             $thumbnailObject = new ThumbnailObject();
             $thumbnailObject->fileName = $name.'.'.$extension;
-            $thumbnailObject->addTrack($track);
 
-            /* $thumbnailObject = new ThumbnailObject(); */
-            /* $thumbnailObject->fileName = $name.'.'.$extension; */
-            /* $thumbnailObject->setAlbum($album); */
+            $album->addThumbnail($thumbnailObject);
 
             $this->em->persist($thumbnailObject);
             $this->em->flush();
 
-
-            if ($cleanup) {
-                $this->deleteAlbumCoverFiles($track);
-            }
-           
-            // $track->setThumbnail($thumbnailObject);
         } catch (\Exception $e) {
+            dd($e);
             // handle log exception
         }
     }
