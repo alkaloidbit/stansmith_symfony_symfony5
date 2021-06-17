@@ -31,14 +31,17 @@
                     </div>
                 </div>
                 <div
-                    v-if="currentTrack !== undefined"
                     class="column is-one-third
                     is-flex is-align-items-center is-justify-content-center"
                 >
                     <img
+                        v-if="currentTrack !== undefined"
                         :src="getCurrentTrackInfo.thumbnail.contentUrl"
                     >
-                    <div class="content-info-wrapper">
+                    <div
+                        v-if="currentTrack !== undefined"
+                        class="content-info-wrapper"
+                    >
                         <strong>{{ getCurrentTrackInfo.title }}</strong>
                         <p>{{ getCurrentTrackInfo.artist }} - {{ getCurrentTrackInfo.album }}</p>
                     </div>
