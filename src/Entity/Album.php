@@ -84,6 +84,7 @@ class Album
 
     /**
      * @ORM\OneToMany(targetEntity=ThumbnailObject::class, mappedBy="album", orphanRemoval=true)
+     * @Groups({"album:write", "album:read"})
      */
     private $thumbnails;
 

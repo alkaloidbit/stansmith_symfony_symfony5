@@ -6,6 +6,7 @@ export default {
         duration: null,
         isPlaying: false,
         loopCurrentTrack: false,
+        isLoading: false,
     },
     getters: {
     },
@@ -19,10 +20,17 @@ export default {
         [constants.TOGGLE_LOOP_CURRENT_TRACK](state) {
             state.loopCurrentTrack = !state.loopCurrentTrack;
         },
+        [constants.SET_IS_LOADING](state, payload) {
+            state.isLoading = payload.isLoading;
+        },
     },
     actions: {
         setDuration({ commit }, payload) {
             commit(constants.SET_DURATION, payload);
+        },
+
+        setIsLoading({ commit }, payload) {
+            commit(constants.SET_IS_LOADING, payload);
         },
 
         play({ commit }) {
