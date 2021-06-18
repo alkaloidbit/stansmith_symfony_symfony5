@@ -1,17 +1,18 @@
 <template>
     <div class="albumListalbumCardRootContainer column is-third">
-        <div :class="$style['album-box']">
-            <div
-                :class="$style.image"
-                class="is-album-cover"
+        <div
+            :class="$style.image"
+            class="is-album-cover"
+        >
+            <router-link
+                class=""
+                :to="`/album/${album.id}`"
             >
-                <router-link
-                    class=""
-                    :to="`/album/${album.id}`"
-                >
+                <div v-lazy-container="{ selector: 'img' }">
                     <img
                         v-if="album.cover[0]"
-                        v-lazy="album.cover[0].contentUrl"
+                        :data-src="album.cover[0].contentUrl"
+                        :data-loading="album.thumbnails[0].contentUrl"
                         alt=""
                         class="img-cover d-block mb-2"
                     >
@@ -21,27 +22,27 @@
                         alt=""
                         class="img-cover d-block mb-2"
                     >
-                </router-link>
-
-                <div class="overlay">
-                    <play-button-overlay
-                        @click.native="addAlbumToPlaylist"
-                    />
                 </div>
+            </router-link>
+
+            <div class="overlay">
+                <play-button-overlay
+                    @click.native="addAlbumToPlaylist"
+                />
             </div>
-            <h3 class="has-text-weight-bold">
-                <router-link
-                    :to="`/album/${album.id}`"
-                >
-                    {{ album.title }}
-                </router-link>
-            </h3>
-            <div>
-                <p class="p-0 is-inline is-album-info">
-                    <strong>{{ album.artist.name }}</strong> -
-                    <strong>{{ album.date }}</strong>
-                </p>
-            </div>
+        </div>
+        <h3 class="has-text-weight-bold">
+            <router-link
+                :to="`/album/${album.id}`"
+            >
+                {{ album.title }}
+            </router-link>
+        </h3>
+        <div>
+            <p class="p-0 is-inline is-album-info">
+                <strong>{{ album.artist.name }}</strong> -
+                <strong>{{ album.date }}</strong>
+            </p>
         </div>
     </div>
 </template>
@@ -103,6 +104,18 @@ export default {
 
     h3 {
         font-size: 1.2rem;
+    }
+    img[lazy=loading] {
+    /*your style here*/
+        filter: blur(3px);
+    }
+    img[lazy=error] {
+    /*your style here*/
+    }
+    img[lazy=loaded] {
+    /*your style here*/
+        filter: none;
+        transition: filter 1s;
     }
 }
 </style>
