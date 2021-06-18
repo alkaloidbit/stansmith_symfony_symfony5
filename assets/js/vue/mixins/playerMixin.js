@@ -23,8 +23,6 @@ export default {
         play(index) {
             if (!this.currentTrack) return;
 
-            this.$store.dispatch('player/setIsLoading');
-
             index = typeof index === 'number' ? index : this.currentIndex;
 
             const track = this.playlist[index];
@@ -32,6 +30,7 @@ export default {
             const src = `/api/player/${splits[3]}/stream`;
 
             if (!track.howl) {
+                this.$store.dispatch('player/setIsLoading', { isLoading: true });
                 console.log('creating new Howl');
                 /* eslint-disable-next-line no-undef */
                 track.howl = new Howl({
@@ -39,8 +38,9 @@ export default {
                     format: [track.fileformat],
                     html5: false,
                     loop: this.loopCurrentTrack,
+                    pool: 5,
                     onload: () => {
-                        this.$store.dispatch('player/setIsLoading');
+                        this.$store.dispatch('player/setIsLoading', { isLoading: false });
                     },
                     onplay: () => {
                         this.$store.dispatch('player/setDuration', { duration: track.howl.duration() }, { root: true });

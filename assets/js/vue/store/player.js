@@ -20,8 +20,8 @@ export default {
         [constants.TOGGLE_LOOP_CURRENT_TRACK](state) {
             state.loopCurrentTrack = !state.loopCurrentTrack;
         },
-        [constants.SET_IS_LOADING](state) {
-            state.isLoading = !state.isLoading;
+        [constants.SET_IS_LOADING](state, payload) {
+            state.isLoading = payload.isLoading;
         },
     },
     actions: {
@@ -29,8 +29,8 @@ export default {
             commit(constants.SET_DURATION, payload);
         },
 
-        setIsLoading({ commit }) {
-            commit(constants.SET_IS_LOADING);
+        setIsLoading({ commit }, payload) {
+            commit(constants.SET_IS_LOADING, payload);
         },
 
         play({ commit }) {

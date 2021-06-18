@@ -36,11 +36,11 @@
                     :class="isLoading ? 'is-loading' : ''"
                 >
                     <img
-                        v-if="currentTrack !== undefined"
+                        v-if="currentTrack !== undefined && !isLoading"
                         :src="getCurrentTrackInfo.thumbnail.contentUrl"
                     >
                     <div
-                        v-if="currentTrack !== undefined"
+                        v-if="currentTrack !== undefined && !isLoading"
                         class="content-info-wrapper"
                     >
                         <strong>{{ getCurrentTrackInfo.title }}</strong>
