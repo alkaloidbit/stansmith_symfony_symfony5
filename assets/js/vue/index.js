@@ -15,9 +15,13 @@ import App from './App';
 import router from './router';
 import store from './store';
 
+import loadingGif from '../../images/loading.gif';
+
 Vue.use(Buefy);
 Vue.use(VueLazyload, {
     silent: false,
+    loading: loadingGif,
+    attempt: 1,
 });
 
 Vue.filter('minutes', (value) => {
