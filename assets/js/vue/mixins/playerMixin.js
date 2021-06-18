@@ -9,6 +9,7 @@ export default {
             'duration',
             'loopCurrentTrack',
             'isPlaying',
+            'isLoading',
         ]),
         ...mapState('playlist', [
             'playlist',
@@ -21,6 +22,8 @@ export default {
     methods: {
         play(index) {
             if (!this.currentTrack) return;
+
+            this.$store.dispatch('player/setIsLoading');
 
             index = typeof index === 'number' ? index : this.currentIndex;
 
@@ -37,6 +40,7 @@ export default {
                     html5: false,
                     loop: this.loopCurrentTrack,
                     onload: () => {
+                        this.$store.dispatch('player/setIsLoading');
                     },
                     onplay: () => {
                         this.$store.dispatch('player/setDuration', { duration: track.howl.duration() }, { root: true });

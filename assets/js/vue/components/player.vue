@@ -33,6 +33,7 @@
                 <div
                     class="column is-one-third
                     is-flex is-align-items-center is-justify-content-center"
+                    :class="isLoading ? 'is-loading' : ''"
                 >
                     <img
                         v-if="currentTrack !== undefined"
