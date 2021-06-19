@@ -19,7 +19,8 @@
             <span class="sound-bars" />
         </div>
         <div class="middle-item title-wrapper">
-            {{ track.title }}
+            <span>{{ track.title }}</span>
+            <span>{{ track.artist.name }}</span>
         </div>
         <div
             v-if="onPlaylist"

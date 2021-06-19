@@ -69,7 +69,7 @@
 
 .playlist-item-renderer {
     display: flex;
-    align-items: center;
+    // align-items: center;
     padding: 10px 0px;
     cursor: pointer;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -128,7 +128,7 @@
         display: flex;
         flex: 1;
         flex-wrap: nowrap;
-        align-items: center;
+        //align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -197,4 +197,9 @@
 }
 .is-loading {
     background: url('../images/loading.gif') no-repeat left center;
+}
+
+.playlist-item-renderer .title-wrapper {
+    display: flex;
+    flex-direction: column;
 }
