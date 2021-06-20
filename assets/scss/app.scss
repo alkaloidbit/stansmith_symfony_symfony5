@@ -203,3 +203,16 @@
     display: flex;
     flex-direction: column;
 }
+.hover-time-info {
+    position: absolute;
+    top: -25px;
+    background-color: $body-color;
+    color: #fff;
+    font-size: $size-small;
+    padding: 0 5px;
+    opacity: 0;
+}
+
+.progress-bar:hover .hover-time-info {
+    opacity: 1;
+}

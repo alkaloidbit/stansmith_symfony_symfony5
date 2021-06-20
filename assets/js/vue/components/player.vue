@@ -3,11 +3,17 @@
         <div
             class="container is-fluid progress-bar"
             @click="seek( $event )"
+            @mouseover="seek($event, hover = true)"
+            @mouseleave="seek($event, hover = false)"
         >
             <div
                 id="progress"
                 :style="{ width: progressWidth + '%' }"
             />
+            <span
+                class="hover-time-info"
+                :style="{left:tooltipPosition+'px'}"
+            >{{ seekPosition }}</span>
             <!--<div
                 id="progress-knob"
                 :style="{ left: progressWidth + '%' }"
@@ -109,7 +115,10 @@ export default {
     },
     data() {
         return {
+            hover: false,
             seekTimer: 0,
+            seekPosition: 0,
+            tooltipPosition: 0,
             progressWidth: 0,
         };
     },
@@ -159,13 +168,29 @@ export default {
         // console.log(this.currentTrack);
     },
     methods: {
-        seek(event) {
+        seek(event, hover = false) {
             const sound = this.currentTrack.howl;
-
             const per = event.clientX / window.innerWidth;
             const duration = sound.duration();
+            if (event.type === 'click') {
+                sound.seek(per * duration);
+            }
 
-            sound.seek(per * duration);
+            if (hover) {
+                console.log(this.formatTime(per * duration));
+                this.seekPosition = this.formatTime(per * duration);
+                this.tooltipPosition = event.clientX;
+            }
+        },
+
+        formatTime(value) {
+            if (!value || typeof value !== 'number') return '00:00';
+            let min = parseInt(value / 60, 10);
+            let sec = parseInt(value % 60, 10);
+            min = min < 10 ? `0${min}` : min;
+            sec = sec < 10 ? `0${sec}` : sec;
+            value = `${min}:${sec}`;
+            return value;
         },
     },
 };
