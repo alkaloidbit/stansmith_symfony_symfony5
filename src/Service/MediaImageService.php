@@ -9,6 +9,7 @@ use App\Entity\MediaObject;
 use App\Entity\ThumbnailObject;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\ImageManagerService;
+use PDO;
 
 class MediaImageService
 {
@@ -43,6 +44,7 @@ class MediaImageService
             $this->em->flush();
 
             $this->writeTrackThumbnail($album, $binaryData, $origname, $extension);
+            $this->writePlaceholderThumbnail($album, $binaryData, $origname, $extension);
 
             if ($cleanup) {
                 $this->deleteAlbumCoverFiles($album);
@@ -64,7 +66,7 @@ class MediaImageService
         try {
             $extension = trim(strtolower($extension), '. ');
             $name = uniqid().'-'.$origname.'-thumbnail';
-            $destination = $destination ?: $this->getTrackThumbnailPath($name, $extension);
+            $destination = $destination ?: $this->getThumbnailsPath($name, $extension);
 
             // write cover in thumbnail directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination, array('max_width'=> 60));
@@ -77,13 +79,40 @@ class MediaImageService
 
             $this->em->persist($thumbnailObject);
             $this->em->flush();
-
         } catch (\Exception $e) {
             dd($e);
             // handle log exception
         }
     }
     
+    public function writePlaceholderThumbnail(
+        Album $album,
+        string $binaryData,
+        $origname,
+        $extension,
+        $destination = ''
+    ) : void {
+        try {
+            $extension = trim(strtolower($extension), '. ');
+            $name = uniqid().'-'.$origname.'-thumbnail';
+            $destination = $destination ?: $this->getThumbnailsPath($name, $extension);
+
+            // write cover in thumbnail directory
+            $this->ImageManagerService->writeFromBinaryData($binaryData, $destination, array('max_width'=> 3));
+
+            // Create MediaObject associated with album
+            $thumbnailObject = new ThumbnailObject();
+            $thumbnailObject->fileName = $name.'.'.$extension;
+
+            $album->addThumbnail($thumbnailObject);
+
+            $this->em->persist($thumbnailObject);
+            $this->em->flush();
+        } catch (\Exception $e) {
+            dd($e);
+            // handle log exception
+        }
+    }
     /**
      * undocumented function
      *
@@ -99,11 +128,11 @@ class MediaImageService
      *
      * @return void
      */
-    public function getTrackThumbnailPath($name, $extension)
+    public function getThumbnailsPath($name, $extension)
     {
         return $this->mediaPathCover.'/thumbnails/'.sprintf('%s.%s', $name, $extension);
     }
-    
+
 
     public function deleteAlbumCoverFiles($album)
     {
