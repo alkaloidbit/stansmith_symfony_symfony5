@@ -6,18 +6,18 @@
             @mouseover="seek($event, hover = true)"
             @mouseleave="seek($event, hover = false)"
         >
-            <div
-                id="progress"
-                :style="{ width: progressWidth + '%' }"
-            />
+            <div class="progress-container">
+                <div class="bar-container">
+                    <div
+                        id="progress"
+                        :style="{ width: progressWidth + '%' }"
+                    />
+                </div>
+            </div>
             <span
                 class="hover-time-info"
                 :style="{left:tooltipPosition+'px'}"
             >{{ seekPosition }}</span>
-            <!--<div
-                id="progress-knob"
-                :style="{ left: progressWidth + '%' }"
-                />-->
         </div>
         <div class="container is-fluid player-bar">
             <div class="columns">
@@ -169,17 +169,19 @@ export default {
     },
     methods: {
         seek(event, hover = false) {
-            const sound = this.currentTrack.howl;
-            const per = event.clientX / window.innerWidth;
-            const duration = sound.duration();
-            if (event.type === 'click') {
-                sound.seek(per * duration);
-            }
+            if (this.currentTrack) {
+                const sound = this.currentTrack.howl;
+                const per = event.clientX / window.innerWidth;
+                const duration = sound.duration();
+                if (event.type === 'click') {
+                    sound.seek(per * duration);
+                }
 
-            if (hover) {
-                console.log(this.formatTime(per * duration));
-                this.seekPosition = this.formatTime(per * duration);
-                this.tooltipPosition = event.clientX;
+                if (hover) {
+                    console.log(this.formatTime(per * duration));
+                    this.seekPosition = this.formatTime(per * duration);
+                    this.tooltipPosition = event.clientX;
+                }
             }
         },
 
@@ -202,7 +204,7 @@ export default {
     bottom: 0;
     // border-top: 1px solid $grey-lighter;
     background-color: #FFF;
-    padding-top: 20px;
+    // padding-top: 20px;
     padding-bottom: 20px;
 }
 
@@ -212,6 +214,7 @@ export default {
 
 .time-info {
     margin: 0 16px 0 12px;
+    font-size: .875rem;
     white-space: nowrap;
 }
 </style>
