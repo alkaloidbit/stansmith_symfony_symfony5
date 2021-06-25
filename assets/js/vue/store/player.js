@@ -1,5 +1,8 @@
 import * as constants from './mutation-types';
 
+const LOADING = 'LOADING';
+const LOADING_SUCCESS = 'LOADING_SUCCESS';
+
 export default {
     namespaced: true,
     state: {
@@ -7,10 +10,19 @@ export default {
         isPlaying: false,
         loopCurrentTrack: false,
         isLoading: false,
+        isLoaded: false,
     },
     getters: {
     },
     mutations: {
+        [LOADING](state) {
+            state.isLoading = true;
+            state.isPlaying = false;
+        },
+        [LOADING_SUCCESS](state) {
+            state.isLoading = false;
+            state.isLoaded = true;
+        },
         [constants.SET_IS_PLAYING](state, payload) {
             state.isPlaying = payload.isPlaying;
         },
