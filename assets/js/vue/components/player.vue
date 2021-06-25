@@ -5,6 +5,7 @@
             @click="seek( $event )"
             @mouseover="seek($event, hover = true)"
             @mouseleave="seek($event, hover = false)"
+            @mousemove="seek($event, hover = true)"
         >
             <div class="progress-container">
                 <div class="bar-container">
@@ -17,7 +18,7 @@
             <span
                 class="hover-time-info"
                 :style="{left:tooltipPosition+'px'}"
-            >{{ seekPosition }}</span>
+            >{{ formatedSeekPosition }}</span>
         </div>
         <div class="container is-fluid player-bar">
             <div class="columns">
@@ -52,6 +53,17 @@
                         <strong>{{ getCurrentTrackInfo.title }}</strong>
                         <p>{{ getCurrentTrackInfo.artist }} - {{ getCurrentTrackInfo.album }}</p>
                     </div>
+                    <!-- <b-loading -->
+                    <!--     v-model="isLoading" -->
+                    <!--     :can-cancel="false" -->
+                    <!-- > -->
+                    <!--     <b-icon -->
+                    <!--         pack="fas" -->
+                    <!--         icon="sync-alt" -->
+                    <!--         size="is-large" -->
+                    <!--         custom-class="fa-spin" -->
+                    <!--     /> -->
+                    <!-- </b-loading> -->
                 </div>
                 <div
                     class="column is-one-third
@@ -117,7 +129,7 @@ export default {
         return {
             hover: false,
             seekTimer: 0,
-            seekPosition: 0,
+            formatedSeekPosition: 0,
             tooltipPosition: 0,
             progressWidth: 0,
         };
@@ -172,14 +184,15 @@ export default {
             if (this.currentTrack) {
                 const sound = this.currentTrack.howl;
                 const per = event.clientX / window.innerWidth;
-                const duration = sound.duration();
+
+                const seekPos = per * sound.duration();
+
                 if (event.type === 'click') {
-                    sound.seek(per * duration);
+                    sound.seek(seekPos);
                 }
 
                 if (hover) {
-                    console.log(this.formatTime(per * duration));
-                    this.seekPosition = this.formatTime(per * duration);
+                    this.formatedSeekPosition = this.formatTime(seekPos);
                     this.tooltipPosition = event.clientX;
                 }
             }
