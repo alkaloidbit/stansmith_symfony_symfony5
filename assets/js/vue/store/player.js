@@ -2,6 +2,7 @@ import * as constants from './mutation-types';
 
 const LOADING = 'LOADING';
 const LOADING_SUCCESS = 'LOADING_SUCCESS';
+const PLAYING = 'PLAYING';
 
 export default {
     namespaced: true,
@@ -17,14 +18,25 @@ export default {
     mutations: {
         [LOADING](state) {
             state.isLoading = true;
+            state.isLoaded = false;
             state.isPlaying = false;
+            state.duration = null;
         },
-        [LOADING_SUCCESS](state) {
+        [LOADING_SUCCESS](state, payload) {
             state.isLoading = false;
             state.isLoaded = true;
+            state.isPlaying = false;
+            state.duration = payload.duration;
+        },
+        [PLAYING](state, payload) {
+            state.isPlaying = payload.isPlaying;
+            state.isLoaded = true;
+            state.isLoading = false;
         },
         [constants.SET_IS_PLAYING](state, payload) {
             state.isPlaying = payload.isPlaying;
+            state.isLoading = false;
+            state.isLoaded = true;
         },
         [constants.SET_DURATION](state, payload) {
             state.duration = payload.duration;
@@ -45,12 +57,20 @@ export default {
             commit(constants.SET_IS_LOADING, payload);
         },
 
+        setLoading({ commit }) {
+            commit(LOADING);
+        },
+
+        setLoadingSuccess({ commit }, payload) {
+            commit(LOADING_SUCCESS, payload);
+        },
+
         play({ commit }) {
-            commit(constants.SET_IS_PLAYING, { isPlaying: true });
+            commit(PLAYING, { isPlaying: true });
         },
 
         pause({ commit }) {
-            commit(constants.SET_IS_PLAYING, { isPlaying: false });
+            commit(PLAYING, { isPlaying: false });
         },
 
         toggleLoopCurrentTrack({ commit }) {
