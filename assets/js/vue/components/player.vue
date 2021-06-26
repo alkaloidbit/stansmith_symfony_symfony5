@@ -3,15 +3,22 @@
         <div
             class="container is-fluid progress-bar"
             @click="seek( $event )"
+            @mouseover="seek($event, hover = true)"
+            @mouseleave="seek($event, hover = false)"
+            @mousemove="seek($event, hover = true)"
         >
-            <div
-                id="progress"
-                :style="{ width: progressWidth + '%' }"
-            />
-            <!--<div
-                id="progress-knob"
-                :style="{ left: progressWidth + '%' }"
-                />-->
+            <div class="progress-container">
+                <div class="bar-container">
+                    <div
+                        id="progress"
+                        :style="{ width: progressWidth + '%' }"
+                    />
+                </div>
+            </div>
+            <span
+                class="hover-time-info"
+                :style="{left:tooltipPosition+'px'}"
+            >{{ formatedSeekPosition }}</span>
         </div>
         <div class="container is-fluid player-bar">
             <div class="columns">
@@ -46,6 +53,17 @@
                         <strong>{{ getCurrentTrackInfo.title }}</strong>
                         <p>{{ getCurrentTrackInfo.artist }} - {{ getCurrentTrackInfo.album }}</p>
                     </div>
+                    <!-- <b-loading -->
+                    <!--     v-model="isLoading" -->
+                    <!--     :can-cancel="false" -->
+                    <!-- > -->
+                    <!--     <b-icon -->
+                    <!--         pack="fas" -->
+                    <!--         icon="sync-alt" -->
+                    <!--         size="is-large" -->
+                    <!--         custom-class="fa-spin" -->
+                    <!--     /> -->
+                    <!-- </b-loading> -->
                 </div>
                 <div
                     class="column is-one-third
@@ -109,7 +127,10 @@ export default {
     },
     data() {
         return {
+            hover: false,
             seekTimer: 0,
+            formatedSeekPosition: 0,
+            tooltipPosition: 0,
             progressWidth: 0,
         };
     },
@@ -159,13 +180,32 @@ export default {
         // console.log(this.currentTrack);
     },
     methods: {
-        seek(event) {
-            const sound = this.currentTrack.howl;
+        seek(event, hover = false) {
+            if (this.currentTrack) {
+                const sound = this.currentTrack.howl;
+                const per = event.clientX / window.innerWidth;
 
-            const per = event.clientX / window.innerWidth;
-            const duration = sound.duration();
+                const seekPos = per * sound.duration();
 
-            sound.seek(per * duration);
+                if (event.type === 'click') {
+                    sound.seek(seekPos);
+                }
+
+                if (hover) {
+                    this.formatedSeekPosition = this.formatTime(seekPos);
+                    this.tooltipPosition = event.clientX;
+                }
+            }
+        },
+
+        formatTime(value) {
+            if (!value || typeof value !== 'number') return '00:00';
+            let min = parseInt(value / 60, 10);
+            let sec = parseInt(value % 60, 10);
+            min = min < 10 ? `0${min}` : min;
+            sec = sec < 10 ? `0${sec}` : sec;
+            value = `${min}:${sec}`;
+            return value;
         },
     },
 };
@@ -177,7 +217,7 @@ export default {
     bottom: 0;
     // border-top: 1px solid $grey-lighter;
     background-color: #FFF;
-    padding-top: 20px;
+    // padding-top: 20px;
     padding-bottom: 20px;
 }
 
@@ -187,6 +227,7 @@ export default {
 
 .time-info {
     margin: 0 16px 0 12px;
+    font-size: .875rem;
     white-space: nowrap;
 }
 </style>

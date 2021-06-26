@@ -30,7 +30,7 @@ export default {
             const src = `/api/player/${splits[3]}/stream`;
 
             if (!track.howl) {
-                this.$store.dispatch('player/setIsLoading', { isLoading: true });
+                this.$store.dispatch('player/setLoading');
                 console.log('creating new Howl');
                 /* eslint-disable-next-line no-undef */
                 track.howl = new Howl({
@@ -40,10 +40,10 @@ export default {
                     loop: this.loopCurrentTrack,
                     pool: 5,
                     onload: () => {
-                        this.$store.dispatch('player/setIsLoading', { isLoading: false });
+                        this.$store.dispatch('player/setLoadingSuccess', { duration: track.howl.duration() }, { root: true });
                     },
                     onplay: () => {
-                        this.$store.dispatch('player/setDuration', { duration: track.howl.duration() }, { root: true });
+                        this.$store.dispatch('player/play', { isPlaying: true });
                     },
                     onend: () => {
                         if (!this.loopCurrentTrack) {
@@ -79,7 +79,6 @@ export default {
             if (direction === 'forward') {
                 index = this.currentIndex + 1;
                 if (index >= this.playlist.length) {
-                    // this.store.dispatch('player/initCurrentIndex');
                     index = 0;
                 }
             } else {
