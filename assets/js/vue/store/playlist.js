@@ -11,7 +11,7 @@ export default {
         },
     },
     mutations: {
-        [constants.ADD_TRACK](state, track) {
+        [constants.ADDING_TRACK](state, track) {
             state.playlist.push(track);
         },
         [constants.CLEAR_PLAYLIST](state) {
@@ -21,7 +21,7 @@ export default {
     actions: {
         // Adding a track object to playlist
         addTrackToPlaylist({ commit }, track) {
-            commit(constants.ADD_TRACK, track);
+            commit(constants.ADDING_TRACK, track);
         },
 
         initPlaylist({ commit }) {
