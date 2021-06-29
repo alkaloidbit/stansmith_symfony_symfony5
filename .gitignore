@@ -29,10 +29,9 @@ yarn-error.log
 /public/media/cache/
 ###< liip/imagine-bundle ###
 
-tags
-
 ###> squizlabs/php_codesniffer ###
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
 tags
+tags.*
