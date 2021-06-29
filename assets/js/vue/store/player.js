@@ -49,19 +49,11 @@ export default {
         },
     },
     actions: {
-        setDuration({ commit }, payload) {
-            commit(constants.SET_DURATION, payload);
-        },
-
-        setIsLoading({ commit }, payload) {
-            commit(constants.SET_IS_LOADING, payload);
-        },
-
-        setLoading({ commit }) {
+        onLoading({ commit }) {
             commit(LOADING);
         },
 
-        setLoadingSuccess({ commit }, payload) {
+        onLoadingSuccess({ commit }, payload) {
             commit(LOADING_SUCCESS, payload);
         },
 

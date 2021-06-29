@@ -30,7 +30,7 @@ export default {
             const src = `/api/player/${splits[3]}/stream`;
 
             if (!track.howl) {
-                this.$store.dispatch('player/setLoading');
+                this.$store.dispatch('player/onLoading');
                 console.log('creating new Howl');
                 /* eslint-disable-next-line no-undef */
                 track.howl = new Howl({
@@ -40,7 +40,7 @@ export default {
                     loop: this.loopCurrentTrack,
                     pool: 5,
                     onload: () => {
-                        this.$store.dispatch('player/setLoadingSuccess', { duration: track.howl.duration() }, { root: true });
+                        this.$store.dispatch('player/onLoadingSuccess', { duration: track.howl.duration() }, { root: true });
                     },
                     onplay: () => {
                         this.$store.dispatch('player/play', { isPlaying: true });
@@ -56,9 +56,8 @@ export default {
             } else {
                 console.log('Howl exists!');
             }
-            track.howl.play();
             this.$store.dispatch('currentIndex/setCurrentIndex', index);
-            this.$store.dispatch('player/play', null, { root: true });
+            track.howl.play();
         },
 
         pause() {
