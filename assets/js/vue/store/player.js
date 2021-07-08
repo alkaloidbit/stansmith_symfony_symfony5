@@ -33,11 +33,6 @@ export default {
             state.isLoaded = true;
             state.isLoading = false;
         },
-        [constants.SET_IS_PLAYING](state, payload) {
-            state.isPlaying = payload.isPlaying;
-            state.isLoading = false;
-            state.isLoaded = true;
-        },
         [constants.SET_DURATION](state, payload) {
             state.duration = payload.duration;
         },
