@@ -1,6 +1,5 @@
 export const ADDING_TRACK = 'ADDING_TRACK';
 export const CLEAR_PLAYLIST = 'CLEAR_PLAYLIST';
-export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const LOADING = 'LOADING';
 export const LOADING_SUCCESS = 'LOADING_SUCCESS';
 export const PLAYING = 'PLAYING';
