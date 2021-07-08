@@ -29,9 +29,6 @@ export default {
             state.isLoaded = true;
             state.isLoading = false;
         },
-        [constants.SET_DURATION](state, payload) {
-            state.duration = payload.duration;
-        },
         [constants.TOGGLE_LOOP_CURRENT_TRACK](state) {
             state.loopCurrentTrack = !state.loopCurrentTrack;
         },
