@@ -1,9 +1,5 @@
 import * as constants from './mutation-types';
 
-const LOADING = 'LOADING';
-const LOADING_SUCCESS = 'LOADING_SUCCESS';
-const PLAYING = 'PLAYING';
-
 export default {
     namespaced: true,
     state: {
@@ -16,19 +12,19 @@ export default {
     getters: {
     },
     mutations: {
-        [LOADING](state) {
+        [constants.LOADING](state) {
             state.isLoading = true;
             state.isLoaded = false;
             state.isPlaying = false;
             state.duration = null;
         },
-        [LOADING_SUCCESS](state, payload) {
+        [constants.LOADING_SUCCESS](state, payload) {
             state.isLoading = false;
             state.isLoaded = true;
             state.isPlaying = false;
             state.duration = payload.duration;
         },
-        [PLAYING](state, payload) {
+        [constants.PLAYING](state, payload) {
             state.isPlaying = payload.isPlaying;
             state.isLoaded = true;
             state.isLoading = false;
@@ -45,19 +41,19 @@ export default {
     },
     actions: {
         onLoading({ commit }) {
-            commit(LOADING);
+            commit(constants.LOADING);
         },
 
         onLoadingSuccess({ commit }, payload) {
-            commit(LOADING_SUCCESS, payload);
+            commit(constants.LOADING_SUCCESS, payload);
         },
 
         play({ commit }) {
-            commit(PLAYING, { isPlaying: true });
+            commit(constants.PLAYING, { isPlaying: true });
         },
 
         pause({ commit }) {
-            commit(PLAYING, { isPlaying: false });
+            commit(constants.PLAYING, { isPlaying: false });
         },
 
         toggleLoopCurrentTrack({ commit }) {
