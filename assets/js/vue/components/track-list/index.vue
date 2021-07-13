@@ -4,7 +4,7 @@
             v-for="(track, index) in tracks"
             :key="index + track['@id']"
             :track="track"
-            :class="[{selected: track === currentTrack, 'is-playing': isPlaying}]"
+            :class="[{selected: track === currentTrack}]"
             :on-playlist="onPlaylist"
             @playTrack="playTrack(track)"
         />
