@@ -181,7 +181,7 @@ export default {
     },
     methods: {
         seek(event, hover = false) {
-            if (this.currentTrack) {
+            if (this.$store.getters['player/isLoaded']) {
                 const sound = this.currentTrack.howl;
                 const per = event.clientX / window.innerWidth;
 
