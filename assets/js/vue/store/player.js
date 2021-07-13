@@ -10,6 +10,9 @@ export default {
         isLoaded: false,
     },
     getters: {
+        isLoaded(state) {
+            return state.isLoaded;
+        },
     },
     mutations: {
         [constants.LOADING](state) {
