@@ -8,11 +8,13 @@
                 v-if="!onPlaylist"
                 class="tracknumber"
             >{{ track.tracknumber }}</span>
-            <span class="play icon is-medium">
+            <span
+                v-if="!isLoading"
+                class="play icon is-medium">
                 <i class="mdi mdi-24px mdi-play" />
             </span>
             <img
-                v-if="onPlaylist"
+                v-if="onPlaylist && !isLoading"
                 :src="track.thumbnail.contentUrl"
                 alt=""
             >
@@ -36,8 +38,11 @@
 
 <script>
 
+import playerMixin from '@/mixins/playerMixin';
+
 export default {
     name: 'TrackCard',
+    mixins: [playerMixin],
     props: {
         track: {
             type: Object,
