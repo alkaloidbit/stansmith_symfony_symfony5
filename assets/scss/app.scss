@@ -99,6 +99,13 @@
             margin-bottom: 3px;
         }
     }
+    &.on-playlist {
+       .left-item {
+            .play {
+                color: #fff;
+            }
+        }
+    }
     &.selected {
         .left-item {
             margin: 0 24px 0 12px;
@@ -107,6 +114,7 @@
             .sound-bars {
                 width: 20px;
                 height: 20px;
+                position: absolute;
                 background: url('../images/animated-sound-bars.gif') no-repeat center;
                 background-size: cover;
             }
@@ -127,6 +135,9 @@
         width: 32px;
         height: 32px;
         margin: 0 24px 0 5px;
+        .play {
+            position: absolute;
+        }
     }
     .title-wrapper {
         display: flex;

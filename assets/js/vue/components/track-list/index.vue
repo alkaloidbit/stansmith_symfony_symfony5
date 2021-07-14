@@ -5,6 +5,7 @@
             :key="index + track['@id']"
             :track="track"
             :class="[{selected: track === currentTrack,
+                      'on-playlist': onPlaylist,
                       'is-playing': track === currentTrack && isPlaying}]"
             :on-playlist="onPlaylist"
             @playTrack="playTrack(track)"

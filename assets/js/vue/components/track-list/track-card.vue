@@ -8,7 +8,7 @@
                 v-if="!onPlaylist"
                 class="tracknumber"
             >{{ track.tracknumber }}</span>
-            <span class="icon is-medium">
+            <span class="play icon is-medium">
                 <i class="mdi mdi-24px mdi-play" />
             </span>
             <img
