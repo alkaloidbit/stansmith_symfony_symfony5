@@ -56,6 +56,7 @@ export default {
             } else {
                 console.log('Howl exists!');
             }
+
             this.$store.dispatch('currentIndex/setCurrentIndex', index);
             track.howl.play();
         },

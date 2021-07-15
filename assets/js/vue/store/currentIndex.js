@@ -6,6 +6,9 @@ export default {
         currentIndex: 0,
     },
     getters: {
+        currentIndex(state) {
+            return state.currentIndex;
+        },
     },
     mutations: {
         [constants.SET_CURRENT_INDEX](state, n) {
@@ -13,7 +16,6 @@ export default {
         },
     },
     actions: {
-        // Adding a track object to playlist
         setCurrentIndex({ commit }, index) {
             commit(constants.SET_CURRENT_INDEX, index);
         },
