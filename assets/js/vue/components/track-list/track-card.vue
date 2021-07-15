@@ -9,12 +9,12 @@
                 class="tracknumber"
             >{{ track.tracknumber }}</span>
             <span
-                v-if="!isLoading"
+                v-if="!isLoading && onPlaylist"
                 class="play icon is-medium">
                 <i class="mdi mdi-24px mdi-play" />
             </span>
             <img
-                v-if="onPlaylist && !isLoading"
+                v-if="onPlaylist "
                 :src="track.thumbnail.contentUrl"
                 alt=""
             >

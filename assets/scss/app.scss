@@ -80,11 +80,6 @@
     .icon {
         display: none;
     }
-    &:hover {
-        .tracknumber {
-            display: none;
-        }
-    }
     &.selected {
         background-color: $primary;
         color: white;
@@ -232,8 +227,12 @@
         position: absolute;
     }
 }
+
 .is-loading {
     background: url('../images/loading.gif') no-repeat left center;
+    .left-item img {
+        display: none
+    }
 }
 
 .playlist-item-renderer .title-wrapper {

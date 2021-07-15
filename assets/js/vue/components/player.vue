@@ -53,17 +53,6 @@
                         <strong>{{ getCurrentTrackInfo.title }}</strong>
                         <p>{{ getCurrentTrackInfo.artist }} - {{ getCurrentTrackInfo.album }}</p>
                     </div>
-                    <!-- <b-loading -->
-                    <!--     v-model="isLoading" -->
-                    <!--     :can-cancel="false" -->
-                    <!-- > -->
-                    <!--     <b-icon -->
-                    <!--         pack="fas" -->
-                    <!--         icon="sync-alt" -->
-                    <!--         size="is-large" -->
-                    <!--         custom-class="fa-spin" -->
-                    <!--     /> -->
-                    <!-- </b-loading> -->
                 </div>
                 <div
                     class="column is-one-third
