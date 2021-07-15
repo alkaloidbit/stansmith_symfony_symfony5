@@ -8,6 +8,7 @@ export default {
     },
     data() {
         return {
+<<<<<<< HEAD
             // selectedIndex: 2,
         };
     },
@@ -21,6 +22,11 @@ export default {
             },
         },
     },
+=======
+            selectedIndex: 2,
+        };
+    },
+>>>>>>> 4fc5331bbb7b97b10fcd16fdc6c38267238eb02a
     created() {
         this.addKeyHandler();
     },
@@ -37,6 +43,11 @@ export default {
             */
             const key = e.which || e.keyCode;
 
+<<<<<<< HEAD
+=======
+            console.log('key: ', key);
+
+>>>>>>> 4fc5331bbb7b97b10fcd16fdc6c38267238eb02a
             if (key === 38 || (e.shiftKey && key === 9)) {
                 this.handleKeyUp(e);
             } else if (key === 40 || key === 9) {
@@ -63,6 +74,7 @@ export default {
             }
         },
 
+<<<<<<< HEAD
         handleKeyDown(e) {
             e.preventDefault();
             // check if index is below 0
@@ -73,14 +85,30 @@ export default {
             ) {
                 // set the index to the first item
                 this.selectedIndex = 0;
+=======
+        handlekeydown(e) {
+            e.preventdefault();
+            // check if index is below 0
+            // this means that we did not start yet
+            if (
+                this.selectedindex < 0
+                || this.selectedindex === this.listlength - 1
+            ) {
+                // set the index to the first item
+                this.selectedindex = 0;
+>>>>>>> 4fc5331bbb7b97b10fcd16fdc6c38267238eb02a
             } else if (
                 this.selectedIndex >= 0
                 && this.selectedIndex < this.listLength - 1
             ) {
+<<<<<<< HEAD
                 console.log(this.selectedIndex);
                 console.log(this.listLength);
                 this.selectedIndex += 1;
                 console.log(this.selectedIndex);
+=======
+                this.selectedIndex += 1;
+>>>>>>> 4fc5331bbb7b97b10fcd16fdc6c38267238eb02a
             }
         },
         addKeyHandler(e) {

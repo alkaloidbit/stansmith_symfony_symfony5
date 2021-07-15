@@ -1,6 +1,10 @@
 <template>
     <div class="trackListIndexRootContainer">
+<<<<<<< HEAD
         <with-keyboard-control :list-length="tracks.length">
+=======
+        <with-keyboard-control>
+>>>>>>> 4fc5331bbb7b97b10fcd16fdc6c38267238eb02a
             <track-card
                 v-for="(track, index) in tracks"
                 :key="index + track['@id']"
