@@ -63,16 +63,16 @@ export default {
             }
         },
 
-        handleKeyDown(e) {
-            e.preventDefault();
+        handlekeydown(e) {
+            e.preventdefault();
             // check if index is below 0
             // this means that we did not start yet
             if (
-                this.selectedIndex < 0
-                || this.selectedIndex === this.listLength - 1
+                this.selectedindex < 0
+                || this.selectedindex === this.listlength - 1
             ) {
                 // set the index to the first item
-                this.selectedIndex = 0;
+                this.selectedindex = 0;
             } else if (
                 this.selectedIndex >= 0
                 && this.selectedIndex < this.listLength - 1
@@ -80,7 +80,6 @@ export default {
                 console.log(this.selectedIndex);
                 console.log(this.listLength);
                 this.selectedIndex += 1;
-                console.log(this.selectedIndex);
             }
         },
         addKeyHandler(e) {
