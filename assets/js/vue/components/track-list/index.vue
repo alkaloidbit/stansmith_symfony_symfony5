@@ -1,27 +1,31 @@
 <template>
     <div class="trackListIndexRootContainer">
-        <track-card
-            v-for="(track, index) in tracks"
-            :key="index + track['@id']"
-            :track="track"
-            :class="[{selected: track === currentTrack,
-                      'on-playlist': onPlaylist,
-                      'is-loading': track === currentTrack && isLoading,
-                      'is-playing': track === currentTrack && isPlaying}]"
-            :on-playlist="onPlaylist"
-            @playTrack="playTrack(track)"
-        />
+        <with-keyboard-control>
+            <track-card
+                v-for="(track, index) in tracks"
+                :key="index + track['@id']"
+                :track="track"
+                :class="[{selected: track === currentTrack,
+                          'on-playlist': onPlaylist,
+                          'is-loading': track === currentTrack && isLoading,
+                          'is-playing': track === currentTrack && isPlaying}]"
+                :on-playlist="onPlaylist"
+                @playTrack="playTrack(track)"
+            />
+        </with-keyboard-control>
     </div>
 </template>
 
 <script>
 import TrackCard from '@/components/track-list/track-card';
+import WithKeyboardControl from '@/components/WithKeyboardControl';
 import playerMixin from '@/mixins/playerMixin';
 
 export default {
     name: 'TrackList',
     components: {
         TrackCard,
+        WithKeyboardControl,
     },
     mixins: [playerMixin],
     props: {
