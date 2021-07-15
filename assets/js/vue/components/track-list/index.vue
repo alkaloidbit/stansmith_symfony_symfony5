@@ -1,6 +1,6 @@
 <template>
     <div class="trackListIndexRootContainer">
-        <with-keyboard-control>
+        <with-keyboard-control :list-length="tracks.length">
             <track-card
                 v-for="(track, index) in tracks"
                 :key="index + track['@id']"
@@ -60,7 +60,6 @@ export default {
                     this.currentTrack.howl.stop();
                 }
             }
-
 
             this.play(selectedTrackIndex);
         },
