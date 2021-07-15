@@ -37,6 +37,8 @@ export default {
             */
             const key = e.which || e.keyCode;
 
+            console.log('key: ', key);
+
             if (key === 38 || (e.shiftKey && key === 9)) {
                 this.handleKeyUp(e);
             } else if (key === 40 || key === 9) {
@@ -63,16 +65,16 @@ export default {
             }
         },
 
-        handlekeydown(e) {
-            e.preventdefault();
+        handleKeyDown(e) {
+            e.preventDefault();
             // check if index is below 0
             // this means that we did not start yet
             if (
-                this.selectedindex < 0
-                || this.selectedindex === this.listlength - 1
+                this.selectedIndex < 0
+                || this.selectedIndex === this.listLength - 1
             ) {
                 // set the index to the first item
-                this.selectedindex = 0;
+                this.selectedIndex = 0;
             } else if (
                 this.selectedIndex >= 0
                 && this.selectedIndex < this.listLength - 1
@@ -80,6 +82,7 @@ export default {
                 console.log(this.selectedIndex);
                 console.log(this.listLength);
                 this.selectedIndex += 1;
+                console.log(this.selectedIndex);
             }
         },
         addKeyHandler(e) {
