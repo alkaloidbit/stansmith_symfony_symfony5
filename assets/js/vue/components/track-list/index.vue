@@ -1,17 +1,23 @@
 <template>
     <div class="trackListIndexRootContainer">
-        <with-keyboard-control :list-length="tracks.length">
-            <track-card
-                v-for="(track, index) in tracks"
-                :key="index + track['@id']"
-                :track="track"
-                :class="[{selected: track === currentTrack,
-                          'on-playlist': onPlaylist,
-                          'is-loading': track === currentTrack && isLoading,
-                          'is-playing': track === currentTrack && isPlaying}]"
-                :on-playlist="onPlaylist"
-                @playTrack="playTrack(track)"
-            />
+        <with-keyboard-control
+            :list-length="tracks.length"
+            @selected="selectedHandler"
+        >
+            <template slot-scope="{selectedIndex}">
+                <track-card
+                    v-for="(track, index) in tracks"
+                    :key="index + track['@id']"
+                    :track="track"
+                    :class="[{selected: track === currentTrack,
+                              'key-selected': index === selectedIndex,
+                              'on-playlist': onPlaylist,
+                              'is-loading': track === currentTrack && isLoading,
+                              'is-playing': track === currentTrack && isPlaying}]"
+                    :on-playlist="onPlaylist"
+                    @playTrack="playTrack(track)"
+                />
+            </template>
         </with-keyboard-control>
     </div>
 </template>
@@ -47,6 +53,10 @@ export default {
     methods: {
         selectTrack(track) {
             this.selectedTrack = track;
+        },
+        selectedHandler(index) {
+            console.log('index: ', index);
+            this.playTrack(this.tracks[index]);
         },
         // on Click on playlist track list
         playTrack(track) {

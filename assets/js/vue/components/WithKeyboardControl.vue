@@ -8,18 +8,18 @@ export default {
     },
     data() {
         return {
-            // selectedIndex: 2,
+            selectedIndex: 0,
         };
     },
     computed: {
-        selectedIndex: {
-            get() {
-                return this.$store.getters['currentIndex/currentIndex'];
-            },
-            set(newValue) {
-                this.$store.dispatch('currentIndex/setCurrentIndex', newValue);
-            },
-        },
+        // selectedIndex: {
+            // get() {
+                // return this.$store.getters['currentIndex/currentIndex'];
+            // },
+            // set(newValue) {
+                // this.$store.dispatch('currentIndex/setCurrentIndex', newValue);
+            // },
+        // },
     },
     created() {
         this.addKeyHandler();
@@ -36,8 +36,6 @@ export default {
                 13 - enter
             */
             const key = e.which || e.keyCode;
-
-            console.log('key: ', key);
 
             if (key === 38 || (e.shiftKey && key === 9)) {
                 this.handleKeyUp(e);
@@ -79,10 +77,8 @@ export default {
                 this.selectedIndex >= 0
                 && this.selectedIndex < this.listLength - 1
             ) {
-                console.log(this.selectedIndex);
-                console.log(this.listLength);
                 this.selectedIndex += 1;
-                console.log(this.selectedIndex);
+                console.log('this.selectedIndex', this.selectedIndex);
             }
         },
         addKeyHandler(e) {
