@@ -6,7 +6,7 @@ import { Howl, Howler } from 'howler';
 /* eslint-disable-next-line no-unused-vars */
 import _ from 'lodash';
 import VueLazyload from 'vue-lazyload';
-import VuePageTransition from 'vue-page-transition';
+// import VuePageTransition from 'vue-page-transition';
 import App from './App';
 import router from './router';
 import store from './store';
@@ -20,7 +20,7 @@ Vue.use(VueLazyload, {
     attempt: 1,
 });
 
-Vue.use(VuePageTransition);
+// Vue.use(VuePageTransition);
 
 Vue.filter('minutes', (value) => {
     if (!value || typeof value !== 'number') return '00:00';

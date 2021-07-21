@@ -1,7 +1,5 @@
 <template>
-    <vue-page-transition name="overlay-up">
-        <router-view />
-    </vue-page-transition>
+    <router-view />
 </template>
 
 <script >
