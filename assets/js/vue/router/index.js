@@ -16,7 +16,7 @@ const router = new VueRouter({
         {
             path: '/playlist',
             component: Player,
-            meta: { requiresAuth: true },
+            meta: { requiresAuth: true, transition: 'overlay-down' },
         },
         {
             path: '/player',
