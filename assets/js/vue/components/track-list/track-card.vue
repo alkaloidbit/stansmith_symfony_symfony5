@@ -1,6 +1,10 @@
 <template>
     <div
         class="trackCardRootContainer playlist-item-renderer"
+        :class="[{'current-track': track === currentTrack,
+                  'on-playlist': onPlaylist,
+                  'is-loading': track === currentTrack && isLoading,
+                  'is-playing': track === currentTrack && isPlaying}]"
         @click.prevent="handleClick(track)"
     >
         <div class="left-item">
@@ -54,6 +58,9 @@ export default {
             required: true,
             default: false,
         },
+    },
+    created() {
+        console.log(this.currentTrack);
     },
     methods: {
         handleClick(track) {
