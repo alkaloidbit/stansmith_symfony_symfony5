@@ -10,10 +10,6 @@
             v-for="(track, index) in tracks"
             :key="index + track['@id']"
             :track="track"
-            :class="[{'current-track': track === currentTrack,
-                      'on-playlist': onPlaylist,
-                      'is-loading': track === currentTrack && isLoading,
-                      'is-playing': track === currentTrack && isPlaying}]"
             :on-playlist="onPlaylist"
             @clicked="clickedHandler(track)"
         />
