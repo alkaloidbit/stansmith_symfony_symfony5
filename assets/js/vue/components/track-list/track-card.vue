@@ -55,25 +55,9 @@ export default {
             default: false,
         },
     },
-    data() {
-        return {};
-    },
-    computed: {
-    },
-    created() {
-    },
     methods: {
         handleClick(track) {
-            this.$emit('playTrack', track);
-
-            // if (this.onPlaylist) {
-                // this.$emit('playTrack', track);
-            // } else {
-                // this.addTrackToPlaylist(track);
-            // }
-        },
-        addTrackToPlaylist(track) {
-            this.$store.dispatch('playlist/addTrackToPlaylist', track);
+            this.$emit('clicked', track);
         },
     },
 };

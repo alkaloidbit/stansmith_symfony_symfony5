@@ -56,7 +56,6 @@
                         <track-list
                             :tracks="album.tracks"
                             :on-playlist="false"
-                            :selected-track="{}"
                         />
                     </div>
                 </div>

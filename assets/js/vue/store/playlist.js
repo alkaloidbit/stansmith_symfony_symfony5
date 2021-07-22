@@ -9,6 +9,10 @@ export default {
         currentTrack(state, getters, rootState) {
             return state.playlist[rootState.currentIndex.currentIndex];
         },
+
+        playlist(state) {
+            return state.playlist;
+        },
     },
     mutations: {
         [constants.ADDING_TRACK](state, track) {
@@ -28,5 +32,6 @@ export default {
             commit('currentIndex/SET_CURRENT_INDEX', 0, { root: true });
             commit(constants.CLEAR_PLAYLIST);
         },
+
     },
 };

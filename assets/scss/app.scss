@@ -80,17 +80,16 @@
     .icon {
         display: none;
     }
-    &.selected {
-        background-color: $primary;
-        color: white;
-        .tracknumber {
-            display: none;
+    &.key-selected {
+        border: 1px solid $primary;
+        .icon {
+            display: block;
+            margin-left: 5px;
+            margin-bottom: 3px;
         }
     }
-    &.key-selected {
-        border: 1px solid rgba(0, 0, 0, 0.1);
-    }
     &:hover {
+        border: 1px solid $primary;
         .icon {
             display: block;
             margin-left: 5px ;
@@ -104,9 +103,14 @@
             }
         }
     }
-    &.selected {
+    &.current-track {
+        background-color: $primary;
+        color: white;
         .left-item {
             margin: 0 24px 0 12px;
+            .tracknumber {
+                display: none;
+            }
         }
         &.is-playing {
             .sound-bars {
