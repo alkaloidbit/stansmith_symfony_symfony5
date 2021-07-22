@@ -46,6 +46,11 @@ export default {
             selectedTrack: null,
         };
     },
+    created() {
+        if (this.onPlaylist) {
+            // console.log(this.tracks);
+        }
+    },
     methods: {
         selectTrack(track) {
             console.log(track);
@@ -68,6 +73,7 @@ export default {
         },
         addTrackToPlaylist(track) {
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
+            console.log(this.playlist);
         },
         // on Click on playlist track list
         playTrack(track) {
