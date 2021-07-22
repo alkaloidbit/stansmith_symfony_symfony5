@@ -11,7 +11,6 @@
         />
         <track-list
             :tracks="playlist"
-            :current-track="currentTrack"
             on-playlist
         />
     </div>
@@ -36,16 +35,6 @@ export default {
             required: false,
             default: () => {},
         },
-    },
-    data() {
-        return {};
-    },
-    computed: {
-        currentTrack() {
-            return this.$store.getters['playlist/currentTrack'];
-        },
-    },
-    created() {
     },
     methods: {
         clearPlaylist() {
