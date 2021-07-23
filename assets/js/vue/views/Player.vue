@@ -25,7 +25,6 @@
         <!-- </div> -->
         <!-- </section> -->
         <player
-            :tracks="playlist"
             :prev-route="prevRoute"
             :is-playlist-active="isPlaylistActive"
         />

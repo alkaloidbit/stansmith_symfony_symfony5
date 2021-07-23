@@ -98,11 +98,6 @@ export default {
     },
     mixins: [playerMixin],
     props: {
-        tracks: {
-            type: Array,
-            required: false,
-            default: () => [],
-        },
         isPlaylistActive: {
             type: Boolean,
             required: true,
