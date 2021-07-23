@@ -80,9 +80,6 @@ export default {
         isPlaylistActive() {
             return this.$route.path === '/playlist';
         },
-        playlist() {
-            return this.$store.state.playlist.playlist;
-        },
         isAuthenticated() {
             return this.$store.getters['security/isAuthenticated'];
         },
@@ -111,7 +108,7 @@ export default {
         },
         currentProps() {
             if (this.isPlaylistActive) {
-                return { playlist: this.playlist, prevRoute: this.prevRoute };
+                return { prevRoute: this.prevRoute };
             }
             return this.currentComponent === AlbumShow ? {
                 albumId: this.currentAlbumId,

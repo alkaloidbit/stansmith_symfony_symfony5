@@ -25,15 +25,15 @@ export default {
         TrackList,
     },
     props: {
-        playlist: {
-            type: Array,
-            required: false,
-            default: () => {},
-        },
         prevRoute: {
             type: Object,
             required: false,
             default: () => {},
+        },
+    },
+    computed: {
+        playlist() {
+            return this.$store.state.playlist.playlist;
         },
     },
     methods: {
