@@ -53,9 +53,8 @@
                         v-if="album"
                         class="column is-one-half"
                     >
-                        <track-list
+                        <track-list-albumshow
                             :tracks="album.tracks"
-                            :on-playlist="false"
                         />
                     </div>
                 </div>
@@ -67,7 +66,7 @@
 <script>
 import { fetchOneAlbum } from 'services/albums-service';
 import Loading from '@/components/loading';
-import TrackList from '@/components/track-list';
+import TrackListAlbumshow from '@/components/track-list-albumshow';
 // import TitleComponent from '@/components/title';
 // import dayjs from 'dayjs';
 // import duration from 'dayjs/plugin/duration';
@@ -80,7 +79,7 @@ export default {
     components: {
         Loading,
         // TitleComponent,
-        TrackList,
+        TrackListAlbumshow,
     },
     props: {
         albumId: {
