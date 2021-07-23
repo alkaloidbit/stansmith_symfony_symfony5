@@ -9,20 +9,19 @@
             size="is-medium"
             @click="clearPlaylist"
         />
-        <track-list
+        <track-list-playlist
             :tracks="playlist"
-            on-playlist
         />
     </div>
 </template>
 
 <script>
-import TrackList from '@/components/track-list';
+import TrackListPlaylist from '@/components/track-list-playlist';
 
 export default {
     name: 'Playlist',
     components: {
-        TrackList,
+        TrackListPlaylist,
     },
     props: {
         prevRoute: {

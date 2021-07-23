@@ -11,14 +11,12 @@
 
 <script>
 import TrackCard from '@/components/track-list-albumshow/track-card';
-import playerMixin from '@/mixins/playerMixin';
 
 export default {
     name: 'TrackListAlbumshow',
     components: {
         TrackCard,
     },
-    mixins: [playerMixin],
     props: {
         tracks: {
             type: Array,
@@ -29,7 +27,6 @@ export default {
         return {};
     },
     created() {
-        console.log('created tracklistalbumshow index');
     },
     methods: {
         clickedHandler(track) {
@@ -37,7 +34,6 @@ export default {
         },
         addTrackToPlaylist(track) {
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
-            console.log(this.playlist);
         },
     },
 };

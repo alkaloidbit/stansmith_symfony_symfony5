@@ -19,6 +19,8 @@ export default {
         ]),
     },
 
+    created() {
+    },
     methods: {
         play(index) {
             if (!this.currentTrack) return;

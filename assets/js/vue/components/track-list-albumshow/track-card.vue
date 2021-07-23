@@ -7,7 +7,6 @@
             <span
                 class="tracknumber"
             >{{ track.tracknumber }}</span>
-            <span class="sound-bars" />
         </div>
         <div class="middle-item title-wrapper">
             <span>{{ track.title }}</span>
@@ -21,11 +20,8 @@
 
 <script>
 
-import playerMixin from '@/mixins/playerMixin';
-
 export default {
     name: 'TrackCard',
-    mixins: [playerMixin],
     props: {
         track: {
             type: Object,
@@ -33,7 +29,6 @@ export default {
         },
     },
     created() {
-        console.log('created tracklistalbumshow trackcard');
     },
     methods: {
         handleClick(track) {
