@@ -8,6 +8,9 @@
     >
         <div class="left-item">
             <span
+                class="tracknumber"
+            >{{ track.tracknumber }}</span>
+            <span
                 v-if="!isLoading "
                 class="play icon is-medium"
             >
@@ -48,7 +51,6 @@ export default {
         },
     },
     created() {
-        console.log(this.currentTrack);
     },
     methods: {
         handleClick(track) {

@@ -43,16 +43,17 @@ export default {
     created() {
     },
     methods: {
-        selectedHandler(index) {
-            console.log('on selectedHandler, index:', index);
-            this.playTrack(this.tracks[index]);
-        },
         selectTrack(track) {
-            console.log(track);
             this.selectedTrack = track;
         },
         clickedHandler(track) {
             this.playTrack(track);
+        },
+        selectedHandler(index) {
+            this.playTrack(this.tracks[index]);
+        },
+        addTrackToPlaylist(track) {
+            this.$store.dispatch('playlist/addTrackToPlaylist', track);
         },
         // on Click on playlist track list
         playTrack(track) {
