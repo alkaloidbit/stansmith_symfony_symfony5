@@ -6,10 +6,16 @@
         <!-- > -->
         <!-- <template slot-scope="{selectedIndex}"> -->
         <!-- 'key-selected': index === selectedIndex, -->
+        <!-- :class="[{'current-track':  isCurrentTrack(track), -->
+        <!-- :class="[{'current-track': track === currentTrack, -->
         <track-card
             v-for="(track, index) in tracks"
             :key="index + track['@id']"
             :track="track"
+            class="trackCardRootContainer on-playlist playlist-item-renderer"
+            :class="[{'current-track': isCurrentTrack(track),
+                      'is-loading': track === currentTrack && isLoading,
+                      'is-playing': track === currentTrack && isPlaying}]"
             @clicked="clickedHandler(track)"
         />
         <!-- </template> -->
@@ -41,20 +47,27 @@ export default {
         };
     },
     created() {
+        console.log('0 && 1 are the same: ', this.diff(this.tracks[1], this.currentTrack));
+        console.log('using _lodash to compare', _.isEqual(this.tracks[1], this.currentTrack));
+        console.log('using ES6 way', this.ES6diff(this.tracks[1], this.currentTrack));
     },
     methods: {
         selectTrack(track) {
             this.selectedTrack = track;
         },
+
         clickedHandler(track) {
             this.playTrack(track);
         },
+
         selectedHandler(index) {
             this.playTrack(this.tracks[index]);
         },
+
         addTrackToPlaylist(track) {
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
         },
+
         // on Click on playlist track list
         playTrack(track) {
             // component local selectedTrack
@@ -72,6 +85,50 @@ export default {
             }
 
             this.play(selectedTrackIndex);
+        },
+
+        isCurrentTrack(track) {
+            return _.isEqual(track, this.currentTrack);
+        },
+
+        ES6diff(obj1, obj2) {
+            return Object.entries(obj1).toString() === Object.entries(obj2).toString();
+        },
+
+        diff(obj1, obj2) {
+            return this.isEquivalent(obj1, obj2);
+        },
+
+        isEquivalent(a, b) {
+            console.log('a', a);
+            console.log('b', b);
+            // Create arrays of property names
+            const aProps = Object.getOwnPropertyNames(a);
+            const bProps = Object.getOwnPropertyNames(b);
+
+            // If number of properties is different,
+            // objects are not equivalent
+            if (aProps.length !== bProps.length) {
+                console.log('aProps.length !== bProps.lenght');
+                return false;
+            }
+
+            for (let i = 0; i < aProps.length; i += 1) {
+                const propName = aProps[i];
+
+                // If values of same property are not equal,
+                // objects are not equivalent
+                if (a[propName] !== b[propName]) {
+                    console.log('aProps: ', aProps);
+                    console.log('i', i);
+                    console.log(`${a[propName]} !== ${b[propName]}`);
+                    return false;
+                }
+            }
+
+            // If we made it this far, objects
+            // are considered equivalent
+            return true;
         },
 
     },

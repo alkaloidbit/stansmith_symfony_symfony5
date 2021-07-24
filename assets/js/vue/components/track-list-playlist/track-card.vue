@@ -1,9 +1,5 @@
 <template>
     <div
-        class="trackCardRootContainer on-playlist playlist-item-renderer"
-        :class="[{'current-track': track === currentTrack,
-                  'is-loading': track === currentTrack && isLoading,
-                  'is-playing': track === currentTrack && isPlaying}]"
         @click.prevent="handleClick(track)"
     >
         <div class="left-item">
