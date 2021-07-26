@@ -26,8 +26,8 @@ export default {
             if (!this.currentTrack) return;
 
             index = typeof index === 'number' ? index : this.currentIndex;
-
             const track = this.playlist[index];
+            this.playlist.forEach((item) => console.log(item.howl));
             const splits = track['@id'].split('/');
             const src = `/api/player/${splits[3]}/stream`;
 

@@ -47,9 +47,9 @@ export default {
         };
     },
     created() {
-        console.log('0 && 1 are the same: ', this.diff(this.tracks[1], this.currentTrack));
-        console.log('using _lodash to compare', _.isEqual(this.tracks[1], this.currentTrack));
-        console.log('using ES6 way', this.ES6diff(this.tracks[1], this.currentTrack));
+        // console.log(this.tracks[0]);
+        // console.log(this.tracks[1]);
+        // console.log(_.isEqual(this.tracks[0], this.tracks[1]));
     },
     methods: {
         selectTrack(track) {
@@ -100,8 +100,6 @@ export default {
         },
 
         isEquivalent(a, b) {
-            console.log('a', a);
-            console.log('b', b);
             // Create arrays of property names
             const aProps = Object.getOwnPropertyNames(a);
             const bProps = Object.getOwnPropertyNames(b);
@@ -109,7 +107,6 @@ export default {
             // If number of properties is different,
             // objects are not equivalent
             if (aProps.length !== bProps.length) {
-                console.log('aProps.length !== bProps.lenght');
                 return false;
             }
 
@@ -119,9 +116,6 @@ export default {
                 // If values of same property are not equal,
                 // objects are not equivalent
                 if (a[propName] !== b[propName]) {
-                    console.log('aProps: ', aProps);
-                    console.log('i', i);
-                    console.log(`${a[propName]} !== ${b[propName]}`);
                     return false;
                 }
             }
