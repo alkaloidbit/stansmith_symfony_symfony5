@@ -47,15 +47,12 @@ export default {
         };
     },
     created() {
-        // console.log(this.tracks[0]);
-        // console.log(this.tracks[1]);
-        // console.log(_.isEqual(this.tracks[0], this.tracks[1]));
+        console.log('this.tracks[0]', this.tracks[0]);
+        console.log('this.tracks[1]', this.tracks[1]);
+        /* eslint-disable no-undef */
+        console.log('is track[0] equal track[1]?', _.isEqual(this.tracks[0], this.tracks[1]));
     },
     methods: {
-        selectTrack(track) {
-            this.selectedTrack = track;
-        },
-
         clickedHandler(track) {
             this.playTrack(track);
         },
@@ -64,17 +61,10 @@ export default {
             this.playTrack(this.tracks[index]);
         },
 
-        addTrackToPlaylist(track) {
-            this.$store.dispatch('playlist/addTrackToPlaylist', track);
-        },
-
         // on Click on playlist track list
         playTrack(track) {
-            // component local selectedTrack
-            this.selectTrack(track);
-
             // finding selectedTrack index inside tracks prop
-            const selectedTrackIndex = this.tracks.findIndex((item) => item === this.selectedTrack);
+            const selectedTrackIndex = this.tracks.findIndex((item) => item === track);
 
             console.log('on playTrack, selectedTrackIndex', selectedTrackIndex);
 
@@ -88,6 +78,7 @@ export default {
         },
 
         isCurrentTrack(track) {
+            /* eslint-disable no-undef */
             return _.isEqual(track, this.currentTrack);
         },
 
