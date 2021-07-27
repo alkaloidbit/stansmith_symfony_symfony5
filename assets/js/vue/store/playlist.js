@@ -16,7 +16,6 @@ export default {
     },
     mutations: {
         [constants.ADDING_TRACK](state, track) {
-            console.log('Adding track ', track.title);
             state.playlist = [...state.playlist, JSON.parse(JSON.stringify(track))];
         },
 
