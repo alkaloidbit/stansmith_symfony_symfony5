@@ -17,10 +17,15 @@
                 </aside> -->
         <!-- .column -->
         <!-- <div :class="contentClass"> -->
-        <component
-            :is="currentComponent"
-            v-bind="currentProps"
-        />
+        <transition
+            name="fade"
+            mode="out-in"
+        >
+            <component
+                :is="currentComponent"
+                v-bind="currentProps"
+            />
+        </transition>
         <!-- </div> -->
         <!-- </div> -->
         <!-- </section> -->
