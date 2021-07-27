@@ -10,11 +10,11 @@
                     :key="index + track['@id']"
                     :track="track"
                     class="trackCardRootContainer on-playlist playlist-item-renderer"
-                    :class="[{'current-track': isCurrentTrack(track, index ),
+                    :class="[{'current-track': isCurrentTrack( index ),
                               'key-selected': index === selectedIndex,
-                              'is-loading': track === currentTrack && isLoading,
-                              'is-playing': track === currentTrack && isPlaying}]"
-                    @clicked="clickedHandler(track)"
+                              'is-loading': isCurrentTrack( index ) && isLoading,
+                              'is-playing': isCurrentTrack( index ) && isPlaying}]"
+                    @clicked="selectedHandler(index)"
                 />
             </template>
         </with-keyboard-control>
@@ -47,19 +47,11 @@ export default {
     created() {
     },
     methods: {
-        clickedHandler(track) {
-            this.playTrack(track);
-        },
-
         selectedHandler(index) {
-            this.playTrack(this.tracks[index]);
+            this.playTrack(index);
         },
 
-        // on Click on playlist track list
-        playTrack(track) {
-            // finding selectedTrack index inside tracks prop
-            const selectedTrackIndex = this.tracks.findIndex((item) => item === track);
-
+        playTrack(selectedTrackIndex) {
             if (this.currentTrack) {
                 if (this.currentTrack.howl) {
                     this.currentTrack.howl.stop();
@@ -69,7 +61,7 @@ export default {
             this.play(selectedTrackIndex);
         },
 
-        isCurrentTrack(track, index) {
+        isCurrentTrack(index) {
             return index === this.currentIndex;
         },
 
