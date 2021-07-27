@@ -3,7 +3,8 @@ import { mapState } from 'vuex';
 export default {
     computed: {
         currentTrack() {
-            return this.$store.getters['playlist/currentTrack'];
+            const currentTrack = this.$store.getters['playlist/currentTrack'];
+            return currentTrack;
         },
         ...mapState('player', [
             'duration',
@@ -24,8 +25,10 @@ export default {
     methods: {
         play(index) {
             if (!this.currentTrack) return;
-
             index = typeof index === 'number' ? index : this.currentIndex;
+
+            // const [track1] = this.playlist;
+            // console.log(track1);
 
             const track = this.playlist[index];
             const splits = track['@id'].split('/');

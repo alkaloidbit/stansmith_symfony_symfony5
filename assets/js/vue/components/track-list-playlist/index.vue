@@ -6,10 +6,17 @@
         <!-- > -->
         <!-- <template slot-scope="{selectedIndex}"> -->
         <!-- 'key-selected': index === selectedIndex, -->
+
+        <!-- :class="[{'current-track':  isCurrentTrack(track), -->
+        <!-- :class="[{'current-track': track === currentTrack, -->
         <track-card
             v-for="(track, index) in tracks"
             :key="index + track['@id']"
             :track="track"
+            class="trackCardRootContainer on-playlist playlist-item-renderer"
+            :class="[{'current-track': isCurrentTrack(track, index ),
+                      'is-loading': track === currentTrack && isLoading,
+                      'is-playing': track === currentTrack && isPlaying}]"
             @clicked="clickedHandler(track)"
         />
         <!-- </template> -->
@@ -43,27 +50,18 @@ export default {
     created() {
     },
     methods: {
-        selectTrack(track) {
-            this.selectedTrack = track;
-        },
         clickedHandler(track) {
             this.playTrack(track);
         },
+
         selectedHandler(index) {
             this.playTrack(this.tracks[index]);
         },
-        addTrackToPlaylist(track) {
-            this.$store.dispatch('playlist/addTrackToPlaylist', track);
-        },
+
         // on Click on playlist track list
         playTrack(track) {
-            // component local selectedTrack
-            this.selectTrack(track);
-
             // finding selectedTrack index inside tracks prop
-            const selectedTrackIndex = this.tracks.findIndex((item) => item === this.selectedTrack);
-
-            console.log('on playTrack, selectedTrackIndex', selectedTrackIndex);
+            const selectedTrackIndex = this.tracks.findIndex((item) => item === track);
 
             if (this.currentTrack) {
                 if (this.currentTrack.howl) {
@@ -72,6 +70,10 @@ export default {
             }
 
             this.play(selectedTrackIndex);
+        },
+
+        isCurrentTrack(track, index) {
+            return index === this.currentIndex;
         },
 
     },
