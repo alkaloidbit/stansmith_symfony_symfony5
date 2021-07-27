@@ -3,7 +3,7 @@
         @click.prevent="handleClick(track)"
     >
         <div
-            v-if="isCurrentTrack && isLoading"
+            v-if="isCurrentTrack && isLoading || isCurrentTrack && isPlaying"
             class="sk-bounce"
         >
             <div class="sk-bounce-dot" />
@@ -13,17 +13,17 @@
             v-else
             class="left-item"
         >
-            <span
-                v-if="!isLoading "
-                class="play icon is-medium"
-            >
-                <i class="mdi mdi-24px mdi-play" />
-            </span>
+            <!-- <span -->
+            <!--     v-if="!isLoading " -->
+            <!--     class="play icon is-medium" -->
+            <!-- > -->
+            <!--     <i class="mdi mdi-24px mdi-play" /> -->
+            <!-- </span> -->
             <img
                 :src="track.thumbnail.contentUrl"
                 alt=""
             >
-            <span class="sound-bars" />
+            <!-- <span class="sound-bars" /> -->
         </div>
         <div class="middle-item title-wrapper">
             <span>{{ track.title }}</span>

@@ -57,6 +57,7 @@
 //     color: #121212; 
 // }
 
+
 .overlay {
     position: absolute;
     top: 0;
@@ -171,12 +172,17 @@
     cursor: pointer;
 }
 
-.player-bar svg {
-    cursor: pointer;
-}
-.player-bar img {
-    width: 40px;
-    margin-right: 10px;
+.player-bar {
+    .sk-bounce-dot {
+        --sk-color: #4a4a4a;
+    }
+    svg {
+        cursor: pointer;
+    }
+    img {
+        width: 40px;
+        margin-right: 10px;
+    }
 }
 .svg-wrapper {
     line-height: 1;
