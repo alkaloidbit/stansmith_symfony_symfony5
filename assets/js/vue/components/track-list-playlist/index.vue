@@ -1,39 +1,36 @@
 <template>
     <div class="trackListIndexRootContainer">
-        <!-- <with-keyboard-control -->
-        <!-- :list-length="tracks.length" -->
-        <!-- @selected="selectedHandler" -->
-        <!-- > -->
-        <!-- <template slot-scope="{selectedIndex}"> -->
-        <!-- 'key-selected': index === selectedIndex, -->
-
-        <!-- :class="[{'current-track':  isCurrentTrack(track), -->
-        <!-- :class="[{'current-track': track === currentTrack, -->
-        <track-card
-            v-for="(track, index) in tracks"
-            :key="index + track['@id']"
-            :track="track"
-            class="trackCardRootContainer on-playlist playlist-item-renderer"
-            :class="[{'current-track': isCurrentTrack(track, index ),
-                      'is-loading': track === currentTrack && isLoading,
-                      'is-playing': track === currentTrack && isPlaying}]"
-            @clicked="clickedHandler(track)"
-        />
-        <!-- </template> -->
-        <!-- </with-keyboard-control> -->
+        <with-keyboard-control
+            :list-length="tracks.length"
+            @selected="selectedHandler"
+        >
+            <template slot-scope="{selectedIndex}">
+                <track-card
+                    v-for="(track, index) in tracks"
+                    :key="index + track['@id']"
+                    :track="track"
+                    class="trackCardRootContainer on-playlist playlist-item-renderer"
+                    :class="[{'current-track': isCurrentTrack(track, index ),
+                              'key-selected': index === selectedIndex,
+                              'is-loading': track === currentTrack && isLoading,
+                              'is-playing': track === currentTrack && isPlaying}]"
+                    @clicked="clickedHandler(track)"
+                />
+            </template>
+        </with-keyboard-control>
     </div>
 </template>
 
 <script>
 import TrackCard from '@/components/track-list-playlist/track-card';
-// import WithKeyboardControl from '@/components/WithKeyboardControl';
+import WithKeyboardControl from '@/components/WithKeyboardControl';
 import playerMixin from '@/mixins/playerMixin';
 
 export default {
     name: 'TrackListPlaylist',
     components: {
         TrackCard,
-        // WithKeyboardControl,
+        WithKeyboardControl,
     },
     mixins: [playerMixin],
     props: {
