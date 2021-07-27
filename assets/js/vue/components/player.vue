@@ -43,14 +43,10 @@
                 >
                     <div
                         v-if="isLoading"
-                        class="sk-chase"
+                        class="sk-bounce"
                     >
-                        <div class="sk-chase-dot" />
-                        <div class="sk-chase-dot" />
-                        <div class="sk-chase-dot" />
-                        <div class="sk-chase-dot" />
-                        <div class="sk-chase-dot" />
-                        <div class="sk-chase-dot" />
+                        <div class="sk-bounce-dot" />
+                        <div class="sk-bounce-dot" />
                     </div>
                     <img
                         v-if="currentTrack !== undefined && !isLoading"

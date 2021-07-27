@@ -4,14 +4,10 @@
     >
         <div
             v-if="isCurrentTrack && isLoading"
-            class="sk-chase"
+            class="sk-bounce"
         >
-            <div class="sk-chase-dot" />
-            <div class="sk-chase-dot" />
-            <div class="sk-chase-dot" />
-            <div class="sk-chase-dot" />
-            <div class="sk-chase-dot" />
-            <div class="sk-chase-dot" />
+            <div class="sk-bounce-dot" />
+            <div class="sk-bounce-dot" />
         </div>
         <div
             v-else
