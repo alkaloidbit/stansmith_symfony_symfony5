@@ -43,8 +43,15 @@
                 >
                     <div
                         v-if="isLoading"
-                        class="loader"
-                    />
+                        class="sk-chase"
+                    >
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                    </div>
                     <img
                         v-if="currentTrack !== undefined && !isLoading"
                         :src="getCurrentTrackInfo.thumbnail.contentUrl"

@@ -12,7 +12,7 @@
                     :is-current-track="isCurrentTrack(index)"
                     class="trackCardRootContainer on-playlist playlist-item-renderer"
                     :class="[{'current-track': isCurrentTrack( index ),
-                              'key-selected': index === selectedIndex || isHovering,
+                              'key-selected': index === selectedIndex,
                               'is-playing': isCurrentTrack( index ) && isPlaying}]"
                     @clicked="selectedHandler(index)"
                 />
