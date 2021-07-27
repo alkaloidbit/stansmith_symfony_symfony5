@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
 @import '~bulma/sass/utilities/_all';
-
+@import '~spinkit/spinkit.min.css';
 // Customizing bulma's variable
 // $family-primary: 'IBM Plex Sans', sans-serif;
 
@@ -24,7 +24,6 @@
     // ),
     // $custom-colors
 // );
-
 @import '~bulma';
 @import '~buefy/src/scss/buefy';
 @import '~@mdi/font/css/materialdesignicons.min.css';
@@ -77,6 +76,9 @@
     padding: 10px 0px;
     cursor: pointer;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .sk-chase-dot:before {
+        background-color: #fff;
+    }
     .icon {
         display: none;
     }
@@ -109,7 +111,7 @@
         .left-item {
             margin: 0 24px 0 12px;
             .tracknumber {
-                // display: none;
+                display: none;
             }
         }
         &.is-playing {

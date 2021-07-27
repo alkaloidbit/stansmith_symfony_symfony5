@@ -2,10 +2,21 @@
     <div
         @click.prevent="handleClick(track)"
     >
-        <div class="left-item">
-            <span
-                class="tracknumber"
-            >{{ track.tracknumber }}</span>
+        <div
+            v-if="isCurrentTrack && isLoading"
+            class="sk-chase"
+        >
+            <div class="sk-chase-dot" />
+            <div class="sk-chase-dot" />
+            <div class="sk-chase-dot" />
+            <div class="sk-chase-dot" />
+            <div class="sk-chase-dot" />
+            <div class="sk-chase-dot" />
+        </div>
+        <div
+            v-else
+            class="left-item"
+        >
             <span
                 v-if="!isLoading "
                 class="play icon is-medium"
@@ -45,6 +56,14 @@ export default {
             type: Object,
             required: true,
         },
+        isCurrentTrack: {
+            type: Boolean,
+            required: true,
+        },
+    },
+    data() {
+        return {
+        };
     },
     created() {
     },

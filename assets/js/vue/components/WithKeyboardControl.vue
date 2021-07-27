@@ -12,14 +12,6 @@ export default {
         };
     },
     computed: {
-        // selectedIndex: {
-            // get() {
-                // return this.$store.getters['currentIndex/currentIndex'];
-            // },
-            // set(newValue) {
-                // this.$store.dispatch('currentIndex/setCurrentIndex', newValue);
-            // },
-        // },
     },
     created() {
         this.addKeyHandler();

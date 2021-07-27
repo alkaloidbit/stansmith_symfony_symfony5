@@ -40,8 +40,18 @@
                 <div
                     class="column is-one-third
                     is-flex is-align-items-center is-justify-content-center"
-                    :class="isLoading ? 'is-loading' : ''"
                 >
+                    <div
+                        v-if="isLoading"
+                        class="sk-chase"
+                    >
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                        <div class="sk-chase-dot" />
+                    </div>
                     <img
                         v-if="currentTrack !== undefined && !isLoading"
                         :src="getCurrentTrackInfo.thumbnail.contentUrl"
