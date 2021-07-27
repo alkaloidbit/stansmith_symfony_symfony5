@@ -9,10 +9,10 @@
                     v-for="(track, index) in tracks"
                     :key="index + track['@id']"
                     :track="track"
+                    :is-current-track="isCurrentTrack(index)"
                     class="trackCardRootContainer on-playlist playlist-item-renderer"
                     :class="[{'current-track': isCurrentTrack( index ),
-                              'key-selected': index === selectedIndex,
-                              'is-loading': isCurrentTrack( index ) && isLoading,
+                              'key-selected': index === selectedIndex || isHovering,
                               'is-playing': isCurrentTrack( index ) && isPlaying}]"
                     @clicked="selectedHandler(index)"
                 />

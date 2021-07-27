@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
 @import '~bulma/sass/utilities/_all';
-
+@import './loader.scss';
 // Customizing bulma's variable
 // $family-primary: 'IBM Plex Sans', sans-serif;
 
@@ -24,7 +24,6 @@
     // ),
     // $custom-colors
 // );
-
 @import '~bulma';
 @import '~buefy/src/scss/buefy';
 @import '~@mdi/font/css/materialdesignicons.min.css';

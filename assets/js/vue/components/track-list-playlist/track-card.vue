@@ -3,9 +3,10 @@
         @click.prevent="handleClick(track)"
     >
         <div class="left-item">
-            <!-- <span -->
-            <!--     class="tracknumber" -->
-            <!-- >{{ track.tracknumber }}</span> -->
+            <div
+                v-if="isLoading && isCurrentTrack"
+                class="loader"
+            />
             <span
                 v-if="!isLoading "
                 class="play icon is-medium"
@@ -45,6 +46,15 @@ export default {
             type: Object,
             required: true,
         },
+        isCurrentTrack: {
+            type: Boolean,
+            required: true,
+        },
+    },
+    data() {
+        return {
+            isHovering: false,
+        };
     },
     created() {
     },
