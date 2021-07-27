@@ -79,6 +79,14 @@
     .sk-chase-dot:before {
         background-color: #fff;
     }
+    .sk-bounce {
+        height: 32px;
+        width: 32px;
+        margin: 0 24px 0 5px;
+        .sk-bounce-dot {
+            --sk-color: #fff;
+        }
+    }
     .icon {
         display: none;
     }
