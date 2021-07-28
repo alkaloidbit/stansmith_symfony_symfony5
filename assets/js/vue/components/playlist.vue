@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="playlist.length"
-        class="PlaylistRootContainer column"
+        class="playlistRootContainer column"
     >
         <b-button
             icon-right="delete"
