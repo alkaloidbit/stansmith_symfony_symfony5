@@ -3,12 +3,6 @@
         v-if="playlist.length"
         class="playlistRootContainer column"
     >
-        <b-button
-            icon-right="delete"
-            type="is-primary"
-            size="is-medium"
-            @click="clearPlaylist"
-        />
         <track-list-playlist
             :tracks="playlist"
         />

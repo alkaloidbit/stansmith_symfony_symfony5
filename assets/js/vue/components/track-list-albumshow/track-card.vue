@@ -26,7 +26,7 @@
             >{{ track.tracknumber }}</span>
         </div>
         <div class="middle-item title-wrapper">
-            <span>{{ track.title }}</span>
+            <span class="track-title">{{ track.title }}</span>
             <span>{{ track.artist.name }}</span>
         </div>
         <div class="duration right-item">

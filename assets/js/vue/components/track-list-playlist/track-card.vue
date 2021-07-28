@@ -43,7 +43,7 @@
             <!-- <span class="sound-bars" /> -->
         </div>
         <div class="middle-item title-wrapper">
-            <span>{{ track.title }}</span>
+            <span class="track-title">{{ track.title }}</span>
             <span>{{ track.artist.name }}</span>
         </div>
         <div
@@ -54,7 +54,6 @@
         <div class="duration right-item">
             {{ track.playtime_string }}
         </div>
-    </div>
     </div>
 </template>
 
