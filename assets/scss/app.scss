@@ -83,9 +83,21 @@
     .sk-bounce {
         height: 32px;
         width: 32px;
-        margin: 0 24px 0 5px;
+        margin: 0 24px 0 15px;
         .sk-bounce-dot {
             --sk-color: #fff;
+        }
+    }
+    .sk-swing {
+        margin: 0 24px 0 15px;
+        .sk-swing-dot {
+            --sk-color: #fff; 
+        }
+    }
+    .sk-wave {
+        margin: 0 24px 0 15px;
+        .sk-wave-rect {
+            --sk-color: #fff; 
         }
     }
     .icon {
