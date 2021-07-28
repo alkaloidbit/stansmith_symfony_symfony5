@@ -124,21 +124,11 @@ $link: $black-bis;
             margin-bottom: 3px;
         }
     }
-    &.on-playlist {
-       .left-item {
-            .play {
-                color: #fff;
-            }
-        }
-    }
     &.current-track {
         background-color: $primary;
         color: white;
         .left-item {
             margin: 0 24px 0 12px;
-            .tracknumber {
-                display: none;
-            }
         }
         &.is-playing {
             .sound-bars {
@@ -165,9 +155,6 @@ $link: $black-bis;
         width: 32px;
         height: 32px;
         margin: 0 24px 0 5px;
-        .play {
-            position: absolute;
-        }
     }
     .title-wrapper {
         display: flex;
@@ -270,12 +257,6 @@ $link: $black-bis;
     }
 }
 
-.is-loading {
-    background: url('../images/loading.gif') no-repeat left center;
-    .left-item img {
-        display: none
-    }
-}
 
 .playlist-item-renderer .title-wrapper {
     display: flex;

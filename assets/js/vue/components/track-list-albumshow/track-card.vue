@@ -18,6 +18,16 @@
             <div class="sk-bounce-dot" />
         </div>
         <div
+            v-else-if="isCurrentTrack && isLoaded && !isPlaying"
+            class="left-item"
+        >
+            <span
+                class="play icon is-medium"
+            >
+                <i class="mdi mdi-24px mdi-play" />
+            </span>
+        </div>
+        <div
             v-else
             class="left-item"
         >
