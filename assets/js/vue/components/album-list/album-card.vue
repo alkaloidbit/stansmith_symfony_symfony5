@@ -40,8 +40,8 @@
         </h3>
         <div>
             <p class="p-0 is-inline is-album-info">
-                <strong>{{ album.artist.name }}</strong> -
-                <strong>{{ album.date }}</strong>
+                <span>{{ album.artist.name }}</span> -
+                <span>{{ album.date }}</span>
             </p>
         </div>
     </div>
