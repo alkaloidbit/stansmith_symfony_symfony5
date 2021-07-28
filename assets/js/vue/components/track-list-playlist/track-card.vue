@@ -30,12 +30,12 @@
             v-else
             class="left-item"
         >
-            <!-- <span -->
-            <!--     v-if="!isLoading " -->
-            <!--     class="play icon is-medium" -->
-            <!-- > -->
-            <!--     <i class="mdi mdi-24px mdi-play" /> -->
-            <!-- </span> -->
+            <span
+                v-if="isCurrentTrack && !isLoading && isLoaded"
+                class="play icon is-large"
+            >
+                <i class="mdi mdi-36px mdi-play" />
+            </span>
             <img
                 :src="track.thumbnail.contentUrl"
                 alt=""
