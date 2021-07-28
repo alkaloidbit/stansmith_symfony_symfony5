@@ -6,7 +6,7 @@
             :track="track"
             :is-current-track="isCurrentTrack(track)"
             :class="[{'current-track': isCurrentTrack( track ),
-                      'is-playing': isCurrentTrack( track ) && isPlaying}]"
+                      'paused': isCurrentTrack( track ) && !isPlaying && isLoaded}]"
             @clicked="clickedHandler(track)"
         />
     </div>
@@ -32,9 +32,9 @@ export default {
         return {};
     },
     created() {
-        this.tracks.forEach((track) => {
-            console.log(track['@id'] === this.currentTrack['@id']);
-        });
+        // this.tracks.forEach((track) => {
+        // console.log(track['@id'] === this.currentTrack['@id']);
+        // });
     },
     methods: {
         isCurrentTrack(track) {
