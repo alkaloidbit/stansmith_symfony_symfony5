@@ -52,6 +52,7 @@ export default {
         },
     },
     created() {
+        console.log(this.isCurrentTrack);
     },
     methods: {
         handleClick(track) {

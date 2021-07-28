@@ -11,6 +11,7 @@ export default {
             'loopCurrentTrack',
             'isPlaying',
             'isLoading',
+            'isLoaded',
         ]),
         ...mapState('playlist', [
             'playlist',
