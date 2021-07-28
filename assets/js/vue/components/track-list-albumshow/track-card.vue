@@ -22,9 +22,9 @@
             class="left-item"
         >
             <span
-                class="play icon is-medium"
+                class="play icon is-large"
             >
-                <i class="mdi mdi-24px mdi-play" />
+                <i class="mdi mdi-36px mdi-play" />
             </span>
         </div>
         <div

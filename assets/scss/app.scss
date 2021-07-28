@@ -88,62 +88,38 @@ $link: $black-bis;
     .sk-bounce {
         height: 32px;
         width: 32px;
-        margin: 0 24px 0 15px;
+        margin: 0 24px 0 12px;
         .sk-bounce-dot {
             --sk-color: #fff;
         }
     }
     .sk-swing {
-        margin: 0 24px 0 15px;
+        margin: 0 24px 0 12px;
         .sk-swing-dot {
             --sk-color: #fff; 
         }
     }
     .sk-wave {
-        margin: 0 24px 0 15px;
+        margin: 0 24px 0 12px;
         .sk-wave-rect {
             --sk-color: #fff; 
         }
     }
-    .icon {
-        display: none;
-    }
     &.key-selected {
         border: 1px solid $primary;
-        .icon {
-            display: block;
-            margin-left: 5px;
-            margin-bottom: 3px;
-        }
     }
     &:hover {
         border: 1px solid $primary;
-        .icon {
-            display: block;
-            margin-left: 5px ;
-            margin-bottom: 3px;
-        }
     }
     &.current-track {
         background-color: $primary;
         color: white;
         .left-item {
-            margin: 0 24px 0 12px;
-        }
-        &.is-playing {
-            .sound-bars {
-                width: 20px;
-                height: 20px;
-                position: absolute;
-                background: url('../images/animated-sound-bars.gif') no-repeat center;
-                background-size: cover;
-            }
-            .icon {
-                display: none;
-            }
+            margin: 0 17px 0 12px;
         }
         .icon {
             display: block;
+            position: absolute;
             margin-left: -1px;
             margin-bottom: 0px;
         }
