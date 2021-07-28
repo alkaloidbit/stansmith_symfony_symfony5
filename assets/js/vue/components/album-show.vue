@@ -17,6 +17,14 @@
                         <p class="subtitle">
                             {{ totalTracks }} titres - {{ totalPlaytime }}
                         </p>
+                        <b-button
+                            type="is-dark"
+                            icon-left="play"
+                            outlined
+                            @click="addAlbumToPlaylist()"
+                        >
+                            LIRE
+                        </b-button>
                     </div>
                 </div>
             </div>
@@ -67,20 +75,16 @@
 import { fetchOneAlbum } from 'services/albums-service';
 import Loading from '@/components/loading';
 import TrackListAlbumshow from '@/components/track-list-albumshow';
-// import TitleComponent from '@/components/title';
-// import dayjs from 'dayjs';
-// import duration from 'dayjs/plugin/duration';
+import playerMixin from '@/mixins/playerMixin';
 import formatPlaytime from '../helpers/formatPlaytime';
-
-// dayjs.extend(duration);
 
 export default {
     name: 'AlbumShow',
     components: {
         Loading,
-        // TitleComponent,
         TrackListAlbumshow,
     },
+    mixins: [playerMixin],
     props: {
         albumId: {
             type: String,
@@ -107,6 +111,22 @@ export default {
         } finally {
             this.loading = false;
         }
+    },
+    methods: {
+        addAlbumToPlaylist() {
+            if (this.currentTrack) {
+                if (this.currentTrack.howl) {
+                    this.currentTrack.howl.stop();
+                }
+            }
+            this.$store.dispatch('playlist/initPlaylist');
+
+            this.album.tracks.forEach((track) => {
+                this.$store.dispatch('playlist/addTrackToPlaylist', track);
+            });
+
+            this.play();
+        },
     },
 };
 </script>
