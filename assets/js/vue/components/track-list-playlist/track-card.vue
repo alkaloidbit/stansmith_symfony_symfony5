@@ -2,8 +2,25 @@
     <div
         @click.prevent="handleClick(track)"
     >
+        <!-- <div -->
+        <!--     v-if="isCurrentTrack && isPlaying" -->
+        <!--     class="sk-wave" -->
+        <!-- > -->
+        <!--     <div class="sk-wave-rect" /> -->
+        <!--     <div class="sk-wave-rect" /> -->
+        <!--     <div class="sk-wave-rect" /> -->
+        <!--     <div class="sk-wave-rect" /> -->
+        <!--     <div class="sk-wave-rect" /> -->
+        <!-- </div> -->
         <div
-            v-if="isCurrentTrack && isLoading || isCurrentTrack && isPlaying"
+            v-if="isCurrentTrack && isPlaying"
+            class="sk-swing"
+        >
+            <div class="sk-swing-dot" />
+            <div class="sk-swing-dot" />
+        </div>
+        <div
+            v-else-if="isCurrentTrack && isLoading"
             class="sk-bounce"
         >
             <div class="sk-bounce-dot" />
@@ -37,6 +54,7 @@
         <div class="duration right-item">
             {{ track.playtime_string }}
         </div>
+    </div>
     </div>
 </template>
 
