@@ -10,7 +10,7 @@
 // $primary-invert: findColorInvert($primary);
 // $custom-colors: null !default;
 // $link: $primary;
-$link: $black-bis;
+$link: $grey-dark;
 // $link-invert: $primary-invert;
 // $link-focus-border: $primary;
 
@@ -29,7 +29,9 @@ $link: $black-bis;
 @import '~buefy/src/scss/buefy';
 @import '~@mdi/font/css/materialdesignicons.min.css';
 
-
+.title {
+    font-weight: $weight-bold;
+}
 
 .is-album-cover {
     position: relative;

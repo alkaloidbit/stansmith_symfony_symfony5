@@ -58,6 +58,7 @@ export default {
 
         addTrackToPlaylist(track) {
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
+            this.$buefy.snackbar.open(`Titre ${track.title} ajouté à la file d'attente.`);
         },
 
     },
