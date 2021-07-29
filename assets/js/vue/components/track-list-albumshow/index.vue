@@ -40,12 +40,26 @@ export default {
             }
             return false;
         },
+
         clickedHandler(track) {
-            this.addTrackToPlaylist(track);
+            const selectedTrackIndex = this.playlist.findIndex((item) => item['@id'] === track['@id']);
+
+            if (selectedTrackIndex !== -1) {
+                if (this.currentTrack) {
+                    if (this.currentTrack.howl) {
+                        this.currentTrack.howl.stop();
+                    }
+                }
+                this.play(selectedTrackIndex);
+            } else {
+                this.addTrackToPlaylist(track);
+            }
         },
+
         addTrackToPlaylist(track) {
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
         },
+
     },
 };
 </script>
