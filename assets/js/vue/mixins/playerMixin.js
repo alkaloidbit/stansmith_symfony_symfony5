@@ -64,7 +64,13 @@ export default {
             }
 
             this.$store.dispatch('currentIndex/setCurrentIndex', index);
+
             track.howl.play();
+            this.setTitle(track);
+        },
+
+        setTitle(track) {
+            document.title = `${track.title} - StansMusic`;
         },
 
         pause() {
