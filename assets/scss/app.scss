@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
 @import '~bulma/sass/utilities/_all';
-
+@import '~spinkit/spinkit.min.css';
 // Customizing bulma's variable
 // $family-primary: 'IBM Plex Sans', sans-serif;
 
@@ -24,7 +24,6 @@
     // ),
     // $custom-colors
 // );
-
 @import '~bulma';
 @import '~buefy/src/scss/buefy';
 @import '~@mdi/font/css/materialdesignicons.min.css';
@@ -54,6 +53,11 @@
     color: $grey-darker;
 }
 
+// .albumListalbumCardRootContainer a {
+//     color: #121212; 
+// }
+
+
 .overlay {
     position: absolute;
     top: 0;
@@ -69,40 +73,73 @@
 
 .playlist-item-renderer {
     display: flex;
-    align-items: center;
+    // align-items: center;
     padding: 10px 0px;
     cursor: pointer;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .sk-chase-dot:before {
+        background-color: #fff;
+    }
+    .sk-bounce {
+        height: 32px;
+        width: 32px;
+        margin: 0 24px 0 15px;
+        .sk-bounce-dot {
+            --sk-color: #fff;
+        }
+    }
+    .sk-swing {
+        margin: 0 24px 0 15px;
+        .sk-swing-dot {
+            --sk-color: #fff; 
+        }
+    }
+    .sk-wave {
+        margin: 0 24px 0 15px;
+        .sk-wave-rect {
+            --sk-color: #fff; 
+        }
+    }
     .icon {
         display: none;
     }
-    &:hover {
-        .tracknumber {
-            display: none;
-        }
-    }
-    &.selected {
-        background-color: $primary;
-        color: white;
-        .tracknumber {
-            display: none;
+    &.key-selected {
+        border: 1px solid $primary;
+        .icon {
+            display: block;
+            margin-left: 5px;
+            margin-bottom: 3px;
         }
     }
     &:hover {
+        border: 1px solid $primary;
         .icon {
             display: block;
             margin-left: 5px ;
             margin-bottom: 3px;
         }
     }
-    &.selected {
+    &.on-playlist {
+       .left-item {
+            .play {
+                color: #fff;
+            }
+        }
+    }
+    &.current-track {
+        background-color: $primary;
+        color: white;
         .left-item {
             margin: 0 24px 0 12px;
+            .tracknumber {
+                display: none;
+            }
         }
         &.is-playing {
             .sound-bars {
                 width: 20px;
                 height: 20px;
+                position: absolute;
                 background: url('../images/animated-sound-bars.gif') no-repeat center;
                 background-size: cover;
             }
@@ -123,12 +160,15 @@
         width: 32px;
         height: 32px;
         margin: 0 24px 0 5px;
+        .play {
+            position: absolute;
+        }
     }
     .title-wrapper {
         display: flex;
         flex: 1;
         flex-wrap: nowrap;
-        align-items: center;
+        //align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -144,8 +184,17 @@
     cursor: pointer;
 }
 
-.player-bar svg {
-    cursor: pointer;
+.player-bar {
+    .sk-bounce-dot {
+        --sk-color: #4a4a4a;
+    }
+    svg {
+        cursor: pointer;
+    }
+    img {
+        width: 40px;
+        margin-right: 10px;
+    }
 }
 .svg-wrapper {
     line-height: 1;
@@ -166,22 +215,44 @@
     }
 }
 
+.container.is-fluid.progress-bar {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.bar-container {
+    padding: 15px 0;    
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
 .progress-bar {
-    display: flex;
+    // display: flex;
     cursor: pointer;
     position: fixed;
-    bottom: 90px;
-    height: 5px;
-    background-color: $grey-lightest;
-    #progress {
+    bottom: 65px;
+    height: 30px;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #fff;
+    .progress-container {
+        // background-color: $grey-lightest;
+        // height: 5px;
         position: absolute;
         top: 0;
         left: 0;
+        bottom: 0;
+        right: 0;
+        overflow: hidden;
+    }
+    #progress {
+        position: absolute;
+        left: 0;
         width: 0%;
-        height: 100%;
+        height: 3px;
         transition: width .1s;        
         background-color: $body-color;
-        z-index: -1;
+        z-index: 0;
     }
     #progress-knob {
         width: 20px;
@@ -190,4 +261,31 @@
         height: 20px;
         position: absolute;
     }
+}
+
+.is-loading {
+    background: url('../images/loading.gif') no-repeat left center;
+    .left-item img {
+        display: none
+    }
+}
+
+.playlist-item-renderer .title-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.hover-time-info {
+    position: absolute;
+    top: 0;
+    transform: translate3d(-50%, -100%, 0);
+    border-radius: 4px;
+    background-color: $body-color;
+    color: #fff;
+    font-size: $size-small;
+    padding: 0 5px;
+    opacity: 0;
+}
+
+.progress-bar:hover .hover-time-info {
+    opacity: 1;
 }

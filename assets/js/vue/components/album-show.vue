@@ -28,10 +28,15 @@
                         v-if="album"
                         class="column is-one-half"
                     >
-                        <div class="is-album-cover">
+                        <div
+                            v-lazy-container="{ selector: 'img' }
+                            "
+                            class="is-album-cover"
+                        >
                             <img
                                 v-if="album.cover[0]"
-                                :src="album.cover[0].contentUrl"
+                                :data-src="album.cover[0].contentUrl"
+                                :data-loading="album.thumbnails[0].contentUrl"
                                 alt=""
                                 class="img-cover"
                             >
@@ -48,10 +53,8 @@
                         v-if="album"
                         class="column is-one-half"
                     >
-                        <track-list
+                        <track-list-albumshow
                             :tracks="album.tracks"
-                            :on-playlist="false"
-                            :selected-track="{}"
                         />
                     </div>
                 </div>
@@ -63,7 +66,7 @@
 <script>
 import { fetchOneAlbum } from 'services/albums-service';
 import Loading from '@/components/loading';
-import TrackList from '@/components/track-list';
+import TrackListAlbumshow from '@/components/track-list-albumshow';
 // import TitleComponent from '@/components/title';
 // import dayjs from 'dayjs';
 // import duration from 'dayjs/plugin/duration';
@@ -76,7 +79,7 @@ export default {
     components: {
         Loading,
         // TitleComponent,
-        TrackList,
+        TrackListAlbumshow,
     },
     props: {
         albumId: {

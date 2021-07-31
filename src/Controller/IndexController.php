@@ -37,6 +37,6 @@ class IndexController extends AbstractController
     public function test(AlbumRepository $albumRepository)
     {
         $album = $albumRepository->findOneBy(array('id' => 9));
-        dd($album->getTotalTracksPlaytime());
+        dd($album->getThumbnails()[0]);
     }
 }

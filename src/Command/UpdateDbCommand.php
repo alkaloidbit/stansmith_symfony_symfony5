@@ -36,31 +36,33 @@ class UpdateDbCommand extends Command
     {
         $this
             ->setDescription('Discover Files in configured directory and update Db')
-            ->addArgument('path', InputArgument::OPTIONAL, 'path')
-            ->addOption('dryrun', null, InputOption::VALUE_NONE, 'Option description')
+            // configure an argument
+            ->addArgument('pathContains', InputArgument::OPTIONAL, 'Path contains')
+            ->addOption('dryrun', null, InputOption::VALUE_NONE, 'The command will do nothing but print info')
+            ->addOption('show_table', null, InputOption::VALUE_NONE, 'The command will print a table showing results')
+            ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Set path to the directory')
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output, $showTableResults = false): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new SymfonyStyle($input, $output);
 
         $this->io->title('Update DB');
 
-        // Argument
-        $path = $input->getArgument('path');
-        if ($path) {
-            $this->io->note(sprintf('Processing files containing "%s" in their path...', $path));
-            $this->mediaManager->setPathOption($path);
+        $pathContains = $input->getArgument('pathContains');
+        if ($pathContains) {
+            $this->io->note(sprintf('Processing files containing "%s" in their path...', $pathContains));
+            $this->mediaManager->setPathOption($pathContains);
         }
+
+        $dryrun = $input->getOption('dryrun');
+        $show_table = $input->getOption('show_table');
+
+        $results = $this->mediaManager->synchronize($input->getOption('dir'), $this, $dryrun);
         
-        if ($input->getOption('dryrun')) {
-            $results = $this->mediaManager->synchronize(null, $this, true);
-        } else {
-            $results = $this->mediaManager->synchronize(null, $this, false);
-        }
-        
-        if ($showTableResults) {
+        // results
+        if ($show_table && !$dryrun) {
             $this->buildTable($output, $results);
         }
 
@@ -93,7 +95,7 @@ class UpdateDbCommand extends Command
         $table->render();
     }
 
-    public function logSynchronizationStatus($result)
+    public function statsSynchronizationResult($result)
     {
         if ($result === 1) {
             $this->ignored++;

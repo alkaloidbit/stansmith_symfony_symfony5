@@ -9,43 +9,31 @@
             size="is-medium"
             @click="clearPlaylist"
         />
-        <track-list
+        <track-list-playlist
             :tracks="playlist"
-            :current-track="currentTrack"
-            on-playlist
         />
     </div>
 </template>
 
 <script>
-import TrackList from '@/components/track-list';
+import TrackListPlaylist from '@/components/track-list-playlist';
 
 export default {
     name: 'Playlist',
     components: {
-        TrackList,
+        TrackListPlaylist,
     },
     props: {
-        playlist: {
-            type: Array,
-            required: false,
-            default: () => {},
-        },
         prevRoute: {
             type: Object,
             required: false,
             default: () => {},
         },
     },
-    data() {
-        return {};
-    },
     computed: {
-        currentTrack() {
-            return this.$store.getters['playlist/currentTrack'];
+        playlist() {
+            return this.$store.state.playlist.playlist;
         },
-    },
-    created() {
     },
     methods: {
         clearPlaylist() {

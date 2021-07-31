@@ -153,9 +153,6 @@ export default {
     margin-left: -1.5rem;
     margin-right: -1.5rem;
 }
-.hero.is-success {
-    background: #F2F6FA;
-}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

@@ -3,12 +3,14 @@ import { mapState } from 'vuex';
 export default {
     computed: {
         currentTrack() {
-            return this.$store.getters['playlist/currentTrack'];
+            const currentTrack = this.$store.getters['playlist/currentTrack'];
+            return currentTrack;
         },
         ...mapState('player', [
             'duration',
             'loopCurrentTrack',
             'isPlaying',
+            'isLoading',
         ]),
         ...mapState('playlist', [
             'playlist',
@@ -18,26 +20,35 @@ export default {
         ]),
     },
 
+    created() {
+    },
     methods: {
         play(index) {
             if (!this.currentTrack) return;
-
             index = typeof index === 'number' ? index : this.currentIndex;
+
+            // const [track1] = this.playlist;
+            // console.log(track1);
 
             const track = this.playlist[index];
             const splits = track['@id'].split('/');
             const src = `/api/player/${splits[3]}/stream`;
+
             if (!track.howl) {
+                this.$store.dispatch('player/onLoading');
+                console.log('creating new Howl');
                 /* eslint-disable-next-line no-undef */
                 track.howl = new Howl({
                     src: [src],
-                    format: ['ogg'],
+                    format: [track.fileformat],
                     html5: false,
                     loop: this.loopCurrentTrack,
+                    pool: 5,
                     onload: () => {
+                        this.$store.dispatch('player/onLoadingSuccess', { duration: track.howl.duration() }, { root: true });
                     },
                     onplay: () => {
-                        this.$store.dispatch('player/setDuration', { duration: track.howl.duration() }, { root: true });
+                        this.$store.dispatch('player/play', { isPlaying: true });
                     },
                     onend: () => {
                         if (!this.loopCurrentTrack) {
@@ -48,11 +59,11 @@ export default {
                     },
                 });
             } else {
-                console.log('howl exists!');
+                console.log('Howl exists!');
             }
-            track.howl.play();
+
             this.$store.dispatch('currentIndex/setCurrentIndex', index);
-            this.$store.dispatch('player/play', null, { root: true });
+            track.howl.play();
         },
 
         pause() {
@@ -73,7 +84,6 @@ export default {
             if (direction === 'forward') {
                 index = this.currentIndex + 1;
                 if (index >= this.playlist.length) {
-                    // this.store.dispatch('player/initCurrentIndex');
                     index = 0;
                 }
             } else {

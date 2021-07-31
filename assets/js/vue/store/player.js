@@ -6,31 +6,51 @@ export default {
         duration: null,
         isPlaying: false,
         loopCurrentTrack: false,
+        isLoading: false,
+        isLoaded: false,
     },
     getters: {
+        isLoaded(state) {
+            return state.isLoaded;
+        },
     },
     mutations: {
-        [constants.SET_IS_PLAYING](state, payload) {
-            state.isPlaying = payload.isPlaying;
+        [constants.LOADING](state) {
+            state.isLoading = true;
+            state.isLoaded = false;
+            state.isPlaying = false;
+            state.duration = null;
         },
-        [constants.SET_DURATION](state, payload) {
+        [constants.LOADING_SUCCESS](state, payload) {
+            state.isLoading = false;
+            state.isLoaded = true;
+            state.isPlaying = false;
             state.duration = payload.duration;
+        },
+        [constants.PLAYING](state, payload) {
+            state.isPlaying = payload.isPlaying;
+            state.isLoaded = true;
+            state.isLoading = false;
         },
         [constants.TOGGLE_LOOP_CURRENT_TRACK](state) {
             state.loopCurrentTrack = !state.loopCurrentTrack;
         },
     },
     actions: {
-        setDuration({ commit }, payload) {
-            commit(constants.SET_DURATION, payload);
+        onLoading({ commit }) {
+            commit(constants.LOADING);
+        },
+
+        onLoadingSuccess({ commit }, payload) {
+            commit(constants.LOADING_SUCCESS, payload);
         },
 
         play({ commit }) {
-            commit(constants.SET_IS_PLAYING, { isPlaying: true });
+            commit(constants.PLAYING, { isPlaying: true });
         },
 
         pause({ commit }) {
-            commit(constants.SET_IS_PLAYING, { isPlaying: false });
+            commit(constants.PLAYING, { isPlaying: false });
         },
 
         toggleLoopCurrentTrack({ commit }) {

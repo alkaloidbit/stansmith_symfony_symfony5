@@ -82,11 +82,18 @@ class Album
      */
     private $active;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ThumbnailObject::class, mappedBy="album", orphanRemoval=true)
+     * @Groups({"album:write", "album:read"})
+     */
+    private $thumbnails;
+
 
     public function __construct()
     {
         $this->tracks = new ArrayCollection();
         $this->cover = new ArrayCollection();
+        $this->thumbnails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +238,36 @@ class Album
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ThumbnailObject[]
+     */
+    public function getThumbnails(): Collection
+    {
+        return $this->thumbnails;
+    }
+
+    public function addThumbnail(ThumbnailObject $thumbnail): self
+    {
+        if (!$this->thumbnails->contains($thumbnail)) {
+            $this->thumbnails[] = $thumbnail;
+            $thumbnail->setAlbum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThumbnail(ThumbnailObject $thumbnail): self
+    {
+        if ($this->thumbnails->removeElement($thumbnail)) {
+            // set the owning side to null (unless already changed)
+            if ($thumbnail->getAlbum() === $this) {
+                $thumbnail->setAlbum(null);
+            }
+        }
 
         return $this;
     }

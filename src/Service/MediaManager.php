@@ -56,17 +56,22 @@ class MediaManager
 
         if ($dryrun) {
             foreach ($files as $fileInfo) {
-                $command->advanceProgress();
+                // $command->advanceProgress();
+                // return fileInfo
                 $result = $this->fileSynchronizer->setFile($fileInfo)->synchronize(true);
+                dump($result);
             }
-            $command->finishProgress();
+            // $command->finishProgress();
         } else {
             $results = [];
             foreach ($files as $fileInfo) {
                 $command->advanceProgress();
+                // Synchronize fileinfo with DB
+                // and return status 1, 2 or 3
                 $result = $this->fileSynchronizer->setFile($fileInfo)->synchronize();
-                $command->logSynchronizationStatus($result);
+                $command->statsSynchronizationResult($result);
 
+                // Data to be shown on command table
                 switch ($result) {
                     case 1:
                         $results['unmodified'][] = $fileInfo->getFileName();

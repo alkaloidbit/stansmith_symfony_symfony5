@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TrackRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -45,7 +47,7 @@ class Track
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"track:read"})
+     * @Groups({"track:read", "album:read"})
      * @SerializedName("album")
      */
     private $meta_album;
@@ -119,6 +121,18 @@ class Track
      * @Groups({"track:read", "album:read"})
      */
     private $meta_filesize;
+
+    /**
+     * @Groups({"track:read", "album:read"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fileformat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ThumbnailObject::class, inversedBy="tracks")
+     * @Groups({"track:read", "album:read"})
+     */
+    private $thumbnail;
 
 
     public function getPath(): ?string
@@ -297,6 +311,30 @@ class Track
     public function setMetaFilesize(?int $meta_filesize): self
     {
         $this->meta_filesize = $meta_filesize;
+
+        return $this;
+    }
+
+    public function getFileformat(): ?string
+    {
+        return $this->fileformat;
+    }
+
+    public function setFileformat(?string $fileformat): self
+    {
+        $this->fileformat = $fileformat;
+
+        return $this;
+    }
+
+    public function getThumbnail(): ?ThumbnailObject
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(?ThumbnailObject $thumbnail): self
+    {
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }

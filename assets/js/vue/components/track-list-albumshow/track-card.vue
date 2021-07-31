@@ -1,0 +1,39 @@
+<template>
+    <div
+        class="trackCardAlbumshowRootContainer playlist-item-renderer"
+        @click.prevent="handleClick(track)"
+    >
+        <div class="left-item">
+            <span
+                class="tracknumber"
+            >{{ track.tracknumber }}</span>
+        </div>
+        <div class="middle-item title-wrapper">
+            <span>{{ track.title }}</span>
+            <span>{{ track.artist.name }}</span>
+        </div>
+        <div class="duration right-item">
+            {{ track.playtime_string }}
+        </div>
+    </div>
+</template>
+
+<script>
+
+export default {
+    name: 'TrackCard',
+    props: {
+        track: {
+            type: Object,
+            required: true,
+        },
+    },
+    created() {
+    },
+    methods: {
+        handleClick(track) {
+            this.$emit('clicked', track);
+        },
+    },
+};
+</script>

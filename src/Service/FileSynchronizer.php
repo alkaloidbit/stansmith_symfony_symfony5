@@ -66,10 +66,10 @@ class FileSynchronizer
      */
     private $trackEntity;
 
-    private $imageService;
+    private $mediaImageService;
 
 
-    public function __construct(MetadataHelper $metadataHelper, TrackRepository $trackRepository, ArtistRepository $artistRepository, AlbumRepository $albumRepository, HelperService $helperService, EntityManagerInterface $em, ImageService $imageService)
+    public function __construct(MetadataHelper $metadataHelper, TrackRepository $trackRepository, ArtistRepository $artistRepository, AlbumRepository $albumRepository, HelperService $helperService, EntityManagerInterface $em, MediaImageService $mediaImageService)
     {
         $this->metadataHelper = $metadataHelper;
         $this->helperService = $helperService;
@@ -78,7 +78,7 @@ class FileSynchronizer
         $this->albumRepository = $albumRepository;
         $this->finder = new Finder();
         $this->em = $em;
-        $this->imageService = $imageService;
+        $this->mediaImageService = $mediaImageService;
     }
 
 
@@ -109,8 +109,7 @@ class FileSynchronizer
     public function synchronize($dryrun = false)
     {
         if ($dryrun) {
-            $info = $this->getFileInfo($dryrun);
-            dump($info);
+            return $this->getFileInfo(false);
         } else {
             // file is not new
             // return !$this->trackEntity
@@ -125,7 +124,6 @@ class FileSynchronizer
             }
 
             // file is new.
-            // who's the artist ?
             // get or Create new Artist
             if (!$artist = $this->artistRepository->findOneBy(array('name' => $info['artist']))) {
                 $artist = new Artist();
@@ -153,27 +151,28 @@ class FileSynchronizer
                 }
 
                 $album->setArtist($artist);
-
-                // Cover collection === 0
-                if (count($album->getCover()) === 0) {
-                    $this->generateAlbumCover($album, $info);
-                }
-
                 $album->setActive(true);
 
                 $this->em->persist($album);
                 $this->em->flush();
+                
+                // Cover collection === 0
+                if (count($album->getCover()) === 0) {
+                    $this->generateAlbumCover($album, $info);
+                }
             }
 
             // Create new track
             if (!$this->trackEntity ||
                 $this->trackEntity->getMTime() !== $this->fileModifiedTime) {
                 $this->trackEntity = new Track();
+
                 $this->trackEntity->setId($this->fileHash);
                 $this->trackEntity->setPath($this->filePath);
                 $this->trackEntity->setMtime($this->fileModifiedTime);
                 $this->trackEntity->setMimeType($info['mime_type']);
                 $this->trackEntity->setTitle($info['title']);
+                $this->trackEntity->setFileformat($info['fileformat']);
 
                 $this->trackEntity->setMetaArtist($info['artist']);
                 $this->trackEntity->setMetaAlbum($info['album']);
@@ -187,6 +186,9 @@ class FileSynchronizer
                 $this->trackEntity->setArtist($artist);
                 $this->trackEntity->setAlbum($album);
 
+                $thumbnail = $album->getThumbnails()[0];
+                $this->trackEntity->setThumbnail($thumbnail);
+                
                 $this->em->persist($this->trackEntity);
                 $this->em->flush();
             }
@@ -202,11 +204,10 @@ class FileSynchronizer
             dd($albumInfo);
         }
 
-        // check if there s a cover file in track directory
         if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
             $origname = $cover->getBasename('.' . $cover->getExtension());
-            $this->imageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
+            $this->mediaImageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
         }
     }
 
@@ -223,11 +224,15 @@ class FileSynchronizer
             return $info;
         }
 
-        if (!isset($info['tags']['vorbiscomment'])) {
+        if (!isset($info['comments'])) {
             return ;
         }
 
-        $props = $this->extractPropsFromVorbisComment($info['tags']['vorbiscomment']);
+        try {
+            $props = $this->extractPropsFromCommentsHtml($info['comments']);
+        } catch (\Exception $e) {
+            echo $this->filePath . 'extractPropsFromCommentsHtml is throwing exception handling this file: '. $e->getMessage();
+        }
 
         $props = array_merge(
             $props,
@@ -235,7 +240,8 @@ class FileSynchronizer
                 'filesize' => $info['filesize'],
                 'playtime_seconds' => $info['playtime_seconds'],
                 'playtime_string' => $info['playtime_string'],
-                'mime_type' => $info['mime_type']
+                'mime_type' => $info['mime_type'],
+                'fileformat' => $info['fileformat']
             )
         );
 
@@ -283,15 +289,32 @@ class FileSynchronizer
         }
     }
 
-    public function extractPropsFromVorbisComment(array $vorbiscomment)
+    public function extractPropsFromCommentsHtml(array $comments)
     {
+        if (isset($comments['date'][0]) && $comments['date'][0]) {
+            $date = $comments['date'][0];
+        } elseif (isset($comments['year'][0]) && $comments['year'][0]) {
+            $date = $comments['year'][0];
+        } else {
+            $date = '';
+        }
+
+        if (isset($comments['track_number'][0]) && $comments['track_number'][0]) {
+             $track_number = $comments['track_number'][0];
+        } elseif (isset($comments['tracknumber'][0]) && $comments['tracknumber'][0]) {
+            $track_number = $comments['tracknumber'][0];
+        } else {
+            $track_number = '';
+        }
+
         return array(
-            'title' => $vorbiscomment['title'][0],
-            'artist' => $vorbiscomment['artist'][0],
-            'albumartist' => isset($vorbiscomment['albumartist']) ? $vorbiscomment['albumartist'][0] : null,
-            'album' => $vorbiscomment['album'][0],
-            'genre' => (isset($vorbiscomment['genre'][0]) && $vorbiscomment['genre'][0]) ? $vorbiscomment['genre'][0] : '',
-            'date' => $vorbiscomment['date'][0],
-            'track_number' => $vorbiscomment['tracknumber'][0] );
+            'title' => isset($comments['title']) ? $comments['title'][0] : '',
+            'artist' => $comments['artist'][0],
+            'albumartist' => isset($comments['albumartist']) ? $comments['albumartist'][0] : null,
+            'album' => $comments['album'][0],
+            'genre' => (isset($comments['genre'][0]) && $comments['genre'][0]) ? $comments['genre'][0] : '',
+            'date' => $date,
+            'track_number' => $track_number,
+        );
     }
 }
