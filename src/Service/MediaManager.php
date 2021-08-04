@@ -104,6 +104,7 @@ class MediaManager
             $this->finder->create()
                          ->path($this->pathOption)
                          ->files()
+                         ->name('/\.(mp3|flac|ogg|m4a)$/i')
                          ->in($path)
         );
     }

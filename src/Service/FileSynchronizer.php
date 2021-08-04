@@ -228,6 +228,8 @@ class FileSynchronizer
             return ;
         }
 
+        $props = [];
+
         try {
             $props = $this->extractPropsFromCommentsHtml($info['comments']);
         } catch (\Exception $e) {
