@@ -83,7 +83,11 @@ $link: $grey-dark;
     align-items: center;
     padding: 10px 0px;
     cursor: pointer;
+    border: 1px solid transparent;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .dropdown-tracklist {
+        display: none;
+    }
     .sk-chase-dot:before {
         background-color: #fff;
     }
@@ -108,10 +112,13 @@ $link: $grey-dark;
         }
     }
     &.key-selected {
-        border: 1px solid $primary;
+        border-color: $primary;
     }
     &:hover {
-        border: 1px solid $primary;
+        border-color: $primary;
+        .dropdown-tracklist {
+            display: inline-flex;
+        }
     }
     &.current-track {
         background-color: $primary;
@@ -125,6 +132,9 @@ $link: $grey-dark;
             margin-left: -1px;
             margin-bottom: 0px;
         }
+    }
+    .right-item {
+        display: flex;
     }
     .left-item {
         display: flex;
