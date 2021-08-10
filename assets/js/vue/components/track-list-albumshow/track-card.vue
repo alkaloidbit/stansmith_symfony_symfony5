@@ -39,8 +39,28 @@
             <span class="track-title">{{ track.title }}</span>
             <span>{{ track.artist.name }}</span>
         </div>
-        <div class="duration right-item">
-            {{ track.playtime_string }}
+        <div class="right-item">
+            <b-dropdown aria-role="list">
+                <template #trigger="{ active }">
+                    <b-button
+                        :icon-right="active ? 'menu-up' : 'menu-down'"
+                        type="is-dark"
+                    />
+                </template>
+
+                <b-dropdown-item aria-role="listitem">
+                    Action
+                </b-dropdown-item>
+                <b-dropdown-item aria-role="listitem">
+                    Another action
+                </b-dropdown-item>
+                <b-dropdown-item aria-role="listitem">
+                    Something else
+                </b-dropdown-item>
+            </b-dropdown>
+            <div class="duration">
+                {{ track.playtime_string }}
+            </div>
         </div>
     </div>
 </template>
