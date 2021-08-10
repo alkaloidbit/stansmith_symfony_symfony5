@@ -31,7 +31,6 @@ export default {
     created() {
     },
     methods: {
-
         clickedHandler(track) {
             const selectedTrackIndex = this.playlist.findIndex((item) => item['@id'] === track['@id']);
 
