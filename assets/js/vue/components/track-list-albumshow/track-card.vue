@@ -1,39 +1,13 @@
 <template>
     <div
         class="trackCardAlbumshowRootContainer playlist-item-renderer"
+        :class="[{'current-track': isCurrentTrack( track ),
+                  'is-playing': isCurrentTrack( track ) && isPlaying}]"
     >
-        <div
-            v-if="isCurrentTrack && isPlaying"
-            class="sk-swing"
-        >
-            <div class="sk-swing-dot" />
-            <div class="sk-swing-dot" />
-        </div>
-        <div
-            v-else-if="isCurrentTrack && isLoading"
-            class="sk-bounce"
-        >
-            <div class="sk-bounce-dot" />
-            <div class="sk-bounce-dot" />
-        </div>
-        <div
-            v-else-if="isCurrentTrack && isLoaded && !isPlaying"
-            class="left-item"
-        >
-            <span
-                class="play icon is-large"
-            >
-                <i class="mdi mdi-36px mdi-play" />
-            </span>
-        </div>
-        <div
-            v-else
-            class="left-item"
-        >
-            <span
-                class="tracknumber"
-            >{{ track.tracknumber }}</span>
-        </div>
+        <track-card-loading
+            :track="track"
+            :is-current-track="isCurrentTrack(track)"
+        />
         <div class="middle-item title-wrapper">
             <span class="track-title">{{ track.title }}</span>
             <span>{{ track.artist.name }}</span>
@@ -77,23 +51,29 @@
 
 <script>
 import playerMixin from '@/mixins/playerMixin';
+import TrackCardLoading from '@/components/TrackCardLoading';
 
 export default {
     name: 'TrackCard',
+    components: {
+        TrackCardLoading,
+    },
     mixins: [playerMixin],
     props: {
         track: {
             type: Object,
             required: true,
         },
-        isCurrentTrack: {
-            type: Boolean,
-            required: true,
-        },
     },
     created() {
     },
     methods: {
+        isCurrentTrack(track) {
+            if (this.currentTrack) {
+                return track['@id'] === this.currentTrack['@id'];
+            }
+            return false;
+        },
         handleClick(track) {
             console.log(track);
             this.$emit('clicked', track);

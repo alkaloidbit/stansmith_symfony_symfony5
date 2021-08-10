@@ -4,9 +4,6 @@
             v-for="(track, index) in tracks"
             :key="index + track['@id']"
             :track="track"
-            :is-current-track="isCurrentTrack(track)"
-            :class="[{'current-track': isCurrentTrack( track ),
-                      'is-playing': isCurrentTrack( track ) && isPlaying}]"
             @clicked="clickedHandler(track)"
         />
     </div>
@@ -34,12 +31,6 @@ export default {
     created() {
     },
     methods: {
-        isCurrentTrack(track) {
-            if (this.currentTrack) {
-                return track['@id'] === this.currentTrack['@id'];
-            }
-            return false;
-        },
 
         clickedHandler(track) {
             const selectedTrackIndex = this.playlist.findIndex((item) => item['@id'] === track['@id']);
