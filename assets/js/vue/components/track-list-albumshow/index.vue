@@ -4,7 +4,7 @@
             v-for="(track, index) in tracks"
             :key="index + track['@id']"
             :track="track"
-            @clicked="clickedHandler(track)"
+            @playlist-plus="playlistPlus(track)"
         />
     </div>
 </template>
@@ -31,7 +31,7 @@ export default {
     created() {
     },
     methods: {
-        clickedHandler(track) {
+        playTrackInPlaylist(track) {
             const selectedTrackIndex = this.playlist.findIndex((item) => item['@id'] === track['@id']);
 
             if (selectedTrackIndex !== -1) {
@@ -41,16 +41,12 @@ export default {
                     }
                 }
                 this.play(selectedTrackIndex);
-            } else {
-                this.addTrackToPlaylist(track);
             }
         },
-
-        addTrackToPlaylist(track) {
+        playlistPlus(track) {
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
             this.$buefy.snackbar.open(`Titre ${track.title} ajouté à la file d'attente.`);
         },
-
     },
 };
 </script>
