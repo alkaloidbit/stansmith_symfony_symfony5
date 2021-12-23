@@ -11,7 +11,7 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "dev-server": "encore dev-server --public http://192.168.1.43:8080 --host 0.0.0.0",
+        "dev-server": "encore dev-server --public http://192.168.0.43:8080 --host 0.0.0.0",
         "dev-server-local": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",

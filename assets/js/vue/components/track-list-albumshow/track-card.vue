@@ -66,6 +66,7 @@ export default {
         },
     },
     created() {
+        console.log('created');
     },
     methods: {
         isCurrentTrack(track) {
