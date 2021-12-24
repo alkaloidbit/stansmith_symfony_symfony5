@@ -36,7 +36,7 @@
                 </b-dropdown-item>
                 <b-dropdown-item
                     aria-role="listitem"
-                    @click="this.$emit('playlist-plus', track)"
+                    @click="addTrackToPlaylist(track)"
                 >
                     <b-icon icon="playlist-plus" />
                     Ajouter à la file d'attente
@@ -66,7 +66,7 @@ export default {
         },
     },
     created() {
-        console.log('created');
+        // console.log('created');
     },
     methods: {
         isCurrentTrack(track) {
@@ -74,6 +74,9 @@ export default {
                 return track['@id'] === this.currentTrack['@id'];
             }
             return false;
+        },
+        addTrackToPlaylist(track) {
+            this.$emit('playlist-plus', track);
         },
     },
 };
