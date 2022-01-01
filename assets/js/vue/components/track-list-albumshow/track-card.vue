@@ -30,7 +30,10 @@
                     </a>
                 </template>
 
-                <b-dropdown-item aria-role="listitem">
+                <b-dropdown-item
+                    aria-role="listitem"
+                    @click="addTrackNextInPlaylist"
+                >
                     <b-icon icon="playlist-play" />
                     Lire ensuite
                 </b-dropdown-item>
@@ -74,6 +77,9 @@ export default {
                 return track['@id'] === this.currentTrack['@id'];
             }
             return false;
+        },
+        addTrackNextInPlaylist(track) {
+            this.$emit('playlist-add-next', track);
         },
         addTrackToPlaylist(track) {
             this.$emit('playlist-plus', track);

@@ -5,6 +5,7 @@
             :key="index + track['@id']"
             :track="track"
             @playlist-plus="playlistPlus(track)"
+            @playlist-add-next="playlistAddNext(track)"
         />
     </div>
 </template>
@@ -43,8 +44,10 @@ export default {
                 this.play(selectedTrackIndex);
             }
         },
+        playlistAddNext(track) {
+            this.$store.dispatch('playlist/addTrackNextInPlaylist', track);
+        },
         playlistPlus(track) {
-            console.log(track);
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
             this.$buefy.snackbar.open(`Titre ${track.title} ajouté à la file d'attente.`);
         },
