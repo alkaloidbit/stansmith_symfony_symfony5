@@ -71,7 +71,7 @@ class MediaManager
                 $result = $this->fileSynchronizer->setFile($fileInfo)->synchronize();
                 $command->statsSynchronizationResult($result);
 
-                // Data to be shown on command table
+                // Data to be shown on results table
                 switch ($result) {
                     case 1:
                         $results['unmodified'][] = $fileInfo->getFileName();
