@@ -42,7 +42,7 @@ export default {
                 track.howl = new Howl({
                     src: [src],
                     format: [track.fileformat],
-                    html5: false,
+                    html5: true,
                     loop: this.loopCurrentTrack,
                     pool: 5,
                     onload: () => {
