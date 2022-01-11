@@ -25,11 +25,14 @@
                                 <file-picker/>
                             </b-field>
                             <hr>
-                            <b-field label="Title" message="Album title" horizontal>
+                            <b-field label="Title" message="Album's title" horizontal>
                                 <b-input placeholder="e.g. White Album" v-model="form.title" required />
                             </b-field>
                             <b-field label="Artist" message="Album's artist" horizontal>
                                 <b-input placeholder="e.g. the Beatles" v-model="form.artist.name" required />
+                            </b-field>
+                            <b-field label="Year" message="Album's year" horizontal>
+                                <b-input placeholder="e.g. 1993" v-model="form.date" required />
                             </b-field>
                             <b-field label="Created" horizontal>
                                 <b-datepicker
@@ -180,9 +183,8 @@ export default {
         },
         submit () {
             this.isLoading = true
-            axios.put(`/api/albums/${this.form.id}`, { cover: [this.cover['@id']] })
+            axios.put(`/api/albums/${this.form.id}`, { cover: [this.cover['@id']], date: this.form.date, title: this.form.title })
                 .then((res) => {
-                    console.log(res)
                     this.isLoading = false
                     this.$buefy.snackbar.open({
                         message: 'Cover updated',
