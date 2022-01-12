@@ -43,6 +43,8 @@ export default {
                     src: [src],
                     format: [track.fileformat],
                     html5: true,
+                    autoplay: true,
+                    preload: 'metadata',
                     loop: this.loopCurrentTrack,
                     pool: 5,
                     onload: () => {

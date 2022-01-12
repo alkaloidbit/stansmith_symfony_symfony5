@@ -35,11 +35,12 @@ class PlayerController extends AbstractController
             $pathToStream = str_replace($this->media_path, '', $track->getPath());
             $fileStream = $fileStreamer->readStream($pathToStream, false);
             stream_copy_to_stream($fileStream, $outputStream);
-        });
-
-        /* $response->headers->set('Content-Type', $track->getMimeType()); */
-        
-        $response->headers->set('Content-Type', 'Access-Control-Allow-Headers');
+        }, 200, [
+            'Content-Disposition'=> 'inline',
+            'Content-Length' => filesize($track->getPath()),
+            'Content-type' => $track->getMimeType(),
+            'Accept-Ranges' => 'bytes',
+        ]);
 
         return $response;
     }
