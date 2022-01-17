@@ -43,7 +43,7 @@ export function fetchAlbums(artistIri, searchTerm) {
         });
     }
 
-    const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=cover&properties[]=date';
+    const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=cover&properties[]=thumbnails&properties[]=date';
     const activeFilter = '&active=true';
     return axios.get(`/api/albums?${propertiesFilter}${activeFilter}`, {
         params,
