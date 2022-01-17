@@ -40,7 +40,10 @@
         </h3>
         <div>
             <p class="p-0 is-inline is-album-info">
-                <span>{{ album.artist.name }}</span> -
+                <router-link
+                    :to="`/artist/${album.artist.id}`">
+                    <span>{{ album.artist.name }}</span> -
+                </router-link>
                 <span>{{ album.date }}</span>
             </p>
         </div>
