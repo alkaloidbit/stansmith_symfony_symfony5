@@ -7,11 +7,12 @@
                     :to="{ path: '/player' }"
                     class="navbar__brand"
                 >
-                    <!-- <img
-                        src="https://avatars.dicebear.com/api/avataaars/:stansmith.svg"
+                    <!-- https://stackoverflow.com/questions/59070216/webpack-file-loader-outputs-object-module -->
+                    <img
+                        :src="require('../../../../images/gnome-music.svg').default"
                         alt="Lightweight UI components for Vue.js based on Bulma."
-                    > -->
-                    <strong class="navbar_title">StansMusic</strong>
+                    >
+                    <!-- <strong class="navbar_title">StansMusic</strong> -->
                 </b-navbar-item>
             </template>
             <template #start>
@@ -70,7 +71,7 @@ nav {
     }
 }
 .navbar-item img {
-    max-height: 75%;
+    max-height: 100%;
 }
 
 </style>
