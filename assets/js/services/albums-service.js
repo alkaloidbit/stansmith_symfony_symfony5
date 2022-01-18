@@ -13,8 +13,10 @@ export function fetchAlbums(artistIri, searchTerm) {
         params.artist = artistIri;
     }
 
+    console.log('searchTerm: ', searchTerm);
+
     if (searchTerm) {
-        params.title = searchTerm;
+        params.artist__name = searchTerm;
     }
 
     // if no filter param, use window.albums as data source

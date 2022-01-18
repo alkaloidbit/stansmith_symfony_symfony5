@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter;
 use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,6 +28,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
  *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"}
  * )
+ * @ApiFilter(AlbumSearchSupportUnderscoreFilter::class, properties={"artist.name": "partial"})
  * @ApiFilter(SearchFilter::class, properties={"artist": "exact", "title": "partial", "id": "exact"})
  * @ApiFilter(BooleanFilter::class, properties={"active"})
  * @ApiFilter(PropertyFilter::class)
