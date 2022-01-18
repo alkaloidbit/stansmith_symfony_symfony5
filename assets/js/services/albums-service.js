@@ -19,7 +19,7 @@ export function fetchAlbums(artistIri, searchTerm) {
         params.artist__name = searchTerm;
     }
 
-    // if no filter param, use window.albums as data source
+    // if no filter param, return window.albums
     if (Object.keys(params).length === 0) {
         return new Promise((resolve, reject) => {
             resolve({
