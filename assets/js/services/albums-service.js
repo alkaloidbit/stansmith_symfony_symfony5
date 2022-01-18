@@ -5,24 +5,6 @@ import axios from 'axios';
  * @parma {string|mull} searchTerm
  * @returns {Promise}
  */
-// export function fetchAlbums(artistIri, searchTerm) {
-//     const params = {};
-//     if (artistIri) {
-//         params.artist = artistIri;
-//     }
-
-//     if (searchTerm) {
-//         params.title = searchTerm;
-//     }
-
-//     const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=cover&properties[]=date';
-//     const activeFilter = '&active=true';
-//     return axios.get(`/api/albums?${propertiesFilter}${activeFilter}`, {
-//         params,
-//     });
-// }
-//
-
 export function fetchAlbums(artistIri, searchTerm) {
     const params = {};
     if (artistIri) {
