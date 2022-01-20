@@ -107,6 +107,7 @@ export default {
             axios
                 .get(this.dataUrl)
                 .then(r => {
+                    console.log(r.data)
                     this.isLoading = false
                     if (r.data && r.data.data) {
                         if (r.data.data.length > this.perPage) {

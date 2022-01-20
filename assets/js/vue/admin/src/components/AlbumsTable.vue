@@ -75,7 +75,7 @@ export default {
             trashObject: null,
             albums: [],
             isLoading: false,
-            paginated: false,
+            paginated: true,
             perPage: 30,
             checkedRows: []
         }
@@ -96,11 +96,11 @@ export default {
                 .get(this.dataUrl)
                 .then(r => {
                     this.isLoading = false
+                    console.log(r.data)
                     if (r.data && r.data['hydra:member']) {
                         if (r.data['hydra:member'].length > this.perPage) {
                             this.paginated = true
                         }
-                        console.log(r.data['hydra:member'][0])
                         this.albums = r.data['hydra:member']
                     }
                 })

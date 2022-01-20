@@ -26,7 +26,10 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
- *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"}
+ *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"},
+ *      attributes={
+ *          "pagination_items_per_page"=90
+ *      }
  * )
  * @ApiFilter(AlbumSearchSupportUnderscoreFilter::class, properties={"artist.name": "partial"})
  * @ApiFilter(SearchFilter::class, properties={"artist": "exact", "title": "partial", "id": "exact"})
