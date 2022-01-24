@@ -186,6 +186,7 @@ class FileSynchronizer
                 $this->trackEntity->setArtist($artist);
                 $this->trackEntity->setAlbum($album);
 
+                // get ThumbnailObject associated with album                // associate it whith trackEntity
                 $thumbnail = $album->getThumbnails()[0];
                 $this->trackEntity->setThumbnail($thumbnail);
                 
@@ -203,7 +204,7 @@ class FileSynchronizer
         if (array_key_exists('cover', $albumInfo)) {
             dd($albumInfo);
         }
-
+        
         if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
             $origname = $cover->getBasename('.' . $cover->getExtension());
