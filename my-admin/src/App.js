@@ -1,9 +1,15 @@
-import { HydraAdmin, fetchHydra,  ListGuesser,  hydraDataProvider } from '@api-platform/admin';
+import { 
+    HydraAdmin,
+    fetchHydra,
+    ListGuesser,
+    hydraDataProvider
+} from '@api-platform/admin';
+
 import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
 
 import { Resource } from 'react-admin';
 import AlbumIcon from '@material-ui/icons/Album';
-import { AlbumList } from './albums';
+import { AlbumsList } from './albums';
 
 const entrypoint = process.env.REACT_APP_ADMIN_ENTRYPOINT;
 
@@ -19,6 +25,6 @@ export default () => (
     <HydraAdmin 
         dataProvider={dataProvider}
         entrypoint={entrypoint}>
-        <Resource name="albums" list={AlbumList} icon={AlbumIcon} />
+        <Resource name="albums" list={AlbumsList} icon={AlbumIcon} />
     </HydraAdmin>
 );

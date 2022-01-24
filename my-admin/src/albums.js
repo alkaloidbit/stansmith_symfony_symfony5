@@ -1,9 +1,15 @@
 import * as React from 'react';
-import { List, Datagrid, TextField, ImageField, DateField } from 'react-admin';
+import { 
+    List,
+    Datagrid,
+    TextField,
+    ImageField,
+    DateField
+} from 'react-admin';
 // import CoverField from './CoverField';
 import ThumbnailField from './ThumbnailField';
 
-export const AlbumList = props => (
+export const AlbumsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
             <ThumbnailField label="Image" source={"thumbnails"} src="contentUrl"/>
