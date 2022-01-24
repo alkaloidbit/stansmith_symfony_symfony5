@@ -1,5 +1,5 @@
 import { HydraAdmin } from '@api-platform/admin';
-
+const entrypoint = process.env.REACT_APP_ADMIN_ENTRYPOINT;
 export default () => (
-    <HydraAdmin entrypoint="http://localhost:8000/api" />
+    <HydraAdmin entrypoint={entrypoint} />
 );
