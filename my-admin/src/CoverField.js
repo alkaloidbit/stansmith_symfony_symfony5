@@ -5,7 +5,7 @@ const CoverField = ({ source }) => {
     const record = useRecordContext();
     const res = record['cover'][0]['contentUrl'];
     return record ? (
-        <img src={"http://localhost:8000"+ res} alt="" />
+        <img src={`http://localhost:8000${res}`} alt="" />
     ) : null;
 }
 
