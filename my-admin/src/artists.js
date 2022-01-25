@@ -5,7 +5,8 @@ import {
     TextField,
     ChipField,
     ReferenceArrayField,
-    SingleFieldList
+    SingleFieldList,
+    EditButton,
 } from 'react-admin';
 
 export const ArtistsList = props => (
@@ -17,6 +18,7 @@ export const ArtistsList = props => (
                     <ChipField source="id"/>
                 </SingleFieldList>
             </ReferenceArrayField>
+            <EditButton />
         </Datagrid>
     </List>
 );

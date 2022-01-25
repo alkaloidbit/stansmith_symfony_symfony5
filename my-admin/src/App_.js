@@ -6,7 +6,8 @@ import {
 } from '@api-platform/admin';
 import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
 import { Resource } from 'react-admin';
-import AlbumIcon from '@material-ui/icons/Album';
+import AlbumIcon from '@material-ui/icons/AlbumTwoTone';
+import ArtistIcon from '@material-ui/icons/PersonSharp';
 import { AlbumsList } from './albums';
 import { ArtistsList } from './artists'
 
@@ -24,7 +25,7 @@ const App =  () => (
     <HydraAdmin 
         dataProvider={dataProvider}
         entrypoint={entrypoint}>
-        <Resource name="artists" list={ArtistsList} />
+        <Resource name="artists" list={ArtistsList} icon={ArtistIcon}/>
         <Resource name="albums" list={AlbumsList} icon={AlbumIcon} />
     </HydraAdmin>
 );
