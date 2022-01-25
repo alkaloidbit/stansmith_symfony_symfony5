@@ -3,11 +3,13 @@ import {
     List,
     Datagrid,
     TextField,
+    ReferenceField,
     DateField,
     BooleanField,
     EditButton,
     Edit,
     SimpleForm,
+    BooleanInput,
     ReferenceInput,
     SelectInput,
     TextInput,
@@ -37,6 +39,7 @@ export const AlbumEdit = props => (
         <SimpleForm>
             <TextInput source="title" />
             <TextInput source="date" />
+            <BooleanInput source="active" />
         </SimpleForm>
     </Edit>
 );
