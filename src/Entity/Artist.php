@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ArtistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,6 +42,7 @@ class Artist
      * @ORM\Column(type="string", length=255)
      * @Groups({"artist:read", "album:read"})
      */
+    #[ApiProperty(iri: "http://schema.org/name")]
     private $name;
 
     /**

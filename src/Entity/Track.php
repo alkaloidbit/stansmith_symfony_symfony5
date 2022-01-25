@@ -35,7 +35,6 @@ class Track
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"track:read"})
      */
     private $path;
 
