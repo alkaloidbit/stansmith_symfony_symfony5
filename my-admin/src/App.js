@@ -1,7 +1,6 @@
 import { 
     HydraAdmin,
     fetchHydra,
-    ListGuesser,
     hydraDataProvider
 } from '@api-platform/admin';
 
@@ -21,10 +20,12 @@ const dataProvider = hydraDataProvider({
     useEmbedded: true,
 });
 
-export default () => (
+const App =  () => (
     <HydraAdmin 
         dataProvider={dataProvider}
         entrypoint={entrypoint}>
         <Resource name="albums" list={AlbumsList} icon={AlbumIcon} />
     </HydraAdmin>
 );
+
+export default App;
