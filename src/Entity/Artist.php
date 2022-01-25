@@ -19,7 +19,10 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"artist:read"}},
- *      denormalizationContext={"groups"={"artist:write"}}
+ *      denormalizationContext={"groups"={"artist:write"}},
+ *      attributes={
+ *          "pagination_items_per_page"=10
+ *      }
  * )
  */
 class Artist
