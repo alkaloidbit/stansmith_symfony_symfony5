@@ -6,6 +6,11 @@ import {
     DateField,
     BooleanField,
     EditButton,
+    Edit,
+    SimpleForm,
+    ReferenceInput,
+    SelectInput,
+    TextInput,
 } from 'react-admin';
 
 import ThumbnailField from './ThumbnailField';
@@ -13,7 +18,6 @@ import ThumbnailField from './ThumbnailField';
 export const AlbumsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
-            <TextField source="id" />
             <ThumbnailField label="Cover" source={"thumbnails"} src="contentUrl"/>
             <TextField source="title" />
             <TextField label="Artist" source={"artist.name"} />
@@ -24,3 +28,15 @@ export const AlbumsList = props => (
         </Datagrid>
     </List>
 )
+
+const AlbumTitle = ({ record }) => {
+    return <span>Album {record ? `"${record.title}"` : ''}</span>
+}
+export const AlbumEdit = props => (
+    <Edit title={<AlbumTitle />} {...props}>
+        <SimpleForm>
+            <TextInput source="title" />
+            <TextInput source="date" />
+        </SimpleForm>
+    </Edit>
+);
