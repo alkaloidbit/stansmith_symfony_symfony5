@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
@@ -53,12 +54,14 @@ class Album
      * @ORM\Column(type="string", length=255, nullable=true)
      * Title of the Album
      * @Groups({"album:read", "album:write", "artists:read"})
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="albums")
      * @Groups({"album:write", "album:read"})
+     * @Assert\NotNull
      */
     private $artist;
 
@@ -78,6 +81,7 @@ class Album
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"album:write", "album:read"})
+     * @Assert\NotNull
      */
     private $date;
 
