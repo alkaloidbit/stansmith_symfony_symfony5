@@ -39,13 +39,17 @@ class Artist
     private $id;
 
     /**
+     * The name of this artist
+     *
      * @ORM\Column(type="string", length=255)
      * @Groups({"artist:read", "album:read"})
+     * @ApiProperty(iri="http://schema.org/name")
      */
-    #[ApiProperty(iri: "http://schema.org/name")]
     private $name;
 
     /**
+     * The albums produced by this artist
+     *
      * @ORM\OneToMany(targetEntity=Album::class, mappedBy="artist")
      * @Groups({"artist:read"})
      */
