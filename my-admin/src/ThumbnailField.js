@@ -5,7 +5,7 @@ const ThumbnailField = ({ source }) => {
     const record = useRecordContext();
     const res = record['thumbnails'][0]['contentUrl'];
     return record ? (
-        <img src={"http://localhost:8000"+ res} alt="" />
+        <img src={`http://localhost:8000${res}`} alt="" />
     ) : null;
 }
 
