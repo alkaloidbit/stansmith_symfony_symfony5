@@ -26,6 +26,7 @@ const App =  () => (
         entrypoint={entrypoint}>
         <Resource name="artists" list={ArtistsList} edit={ArtistsEdit} icon={ArtistIcon}/>
         <Resource name="albums" list={AlbumsList} edit={AlbumEdit} icon={AlbumIcon} />
+        <Resource name="media_objects" />
     </HydraAdmin>
 );
 

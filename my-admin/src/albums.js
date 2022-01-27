@@ -11,6 +11,9 @@ import {
     SimpleForm,
     BooleanInput,
     ReferenceInput,
+    ReferenceArrayInput,
+    SelectArrayInput,
+    AutocompleteInput,
     SelectInput,
     TextInput,
 } from 'react-admin';
@@ -38,7 +41,19 @@ export const AlbumEdit = props => (
     <Edit title={<AlbumTitle />} {...props}>
         <SimpleForm>
             <TextInput source="title" />
+            <ReferenceInput 
+                label="artist"
+                source="artist" 
+                reference="artists"
+                filterToQuery={searchText => ({ name: searchText })}
+                format={v => v['@id'] || v}
+            >
+                <AutocompleteInput optionText="name" />
+            </ReferenceInput>
             <TextInput source="date" />
+            <ReferenceArrayInput source="cover" reference="media_objects">
+                <SelectArrayInput optionText="@id" />
+            </ReferenceArrayInput>
             <BooleanInput source="active" />
         </SimpleForm>
     </Edit>
