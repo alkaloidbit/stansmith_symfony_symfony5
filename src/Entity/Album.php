@@ -24,6 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=AlbumRepository::class)
  *
  * @ApiResource(
+ *      iri="http://schema.org/MusicAlbum",
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
@@ -54,6 +55,7 @@ class Album
      * @ORM\Column(type="string", length=255, nullable=true)
      * Title of the Album
      * @Groups({"album:read", "album:write", "artists:read"})
+     * @ApiProperty(iri="http://schema.org/name")
      * @Assert\NotBlank
      */
     private $title;

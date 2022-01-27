@@ -18,7 +18,7 @@ export const ArtistsList = props => (
             <TextField source="name" />
             <ReferenceArrayField label="Albums" reference="albums" source="albums">
                 <SingleFieldList>
-                    <ChipField source="id"/>
+                    <ChipField source="title"/>
                 </SingleFieldList>
             </ReferenceArrayField>
             <EditButton />

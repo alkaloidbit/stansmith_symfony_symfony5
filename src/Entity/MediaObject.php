@@ -50,6 +50,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *      itemOperations={
  *          "get",
  *          "delete"
+ *      },
+ *      attributes={
+ *          "pagination_items_per_page"=10
  *      }
  * )
  *
@@ -59,6 +62,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class MediaObject
 {
     use TimestampableEntity;
+
     /**
      * @var int|null
      *
