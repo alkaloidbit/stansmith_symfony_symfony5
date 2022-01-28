@@ -12,15 +12,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
- *
  * @ORM\Entity(repositoryClass=TrackRepository::class)
  *
  * @ApiResource(
+ *      iri="http://schema.org/MusicRecording",
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"track:read"}}
  * )
- *
  */
 class Track
 {
@@ -35,7 +34,6 @@ class Track
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"track:read"})
      */
     private $path;
 

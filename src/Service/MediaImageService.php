@@ -49,7 +49,8 @@ class MediaImageService
             if ($cleanup) {
                 $this->deleteAlbumCoverFiles($album);
             }
-           
+            
+            // Associate album with mediaObject
             $album->addCover($mediaObject);
         } catch (\Exception $e) {
             // handle log exception
@@ -74,7 +75,7 @@ class MediaImageService
             // Create MediaObject associated with album
             $thumbnailObject = new ThumbnailObject();
             $thumbnailObject->fileName = $name.'.'.$extension;
-
+            // Associate album with thumbnailObject
             $album->addThumbnail($thumbnailObject);
 
             $this->em->persist($thumbnailObject);
@@ -103,7 +104,7 @@ class MediaImageService
             // Create MediaObject associated with album
             $thumbnailObject = new ThumbnailObject();
             $thumbnailObject->fileName = $name.'.'.$extension;
-
+            // Associate album with placeholderThumbnail
             $album->addThumbnail($thumbnailObject);
 
             $this->em->persist($thumbnailObject);

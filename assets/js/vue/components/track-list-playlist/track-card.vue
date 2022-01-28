@@ -2,16 +2,6 @@
     <div
         @click.prevent="handleClick(track)"
     >
-        <!-- <div -->
-        <!--     v-if="isCurrentTrack && isPlaying" -->
-        <!--     class="sk-wave" -->
-        <!-- > -->
-        <!--     <div class="sk-wave-rect" /> -->
-        <!--     <div class="sk-wave-rect" /> -->
-        <!--     <div class="sk-wave-rect" /> -->
-        <!--     <div class="sk-wave-rect" /> -->
-        <!--     <div class="sk-wave-rect" /> -->
-        <!-- </div> -->
         <div
             v-if="isCurrentTrack && isPlaying"
             class="sk-swing"
@@ -30,12 +20,12 @@
             v-else
             class="left-item"
         >
-            <!-- <span -->
-            <!--     v-if="!isLoading " -->
-            <!--     class="play icon is-medium" -->
-            <!-- > -->
-            <!--     <i class="mdi mdi-24px mdi-play" /> -->
-            <!-- </span> -->
+            <span
+                v-if="isCurrentTrack && !isLoading && isLoaded"
+                class="play icon is-large"
+            >
+                <i class="mdi mdi-36px mdi-play" />
+            </span>
             <img
                 :src="track.thumbnail.contentUrl"
                 alt=""
@@ -43,7 +33,7 @@
             <!-- <span class="sound-bars" /> -->
         </div>
         <div class="middle-item title-wrapper">
-            <span>{{ track.title }}</span>
+            <span class="track-title">{{ track.title }}</span>
             <span>{{ track.artist.name }}</span>
         </div>
         <div
@@ -54,7 +44,6 @@
         <div class="duration right-item">
             {{ track.playtime_string }}
         </div>
-    </div>
     </div>
 </template>
 

@@ -4,19 +4,22 @@
             v-for="(track, index) in tracks"
             :key="index + track['@id']"
             :track="track"
-            @clicked="clickedHandler(track)"
+            @playlist-plus="playlistPlus(track)"
+            @playlist-add-next="playlistAddNext(track)"
         />
     </div>
 </template>
 
 <script>
 import TrackCard from '@/components/track-list-albumshow/track-card';
+import playerMixin from '@/mixins/playerMixin';
 
 export default {
     name: 'TrackListAlbumshow',
     components: {
         TrackCard,
     },
+    mixins: [playerMixin],
     props: {
         tracks: {
             type: Array,
@@ -29,11 +32,24 @@ export default {
     created() {
     },
     methods: {
-        clickedHandler(track) {
-            this.addTrackToPlaylist(track);
+        playTrackInPlaylist(track) {
+            const selectedTrackIndex = this.playlist.findIndex((item) => item['@id'] === track['@id']);
+
+            if (selectedTrackIndex !== -1) {
+                if (this.currentTrack) {
+                    if (this.currentTrack.howl) {
+                        this.currentTrack.howl.stop();
+                    }
+                }
+                this.play(selectedTrackIndex);
+            }
         },
-        addTrackToPlaylist(track) {
+        playlistAddNext(track) {
+            this.$store.dispatch('playlist/addTrackNextInPlaylist', track);
+        },
+        playlistPlus(track) {
             this.$store.dispatch('playlist/addTrackToPlaylist', track);
+            this.$buefy.snackbar.open(`Titre ${track.title} ajouté à la file d'attente.`);
         },
     },
 };

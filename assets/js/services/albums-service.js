@@ -5,34 +5,21 @@ import axios from 'axios';
  * @parma {string|mull} searchTerm
  * @returns {Promise}
  */
-// export function fetchAlbums(artistIri, searchTerm) {
-//     const params = {};
-//     if (artistIri) {
-//         params.artist = artistIri;
-//     }
-
-//     if (searchTerm) {
-//         params.title = searchTerm;
-//     }
-
-//     const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=cover&properties[]=date';
-//     const activeFilter = '&active=true';
-//     return axios.get(`/api/albums?${propertiesFilter}${activeFilter}`, {
-//         params,
-//     });
-// }
-//
-
 export function fetchAlbums(artistIri, searchTerm) {
     const params = {};
+
+    // /api/artists/25
     if (artistIri) {
         params.artist = artistIri;
     }
 
+    console.log('searchTerm: ', searchTerm);
+
     if (searchTerm) {
-        params.title = searchTerm;
+        params.artist__name = searchTerm;
     }
 
+    // if no filter param, return window.albums
     if (Object.keys(params).length === 0) {
         return new Promise((resolve, reject) => {
             resolve({
@@ -43,9 +30,12 @@ export function fetchAlbums(artistIri, searchTerm) {
         });
     }
 
-    const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=cover&properties[]=date';
-    const activeFilter = '&active=true';
-    return axios.get(`/api/albums?${propertiesFilter}${activeFilter}`, {
+    // Filter only active albums
+    params.active = true;
+
+    // Only get those fields in the response
+    const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=cover&properties[]=thumbnails&properties[]=date';
+    return axios.get(`/api/albums?${propertiesFilter}`, {
         params,
     });
 }

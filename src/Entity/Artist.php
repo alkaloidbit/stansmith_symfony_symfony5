@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\ArtistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,17 +13,23 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
  * @ORM\Entity(repositoryClass=ArtistRepository::class)
  *
  * @ApiResource(
+ *      iri="http://schema.org/MusicGroup",
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"artist:read"}},
- *      denormalizationContext={"groups"={"artist:write"}}
+ *      denormalizationContext={"groups"={"artist:write"}},
+ *      attributes={
+ *          "pagination_items_per_page"=10
+ *      }
  * )
+* @ApiFilter(SearchFilter::class, properties={"name": "partial"})
  */
 class Artist
 {
@@ -35,12 +44,18 @@ class Artist
     private $id;
 
     /**
+     * The name of this artist
+     *
      * @ORM\Column(type="string", length=255)
      * @Groups({"artist:read", "album:read"})
+     * @ApiProperty(iri="http://schema.org/name")
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
+     * The albums produced by this artist
+     *
      * @ORM\OneToMany(targetEntity=Album::class, mappedBy="artist")
      * @Groups({"artist:read"})
      */

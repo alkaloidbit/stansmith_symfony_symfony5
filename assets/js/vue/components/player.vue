@@ -72,7 +72,7 @@
                         tag="router-link"
                         :to="prevRoute.path"
                         icon-right="menu"
-                        type="is-primary"
+                        type="is-dark"
                         size="is-medium"
                     />
                     <b-button
@@ -80,7 +80,7 @@
                         tag="router-link"
                         to="/playlist"
                         icon-right="menu"
-                        type="is-primary"
+                        type="is-dark"
                         size="is-medium"
                     />
                 </div>

@@ -11,6 +11,7 @@ export default {
             'loopCurrentTrack',
             'isPlaying',
             'isLoading',
+            'isLoaded',
         ]),
         ...mapState('playlist', [
             'playlist',
@@ -41,7 +42,9 @@ export default {
                 track.howl = new Howl({
                     src: [src],
                     format: [track.fileformat],
-                    html5: false,
+                    html5: true,
+                    autoplay: true,
+                    preload: 'metadata',
                     loop: this.loopCurrentTrack,
                     pool: 5,
                     onload: () => {
@@ -63,7 +66,13 @@ export default {
             }
 
             this.$store.dispatch('currentIndex/setCurrentIndex', index);
+
             track.howl.play();
+            this.setTitle(track);
+        },
+
+        setTitle(track) {
+            document.title = `${track.title} - StansMusic`;
         },
 
         pause() {

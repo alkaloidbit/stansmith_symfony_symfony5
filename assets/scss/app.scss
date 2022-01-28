@@ -10,6 +10,7 @@
 // $primary-invert: findColorInvert($primary);
 // $custom-colors: null !default;
 // $link: $primary;
+$link: $grey-dark;
 // $link-invert: $primary-invert;
 // $link-focus-border: $primary;
 
@@ -28,6 +29,9 @@
 @import '~buefy/src/scss/buefy';
 @import '~@mdi/font/css/materialdesignicons.min.css';
 
+.title {
+    font-weight: $weight-bold;
+}
 
 .is-album-cover {
     position: relative;
@@ -71,87 +75,68 @@
     transition: .5s ease;
 }
 
+:root{
+    --sk-size: 25px;
+}
 .playlist-item-renderer {
     display: flex;
-    // align-items: center;
+    align-items: center;
     padding: 10px 0px;
     cursor: pointer;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    &:last-child {
+        border-bottom: none;
+    }
+    .dropdown-tracklist {
+        display: none;
+    }
     .sk-chase-dot:before {
         background-color: #fff;
     }
     .sk-bounce {
         height: 32px;
         width: 32px;
-        margin: 0 24px 0 15px;
+        margin: 0 24px 0 12px;
         .sk-bounce-dot {
             --sk-color: #fff;
         }
     }
     .sk-swing {
-        margin: 0 24px 0 15px;
+        margin: 0 24px 0 12px;
         .sk-swing-dot {
             --sk-color: #fff; 
         }
     }
     .sk-wave {
-        margin: 0 24px 0 15px;
+        margin: 0 24px 0 12px;
         .sk-wave-rect {
             --sk-color: #fff; 
         }
     }
-    .icon {
-        display: none;
-    }
     &.key-selected {
-        border: 1px solid $primary;
-        .icon {
-            display: block;
-            margin-left: 5px;
-            margin-bottom: 3px;
-        }
+        border-color: $primary;
     }
     &:hover {
-        border: 1px solid $primary;
-        .icon {
-            display: block;
-            margin-left: 5px ;
-            margin-bottom: 3px;
-        }
-    }
-    &.on-playlist {
-       .left-item {
-            .play {
-                color: #fff;
-            }
+        border-color: $primary;
+        .dropdown-tracklist {
+            display: inline-flex;
         }
     }
     &.current-track {
         background-color: $primary;
         color: white;
         .left-item {
-            margin: 0 24px 0 12px;
-            .tracknumber {
-                display: none;
-            }
-        }
-        &.is-playing {
-            .sound-bars {
-                width: 20px;
-                height: 20px;
-                position: absolute;
-                background: url('../images/animated-sound-bars.gif') no-repeat center;
-                background-size: cover;
-            }
-            .icon {
-                display: none;
-            }
+            margin: 0 17px 0 12px;
         }
         .icon {
             display: block;
+            position: absolute;
             margin-left: -1px;
             margin-bottom: 0px;
         }
+    }
+    .right-item {
+        display: flex;
     }
     .left-item {
         display: flex;
@@ -160,9 +145,6 @@
         width: 32px;
         height: 32px;
         margin: 0 24px 0 5px;
-        .play {
-            position: absolute;
-        }
     }
     .title-wrapper {
         display: flex;
@@ -172,7 +154,9 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-weight: 700;
+        .track-title {
+            font-weight: 700;
+        }
     }
     .duration {
         width: 54px;
@@ -263,12 +247,6 @@
     }
 }
 
-.is-loading {
-    background: url('../images/loading.gif') no-repeat left center;
-    .left-item img {
-        display: none
-    }
-}
 
 .playlist-item-renderer .title-wrapper {
     display: flex;
@@ -288,4 +266,38 @@
 
 .progress-bar:hover .hover-time-info {
     opacity: 1;
+}
+
+.playlistRootContainer, .albumShowRootContainer, .albumlistindexRootContainer {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.75s ease-out;
+}
+
+
+.slide-enter-to {
+  position: absolute;
+  right: 0;
+}
+
+
+.slide-enter-from {
+  position: absolute;
+  right: -100%;
+}
+
+
+.slide-leave-to {
+  position: absolute;
+  left: -100%;
+}
+
+
+.slide-leave-from {
+  position: absolute;
+  left: 0;
 }

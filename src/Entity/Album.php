@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter;
 use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,17 +17,23 @@ use Doctrine\ORM\Mapping\OrderBy;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
  * @ORM\Entity(repositoryClass=AlbumRepository::class)
  *
  * @ApiResource(
+ *      iri="http://schema.org/MusicAlbum",
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
- *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"}
+ *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"},
+ *      attributes={
+ *          "pagination_items_per_page"=10
+ *      }
  * )
+ * @ApiFilter(AlbumSearchSupportUnderscoreFilter::class, properties={"artist.name": "partial"})
  * @ApiFilter(SearchFilter::class, properties={"artist": "exact", "title": "partial", "id": "exact"})
  * @ApiFilter(BooleanFilter::class, properties={"active"})
  * @ApiFilter(PropertyFilter::class)
@@ -48,12 +55,15 @@ class Album
      * @ORM\Column(type="string", length=255, nullable=true)
      * Title of the Album
      * @Groups({"album:read", "album:write", "artists:read"})
+     * @ApiProperty(iri="http://schema.org/name")
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="albums")
      * @Groups({"album:write", "album:read"})
+     * @Assert\NotNull
      */
     private $artist;
 
@@ -73,6 +83,7 @@ class Album
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"album:write", "album:read"})
+     * @Assert\NotNull
      */
     private $date;
 

@@ -13,7 +13,7 @@
                     class="trackCardRootContainer on-playlist playlist-item-renderer"
                     :class="[{'current-track': isCurrentTrack( index ),
                               'key-selected': index === selectedIndex,
-                              'is-playing': isCurrentTrack( index ) && isPlaying}]"
+                              'paused': isCurrentTrack( index ) && !isPlaying && isLoaded}]"
                     @clicked="selectedHandler(index)"
                 />
             </template>

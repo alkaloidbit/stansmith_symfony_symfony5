@@ -70,7 +70,6 @@ export default {
                 && this.selectedIndex < this.listLength - 1
             ) {
                 this.selectedIndex += 1;
-                console.log('this.selectedIndex', this.selectedIndex);
             }
         },
         addKeyHandler(e) {

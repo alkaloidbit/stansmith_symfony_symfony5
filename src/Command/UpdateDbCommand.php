@@ -38,7 +38,7 @@ class UpdateDbCommand extends Command
             ->setDescription('Discover Files in configured directory and update Db')
             // configure an argument
             ->addArgument('pathContains', InputArgument::OPTIONAL, 'Path contains')
-            ->addOption('dryrun', null, InputOption::VALUE_NONE, 'The command will do nothing but print info')
+            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'The command will do nothing but print info')
             ->addOption('show_table', null, InputOption::VALUE_NONE, 'The command will print a table showing results')
             ->addOption('dir', null, InputOption::VALUE_REQUIRED, 'Set path to the directory')
         ;
@@ -56,7 +56,7 @@ class UpdateDbCommand extends Command
             $this->mediaManager->setPathOption($pathContains);
         }
 
-        $dryrun = $input->getOption('dryrun');
+        $dryrun = $input->getOption('dry-run');
         $show_table = $input->getOption('show_table');
 
         $results = $this->mediaManager->synchronize($input->getOption('dir'), $this, $dryrun);
