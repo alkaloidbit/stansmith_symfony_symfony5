@@ -187,7 +187,7 @@ export default {
                 .then((res) => {
                     this.isLoading = false
                     this.$buefy.snackbar.open({
-                        message: 'Cover updated',
+                        message: 'Album updated',
                         queue: false
                     })
                 })
