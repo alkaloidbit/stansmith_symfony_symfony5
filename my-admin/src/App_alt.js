@@ -7,9 +7,12 @@ import {
     FieldGuesser
 } from '@api-platform/admin';
 
-import { ReferenceField, ReferenceArrayField, TextField, SingleFieldList, ChipField } from "react-admin";
+import { ReferenceField, ReferenceArrayField, ImageField, TextField, SingleFieldList, ChipField } from "react-admin";
 
 import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
+
+import ThumbnailFieldAlt from './ThumbnailField_alt';
+import CustomTextField from './CustomTextField';
 
 const entrypoint = process.env.REACT_APP_ADMIN_ENTRYPOINT;
 
@@ -25,13 +28,13 @@ const AlbumsList = (props) => {
     return <ListGuesser {...props}>
         <ReferenceArrayField label="Cover" reference="thumbnail_objects" source="thumbnails">
             <SingleFieldList>
-                <ChipField source="fileName" />
+                <ThumbnailFieldAlt source="contentUrl" />
             </SingleFieldList>
         </ReferenceArrayField>
         <FieldGuesser source="title" />
         <FieldGuesser source="date" />
         <ReferenceField label="Artist" source="artist" reference="artists">
-            <TextField source="name" />
+            <CustomTextField source="name" />
         </ReferenceField>
     </ListGuesser>
 };
