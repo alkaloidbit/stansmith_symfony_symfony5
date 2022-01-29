@@ -24,7 +24,7 @@ export const AlbumsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
             <TextField source="id"/>
-            <ThumbnailField label="Cover" source={"thumbnails"} src="contentUrl"/>
+            <ThumbnailField label="Cover" source={"thumbnails"} />
             <TextField source="title" />
             <TextField label="Artist" source={"artist.name"} />
             <DateField source={"date"} label="Year" options={{ year: 'numeric' }} />
