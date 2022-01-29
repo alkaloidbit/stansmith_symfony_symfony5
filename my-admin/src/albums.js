@@ -41,8 +41,10 @@ const AlbumTitle = ({ record }) => {
 export const AlbumEdit = props => (
     <Edit title={<AlbumTitle />} {...props}>
         <SimpleForm>
+            <TextInput disabled source="id" />
             <TextInput source="title" />
             <ReferenceInput 
+                disabled
                 label="artist"
                 source="artist" 
                 reference="artists"
