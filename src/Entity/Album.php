@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter;
@@ -25,7 +26,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *      iri="http://schema.org/MusicAlbum",
- *      order={"id": "DESC"},
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(SearchFilter::class, properties={"artist": "exact", "title": "partial", "id": "exact"})
  * @ApiFilter(BooleanFilter::class, properties={"active"})
  * @ApiFilter(PropertyFilter::class)
- *
+ * @ApiFilter(OrderFilter::class, properties={"id": "ASC"})
  */
 class Album
 {

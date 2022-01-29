@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\ArtistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,7 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *      iri="http://schema.org/MusicGroup",
- *      order={"id": "DESC"},
  *      collectionOperations={"get", "post"},
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"artist:read"}},
@@ -30,7 +30,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "pagination_items_per_page"=10
  *      }
  * )
-* @ApiFilter(SearchFilter::class, properties={"name": "partial"})
+ * @ApiFilter(SearchFilter::class, properties={"name": "partial"})
+ * @ApiFilter(OrderFilter::class, properties={"id": "ASC", "name": "ASC"})
  */
 class Artist
 {
