@@ -11,7 +11,7 @@ import { ReferenceField, ReferenceArrayField, ImageField, TextField, SingleField
 
 import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
 
-import ThumbnailField from './ThumbnailField';
+import ThumbnailFieldAlt from './ThumbnailField_alt';
 import CustomTextField from './CustomTextField';
 
 const entrypoint = process.env.REACT_APP_ADMIN_ENTRYPOINT;
@@ -28,7 +28,7 @@ const AlbumsList = (props) => {
     return <ListGuesser {...props}>
         <ReferenceArrayField label="Cover" reference="thumbnail_objects" source="thumbnails">
             <SingleFieldList>
-                <ImageField source="contentUrl" />
+                <ThumbnailFieldAlt source="contentUrl" />
             </SingleFieldList>
         </ReferenceArrayField>
         <FieldGuesser source="title" />
