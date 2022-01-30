@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
  *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"},
  *      attributes={
- *          "pagination_items_per_page"=10
+ *          "pagination_items_per_page"=2
  *      }
  * )
  * @ApiFilter(AlbumSearchSupportUnderscoreFilter::class, properties={"artist.name": "partial"})
@@ -260,6 +260,15 @@ class Album
     public function getThumbnails(): Collection
     {
         return $this->thumbnails;
+    }
+
+    /**
+     * @Groups({"album:read"})
+     * @SerializedName("mainThumbnail")
+     */
+    public function getMainThumbnail(): ThumbnailObject
+    {
+        return $this->getThumbnails()[0];
     }
 
     public function addThumbnail(ThumbnailObject $thumbnail): self
