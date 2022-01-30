@@ -18,3 +18,8 @@ api_platform:
         jsonhal:
             mime_types:
                 - api_platform/hal+json
+    collection:
+        pagination:
+            items_per_page_parameter_name: itemsPerPage # Default value
+            client_enabled: true
+            client_items_per_page: true
