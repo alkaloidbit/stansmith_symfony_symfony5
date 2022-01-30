@@ -7,7 +7,7 @@ import {
     FieldGuesser
 } from '@api-platform/admin';
 
-import { ReferenceField, ReferenceArrayField, ImageField, TextField, SingleFieldList, ChipField } from "react-admin";
+import { ReferenceField } from "react-admin";
 
 import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
 
@@ -26,11 +26,9 @@ const dataProvider = hydraDataProvider({
 
 const AlbumsList = (props) => {
     return <ListGuesser {...props}>
-        <ReferenceArrayField label="Cover" reference="thumbnail_objects" source="thumbnails">
-            <SingleFieldList>
-                <ThumbnailFieldAlt source="contentUrl" />
-            </SingleFieldList>
-        </ReferenceArrayField>
+        <ReferenceField label="Cover" source="mainThumbnail" reference="thumbnail_objects">
+            <ThumbnailFieldAlt source="contentUrl" />
+        </ReferenceField>
         <FieldGuesser source="title" />
         <FieldGuesser source="date" />
         <ReferenceField label="Artist" source="artist" reference="artists">
