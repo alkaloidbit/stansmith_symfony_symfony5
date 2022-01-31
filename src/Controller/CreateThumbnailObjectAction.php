@@ -19,7 +19,7 @@ final class CreateThumbnailObjectAction
             throw new BadRequestHttpException('"file" is required');
         }
 
-        $thumbnailObject = new ThumnailObject();
+        $thumbnailObject = new ThumbnailObject();
         $thumbnailObject->file = $uploadedFile;
 
         return $thumbnailObject;

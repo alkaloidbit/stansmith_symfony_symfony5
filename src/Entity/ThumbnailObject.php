@@ -24,7 +24,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *      },
  *      collectionOperations={
  *          "post"={
- *              "controller"=CreateThumnailObjectAction::class,
+ *              "controller"=CreateThumbnailObjectAction::class,
  *              "deserialize"=false,
  *              "validation_groups"={"Default", "thumbnail_object_create"},
  *              "openapi_context"={
@@ -102,7 +102,7 @@ class ThumbnailObject
     /**
      * "Many ThumbnailObject to One Album"
      * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="thumbnails")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $album;
 
