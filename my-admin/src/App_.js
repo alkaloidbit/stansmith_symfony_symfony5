@@ -17,7 +17,7 @@ const dataProvider = hydraDataProvider({
     httpClient: fetchHydra,
     apiDocumentationParser: parseHydraDocumentation,
     mercure: true,
-    useEmbedded: true,
+    useEmbedded: false,
 });
 
 const App =  () => (
@@ -26,7 +26,7 @@ const App =  () => (
         entrypoint={entrypoint}>
         <Resource name="artists" list={ArtistsList} edit={ArtistsEdit} icon={ArtistIcon}/>
         <Resource name="albums" list={AlbumsList} edit={AlbumEdit} icon={AlbumIcon} />
-        <Resource name="media_objects" />
+        <Resource name="thumbnail_objects" />
     </HydraAdmin>
 );
 

@@ -7,7 +7,11 @@ import {
     FieldGuesser
 } from '@api-platform/admin';
 
-import { ReferenceField } from "react-admin";
+import { 
+    Resource, 
+    ReferenceField,
+    EditButton 
+} from "react-admin";
 
 import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
 
@@ -34,6 +38,7 @@ const AlbumsList = (props) => {
         <ReferenceField label="Artist" source="artist" reference="artists">
             <CustomTextField source="name" />
         </ReferenceField>
+        <EditButton />
     </ListGuesser>
 };
 
@@ -41,7 +46,7 @@ const App = () => (
     <HydraAdmin dataProvider={dataProvider} entrypoint={entrypoint}>
         <ResourceGuesser name="albums" list={AlbumsList} />
         <ResourceGuesser name="artists" />
-        <ResourceGuesser name="thumbnail_objects" />
+        <Resource name="thumbnail_objects" />
     </HydraAdmin>
 );
 

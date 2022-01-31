@@ -19,13 +19,20 @@ import {
 } from 'react-admin';
 
 import ThumbnailField from './ThumbnailField';
+import CustomTextField from './CustomTextField';
+import ThumbnailFieldAlt from './ThumbnailField_alt';
 
 export const AlbumsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
             <TextField source="id"/>
-            <ThumbnailField label="Cover" source={"thumbnails"} />
+            <ReferenceField label="Cover" source="mainThumbnail" reference="thumbnail_objects">
+                <ThumbnailFieldAlt source="contentUrl" />
+            </ReferenceField>
             <TextField source="title" />
+            <ReferenceField label="Artist" source="artist" reference="artists">
+                <CustomTextField source="name" />
+            </ReferenceField>
             <TextField label="Artist" source={"artist.name"} />
             <DateField source={"date"} label="Year" options={{ year: 'numeric' }} />
             <BooleanField source={"active"} />
@@ -43,7 +50,7 @@ export const AlbumEdit = props => (
         <SimpleForm>
             <TextInput disabled source="id" />
             <TextInput source="title" />
-            <ReferenceInput 
+            {/*<ReferenceInput 
                 disabled
                 label="artist"
                 source="artist" 
@@ -52,11 +59,11 @@ export const AlbumEdit = props => (
                 format={v => v['@id'] || v}
             >
                 <AutocompleteInput optionText="name" />
-            </ReferenceInput>
+            </ReferenceInput>*/}
             <TextInput source="date" />
-            <ReferenceArrayInput source="cover" reference="media_objects">
+            {/*<ReferenceArrayInput source="cover" reference="media_objects">
                 <SelectArrayInput optionText="@id" />
-            </ReferenceArrayInput>
+            </ReferenceArrayInput>*/}
             <BooleanInput source="active" />
         </SimpleForm>
     </Edit>
