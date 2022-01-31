@@ -263,7 +263,6 @@ class Album
     }
 
     /**
-     * @Groups({"album:read"})
      * @SerializedName("mainThumbnail")
      */
     public function getMainThumbnail(): ThumbnailObject
