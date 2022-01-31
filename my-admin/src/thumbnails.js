@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useListContext, List, TextField, DateField, ReferenceField, EditButton } from 'react-admin';
-import ThumbnailFieldAlt from './ThumbnailField_alt';
+import ThumbnailField from './ThumbnailField';
 
 const ThumbnailGrid = () => {
     const { ids, data, basePath, total } = useListContext();
     return (
         <div style={{ margin: '1em' }}>
         {ids.map(id =>
-            <ThumbnailFieldAlt key={id} source="contentUrl" record={data[id]} />
+            <ThumbnailField key={id} source="contentUrl" record={data[id]} />
         )}
         </div>
     );

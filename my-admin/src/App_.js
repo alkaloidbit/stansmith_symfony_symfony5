@@ -8,6 +8,7 @@ import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
 import { Resource, EditGuesser } from 'react-admin';
 import AlbumIcon from '@material-ui/icons/AlbumTwoTone';
 import ArtistIcon from '@material-ui/icons/PersonSharp';
+import ImageIcon from '@material-ui/icons/Image';
 import { AlbumsList, AlbumEdit } from './albums';
 import { ArtistsList, ArtistsEdit } from './artists';
 import { MediaObjectsList } from './media_objects';
@@ -29,7 +30,7 @@ const App =  () => (
         <Resource name="artists" list={ArtistsList} edit={ArtistsEdit} icon={ArtistIcon}/>
         <Resource name="albums" list={AlbumsList} edit={AlbumEdit} icon={AlbumIcon} />
         <Resource name="thumbnail_objects" />
-        <Resource name="media_objects" />
+        <Resource name="media_objects" list={MediaObjectsList} icon={ImageIcon} />
     </HydraAdmin>
 );
 

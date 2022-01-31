@@ -6,10 +6,12 @@ import {
     EditButton,
 } from 'react-admin';
 
+import ThumbnailField from './ThumbnailField';
+
 export const MediaObjectsList = props => (
     <List {...props}>
         <Datagrid >
-            <TextField source="contentUrl" />
+            <ThumbnailField source="contentUrl" />
             <TextField source="fileName" />
         </Datagrid>
     </List>
