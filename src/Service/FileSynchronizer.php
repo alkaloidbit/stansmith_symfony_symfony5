@@ -186,10 +186,6 @@ class FileSynchronizer
                 $this->trackEntity->setArtist($artist);
                 $this->trackEntity->setAlbum($album);
 
-                // get ThumbnailObject associated with album                // associate it whith trackEntity
-                $thumbnail = $album->getMainThumbnail();
-                $this->trackEntity->setThumbnail($thumbnail);
-                
                 $this->em->persist($this->trackEntity);
                 $this->em->flush();
             }
