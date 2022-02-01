@@ -94,12 +94,6 @@ class ThumbnailObject
     public $fileName;
 
     /**
-     * "One ThumbnailObject to Many Tracks"
-     * @ORM\OneToMany(targetEntity=Track::class, mappedBy="thumbnail")
-     */
-    private $tracks;
-
-    /**
      * "Many ThumbnailObject to One Album"
      * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="thumbnails")
      * @ORM\JoinColumn(nullable=true)
@@ -125,36 +119,6 @@ class ThumbnailObject
     {
         // dd($this->createdAt);
         return $this->createdAt;
-    }
-
-    /**
-     * @return Collection|Track[]
-     */
-    public function getTracks(): Collection
-    {
-        return $this->tracks;
-    }
-
-    public function addTrack(Track $track): self
-    {
-        if (!$this->tracks->contains($track)) {
-            $this->tracks[] = $track;
-            $track->setThumbnail($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTrack(Track $track): self
-    {
-        if ($this->tracks->removeElement($track)) {
-            // set the owning side to null (unless already changed)
-            if ($track->getThumbnail() === $this) {
-                $track->setThumbnail(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getAlbum(): ?Album
