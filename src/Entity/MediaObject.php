@@ -89,6 +89,14 @@ class MediaObject
      */
     public $file;
 
+    /**
+     * @var File|null
+     *
+     * @Assert\NotNull(groups={"media_object_create"})
+     * @Vich\UploadableField(mapping="media_object", fileNameProperty="thumbnailName")
+     */
+    public $thumbnail;
+
 
     /**
      * @var string|null
@@ -96,6 +104,13 @@ class MediaObject
      * @Groups({"media_object_read", "album:read"})
      */
     public $fileName;
+
+    /**
+     * @var string|null
+     * @ORM\Column(nullable=true)
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $thumbnailName;
 
     /**
      * "Many MediaObject to One Album"

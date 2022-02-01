@@ -29,7 +29,7 @@ class VichSubscriber implements EventSubscriberInterface
 
     public function onVichUploaderPreUpload(Event $event)
     {
-        /* dd($event->getObject()); */
+        dd($event->getObject());
         $imageName = $event->getObject()->fileName;
         $path      = $event->getMapping()->getUploadDestination();
         $resourcePath = $this->filterService->getUrlOfFilteredImage('uploads/covers/thumbnails/'.$imageName, 'my_thumb');
