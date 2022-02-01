@@ -92,7 +92,6 @@ class MediaObject
     /**
      * @var File|null
      *
-     * @Assert\NotNull(groups={"media_object_create"})
      * @Vich\UploadableField(mapping="media_object", fileNameProperty="thumbnailName")
      */
     public $thumbnail;
@@ -120,7 +119,6 @@ class MediaObject
      */
     private $album;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -146,5 +144,15 @@ class MediaObject
         $this->album = $album;
 
         return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->fileName;
     }
 }
