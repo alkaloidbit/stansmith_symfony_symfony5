@@ -102,7 +102,6 @@ class ThumbnailObject
 
     public function __construct()
     {
-        $this->tracks = new ArrayCollection();
     }
 
 
