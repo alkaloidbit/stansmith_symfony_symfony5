@@ -55,3 +55,7 @@ services:
         
     App\Serializer\ThumbnailObjectContentUrlNormalizer:
         decorates: 'api_platform.jsonld.normalizer.item'
+
+    App\EventListener\VichUploadListener:
+        tags:
+            - { name: kernel.event_listener, event: vich_uploader.pre_upload }
