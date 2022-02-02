@@ -92,7 +92,8 @@ class MediaObject
     /**
      * @var File|null
      *
-     * @Vich\UploadableField(mapping="media_object", fileNameProperty="thumbnailName")
+     * @Groups({"media_object_create"})
+     * @Vich\UploadableField(mapping="thumbnail_object", fileNameProperty="thumbnailName")
      */
     public $thumbnail;
 
@@ -146,13 +147,53 @@ class MediaObject
         return $this;
     }
 
+    public function setFile(?File $file)
+    {
+        $this->file = $file;
+
+        if ($file) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
     public function getFile(): ?File
     {
         return $this->file;
     }
 
-    public function getImageName(): ?string
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+    }
+
+
+    public function getFileName(): ?string
     {
         return $this->fileName;
+    }
+
+    public function setThumbnail(?File $thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        if ($thumbnail) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getThumbnail(): ?File
+    {
+        return $this->thumbnail;
+    }
+
+
+    public function setThumbnailName($thumbnailName)
+    {
+        $this->thumbnailName = $thumbnailName;
+    }
+
+    public function getThumbnailName(): ?string
+    {
+        return $this->thumbnailName;
     }
 }
