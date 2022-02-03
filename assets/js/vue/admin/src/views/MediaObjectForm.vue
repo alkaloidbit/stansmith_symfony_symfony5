@@ -45,7 +45,7 @@
                         </form>
                     </card-component>
                     <card-component v-if="isMediaObjectExists" title="Album Profile" icon="image" class="tile is-child">
-                        <album-cover :cover-uri="form.contentUrl" class="image has-max-width is-aligned-center"/>
+                        <album-cover :cover-uri="form.coverContentUrl" class="image has-max-width is-aligned-center"/>
                             <hr>
                             <b-field label="Title">
                                 <b-input :value="form.filePath" custom-class="is-static" readonly/>
@@ -147,7 +147,7 @@ export default {
                 id: null,
                 filePath: null,
                 album: null,
-                contentUrl: null,
+                coverContentUrl: null,
                 created_date: new Date(),
                 created_mm_dd_yyyy: null
             }

@@ -73,13 +73,22 @@ class MediaObject
      */
     protected $id;
 
+
     /**
      * @var string|null
      *
      * @ApiProperty(iri="http://schema.org/contentUrl")
      * @Groups({"media_object_read", "album:read"})
      */
-    public $contentUrl;
+    public $coverContentUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ApiProperty(iri="http://schema.org/contentUrl")
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $thumbnailContentUrl;
 
     /**
      * @var File|null

@@ -33,7 +33,7 @@ final class ThumbnailObjectContentUrlNormalizer implements NormalizerInterface, 
     {
         $data = $this->decorated->normalize($object, $format, $context);
         if ($object instanceof ThumbnailObject) {
-            $data['contentUrl'] = $this->storage->resolveUri($object, 'file');
+            $data['coverContentUrl'] = $this->storage->resolveUri($object, 'file');
         }
 
         return $data;

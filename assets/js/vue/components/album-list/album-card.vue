@@ -11,8 +11,8 @@
                 <div v-lazy-container="{ selector: 'img' }">
                     <img
                         v-if="album.cover[0]"
-                        :data-src="album.cover[0].contentUrl"
-                        :data-loading="album.thumbnails[1].contentUrl"
+                        :data-src="album.cover[0].coverContentUrl"
+                        :data-loading="album.thumbnails[1].coverContentUrl"
                         alt=""
                         class="img-cover d-block mb-2"
                     >

@@ -33,7 +33,8 @@ final class MediaObjectContentUrlNormalizer implements NormalizerInterface, Deno
     {
         $data = $this->decorated->normalize($object, $format, $context);
         if ($object instanceof MediaObject) {
-            $data['contentUrl'] = $this->storage->resolveUri($object, 'file');
+            $data['coverContentUrl'] = $this->storage->resolveUri($object, 'file');
+            $data['thumbnailContentUrl'] = $this->storage->resolveUri($object, 'thumbnail');
         }
 
         return $data;

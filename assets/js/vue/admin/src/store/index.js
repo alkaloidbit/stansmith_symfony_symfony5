@@ -49,7 +49,7 @@ export default new Vuex.Store({
             }
 
             if (payload.cover) {
-                state.albumCover = payload.cover.contentUrl
+                state.albumCover = payload.cover.coverContentUrl
             }
         },
         cover (state, payload) {
