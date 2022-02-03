@@ -100,11 +100,6 @@ class ThumbnailObject
      */
     private $album;
 
-    public function __construct()
-    {
-    }
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -130,5 +125,15 @@ class ThumbnailObject
         $this->album = $album;
 
         return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->fileName;
     }
 }
