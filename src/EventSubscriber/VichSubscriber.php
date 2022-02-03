@@ -40,8 +40,11 @@ class VichSubscriber implements EventSubscriberInterface
             $format = sprintf('%s.jpg', $object->getFile()->getRealPath());
 
             $file = $object->getFile();
+
+            // file content
             $data = file_get_contents($file->getPathname());
 
+            // new Img Object
             $img = $this->imageManager
                     ->make($data)
                     ->resize(
