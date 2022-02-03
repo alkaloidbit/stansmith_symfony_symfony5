@@ -4,12 +4,10 @@
 namespace App\Service;
 
 use App\Entity\Album;
-use App\Entity\Track;
 use App\Entity\MediaObject;
 use App\Entity\ThumbnailObject;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\ImageManagerService;
-use PDO;
 
 class MediaImageService
 {
