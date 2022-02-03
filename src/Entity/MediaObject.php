@@ -106,6 +106,13 @@ class MediaObject
      */
     public $thumbnail;
 
+    /**
+     * @var File|null
+     *
+     * @Groups({"media_object_create"})
+     * @Vich\UploadableField(mapping="placeholder_object", fileNameProperty="placeholderName")
+     */
+    public $placeholder;
 
     /**
      * @var string|null
@@ -120,6 +127,13 @@ class MediaObject
      * @Groups({"media_object_read", "album:read"})
      */
     public $thumbnailName;
+
+    /**
+     * @var string|null
+     * @ORM\Column(nullable=true)
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $placeholderName;
 
     /**
      * "Many MediaObject to One Album"
@@ -204,5 +218,31 @@ class MediaObject
     public function getThumbnailName(): ?string
     {
         return $this->thumbnailName;
+    }
+
+
+    public function setPlaceholder(?File $placeholder)
+    {
+        $this->placeholder = $placeholder;
+
+        if ($placeholder) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPlaceholder(): ?File
+    {
+        return $this->placeholder;
+    }
+
+
+    public function setPlaceholderName($placeholderName)
+    {
+        $this->placeholderName = $placeholderName;
+    }
+
+    public function getPlaceholderName(): ?string
+    {
+        return $this->placeholderName;
     }
 }

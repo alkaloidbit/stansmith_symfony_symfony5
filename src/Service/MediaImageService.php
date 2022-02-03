@@ -28,23 +28,30 @@ class MediaImageService
     ) : void {
         try {
             $extension = trim(strtolower($extension), '. ');
+
             $name = uniqid().'-'.$origname;
-            $destination = $destination ?: $this->getAlbumCoverPath($name, $extension);
+            $destination = $destination ?: $this->getCoverPath($name, $extension);
+
             // write cover in covers directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination);
 
-
             $thumbnailName = uniqid().'-'.$origname.'-thumbnail';
-            $thumbnailDestination = $this->getThumbnailsPath($thumbnailName, $extension);
+            $thumbnailDestination = $this->getThumbnailPath($thumbnailName, $extension);
 
-            // write cover in thumbnail directory
+            // write thumbnail in thumbnails directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $thumbnailDestination, array('max_width'=> 60));
 
+            $placeholderName = uniqid().'-'.$origname.'-placeholder-thumbnail';
+            $placeholderDestination = $this->getPlaceholderPath($placeholderName, $extension);
+
+            // write placeholder in placeholders directory
+            $this->ImageManageService->writeFromBinaryData($binaryData, $placeholderDestination, array('max_width' => 3));
 
             // Create MediaObject associated with album
             $mediaObject = new MediaObject();
             $mediaObject->fileName = $name.'.'.$extension;
             $mediaObject->thumbnailName = $thumbnailName.'.'.$extension;
+            $mediaObject->placeholderName = $placeholderName.'.'.$extension;
 
             $this->em->persist($mediaObject);
             $this->em->flush();
@@ -74,7 +81,7 @@ class MediaImageService
         try {
             $extension = trim(strtolower($extension), '. ');
             $name = uniqid().'-'.$origname;
-            $destination = $destination ?: $this->getAlbumCoverPath($name, $extension);
+            $destination = $destination ?: $this->getCoverPath($name, $extension);
 
             // write cover in covers directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination);
@@ -108,9 +115,10 @@ class MediaImageService
         $destination = ''
     ) : void {
         try {
+            dump('writeTrackThumbnail');
             $extension = trim(strtolower($extension), '. ');
             $name = uniqid().'-'.$origname.'-thumbnail';
-            $destination = $destination ?: $this->getThumbnailsPath($name, $extension);
+            $destination = $destination ?: $this->getThumbnailPath($name, $extension);
 
             // write cover in thumbnail directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination, array('max_width'=> 60));
@@ -139,7 +147,7 @@ class MediaImageService
         try {
             $extension = trim(strtolower($extension), '. ');
             $name = uniqid().'-'.$origname.'-thumbnail';
-            $destination = $destination ?: $this->getThumbnailsPath($name, $extension);
+            $destination = $destination ?: $this->getThumbnailPath($name, $extension);
 
             // write cover in thumbnail directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination, array('max_width'=> 3));
@@ -162,21 +170,20 @@ class MediaImageService
      *
      * @return void
      */
-    public function getAlbumCoverPath($name, $extension)
+    public function getCoverPath($name, $extension)
     {
         return $this->mediaPathCover.'/'.sprintf('%s.%s', $name, $extension);
     }
 
-    /**
-     * undocumented function
-     *
-     * @return void
-     */
-    public function getThumbnailsPath($name, $extension)
+    public function getThumbnailPath($name, $extension)
     {
         return $this->mediaPathCover.'/thumbnails/'.sprintf('%s.%s', $name, $extension);
     }
 
+    public function getPlaceholderPath($name, $extension)
+    {
+        return $this->mediaPathCover.'/thumbnails/placeholders/'.sprintf('%s.%s', $name, $extension);
+    }
 
     public function deleteAlbumCoverFiles($album)
     {
