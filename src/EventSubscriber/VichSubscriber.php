@@ -37,8 +37,7 @@ class VichSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-           'vich_uploader.pre_upload' => 'onVichUploaderPreUpload',
-           'vich_uploader.post_upload' => 'onVichUploaderPostUpload',
+            'vich_uploader.pre_upload' => 'onVichUploaderPreUpload',
         );
     }
 
@@ -49,36 +48,33 @@ class VichSubscriber implements EventSubscriberInterface
         }
 
         $object = $event->getObject();
-        $file = $object->getFile();
 
-        // boysnoize_superacide.jpg
-        dump($file->getClientOriginalName());
+        if ($object instanceof MediaObject) {
+            $format = sprintf('%s.jpg', $object->getFile()->getRealPath());
 
-        $data = file_get_contents($file->getPathname());
+            $file = $object->getFile();
+            $data = file_get_contents($file->getPathname());
 
-        
-        // writeBinaryData
-        $destination = 'uploads/covers/thumbnails/'.sprintf('%s_%s', uniqid(), $file->getClientOriginalName());
-        $img = $this->imageManager
-             ->make($data)
-             ->resize(
-                 60,
-                 null,
-                 static function (Constraint $constraint): void {
-                     $constraint->upsize();
-                     $constraint->aspectRatio();
-                 }
-        );
+            $img = $this->imageManager
+                    ->make($data)
+                    ->resize(
+                        60,
+                        null,
+                        static function (Constraint $constraint): void {
+                            $constraint->upsize();
+                            $constraint->aspectRatio();
+                        }
+            );
 
-        $img->save($destination, $config['quality'] ?? self::DEFAULT_QUALITY);
-    }
+            $img->save($format, $config['quality'] ?? self::DEFAULT_QUALITY);
 
-    public function getAlbumCoverPath($name, $extension)
-    {
-        return $this->mediaPathCover.'/'.sprintf('%s.%s', $name, $extension);
-    }
+            $file = new File($format);
 
-    public function onVichUploaderPostUpload(Event $event)
-    {
+            $thumbnail = new UploadedFile($file->getPathname(), $file->getFilename(), null, null, true);
+
+            $object->setThumbnail($thumbnail);
+
+            $object->setThumbnailName($file->getFilename());
+        }
     }
 }
