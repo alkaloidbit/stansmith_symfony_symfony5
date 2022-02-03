@@ -18,6 +18,51 @@ class MediaImageService
         $this->em = $em;
     }
 
+    public function writeCover(
+        Album $album,
+        string $binaryData,
+        $origname,
+        $extension,
+        $destination = '',
+        bool $cleanup = false
+    ) : void {
+        try {
+            $extension = trim(strtolower($extension), '. ');
+            $name = uniqid().'-'.$origname;
+            $destination = $destination ?: $this->getAlbumCoverPath($name, $extension);
+            // write cover in covers directory
+            $this->ImageManagerService->writeFromBinaryData($binaryData, $destination);
+
+
+            $thumbnailName = uniqid().'-'.$origname.'-thumbnail';
+            $thumbnailDestination = $this->getThumbnailsPath($thumbnailName, $extension);
+
+            // write cover in thumbnail directory
+            $this->ImageManagerService->writeFromBinaryData($binaryData, $thumbnailDestination, array('max_width'=> 60));
+
+
+            // Create MediaObject associated with album
+            $mediaObject = new MediaObject();
+            $mediaObject->fileName = $name.'.'.$extension;
+            $mediaObject->thumbnailName = $thumbnailName.'.'.$extension;
+
+            $this->em->persist($mediaObject);
+            $this->em->flush();
+
+            $this->writeTrackThumbnail($album, $binaryData, $origname, $extension);
+            $this->writePlaceholderThumbnail($album, $binaryData, $origname, $extension);
+
+            if ($cleanup) {
+                $this->deleteAlbumCoverFiles($album);
+            }
+            
+            // Associate album with mediaObject
+            $album->addCover($mediaObject);
+        } catch (\Exception $e) {
+            // handle log exception
+        }
+    }
+
     public function writeAlbumCover(
         Album $album,
         string $binaryData,

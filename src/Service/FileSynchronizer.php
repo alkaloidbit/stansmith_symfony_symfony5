@@ -204,7 +204,7 @@ class FileSynchronizer
         if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
             $origname = $cover->getBasename('.' . $cover->getExtension());
-            $this->mediaImageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
+            $this->mediaImageService->writeCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
         }
     }
 
