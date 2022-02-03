@@ -31,21 +31,18 @@ class MediaImageService
 
             $name = uniqid().'-'.$origname;
             $destination = $destination ?: $this->getCoverPath($name, $extension);
-
             // write cover in covers directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination);
 
             $thumbnailName = uniqid().'-'.$origname.'-thumbnail';
             $thumbnailDestination = $this->getThumbnailPath($thumbnailName, $extension);
-
             // write thumbnail in thumbnails directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $thumbnailDestination, array('max_width'=> 60));
 
             $placeholderName = uniqid().'-'.$origname.'-placeholder-thumbnail';
             $placeholderDestination = $this->getPlaceholderPath($placeholderName, $extension);
-
             // write placeholder in placeholders directory
-            $this->ImageManageService->writeFromBinaryData($binaryData, $placeholderDestination, array('max_width' => 3));
+            $this->ImageManagerService->writeFromBinaryData($binaryData, $placeholderDestination, array('max_width' => 3));
 
             // Create MediaObject associated with album
             $mediaObject = new MediaObject();
@@ -115,7 +112,6 @@ class MediaImageService
         $destination = ''
     ) : void {
         try {
-            dump('writeTrackThumbnail');
             $extension = trim(strtolower($extension), '. ');
             $name = uniqid().'-'.$origname.'-thumbnail';
             $destination = $destination ?: $this->getThumbnailPath($name, $extension);

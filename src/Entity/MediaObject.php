@@ -91,6 +91,14 @@ class MediaObject
     public $thumbnailContentUrl;
 
     /**
+     * @var string|null
+     *
+     * @ApiProperty(iri="http://schema.org/contentUrl")
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $placeholderContentUrl;
+
+    /**
      * @var File|null
      *
      * @Assert\NotNull(groups={"media_object_create"})
