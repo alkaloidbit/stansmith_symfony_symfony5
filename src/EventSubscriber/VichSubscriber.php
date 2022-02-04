@@ -26,27 +26,34 @@ class VichSubscriber implements EventSubscriberInterface
 
     public function onVichUploaderPreUpload(Event $event)
     {
-        if ($event->getMapping()->getFilePropertyName() === 'thumbnail') {
+        $filePropertyName = $event->getMapping()->getFilePropertyName();
+        if ($filePropertyName  === 'thumbnail' || $filePropertyName === 'placeholder') {
             return;
         }
 
         /** @var \App\Entity\MediaObject $object */
         $object = $event->getObject();
 
-
         /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile */
         $uploadedFile = $object->getFile();
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $format = sprintf('%s_thumbnail.%s', $originalFilename, $uploadedFile->guessExtension());
 
-        $this->imageManager->writeFromBinaryData(file_get_contents($uploadedFile->getPathname()), $format, array('max_width' => 60));
+        $thumbnailFormat = sprintf('%s_thumbnail.%s', $originalFilename, $uploadedFile->guessExtension());
+        $placeholderFormat = sprintf('%s_placeholder.%s', $originalFilename, $uploadedFile->guessExtension());
 
-        $file = new File($format);
+        $this->imageManager->writeFromBinaryData(file_get_contents($uploadedFile->getPathname()), $thumbnailFormat, array('max_width' => 60));
+        $this->imageManager->writeFromBinaryData(file_get_contents($uploadedFile->getPathname()), $placeholderFormat, array('max_width' => 3));
 
+        /** @var \Symfony\Component\HttpFoundation\File\File $file */
+        $file = new File($thumbnailFormat);
         $thumbnail = new UploadedFile($file->getPathname(), $file->getFilename(), null, null, true);
-
         $object->setThumbnail($thumbnail);
-
         $object->setThumbnailName($file->getFilename());
+
+        /** @var \Symfony\Component\HttpFoundation\File\File $file */
+        $file = new File($placeholderFormat);
+        $placeholder = new UploadedFile($file->getPathname(), $file->getFilename(), null, null, true);
+        $object->setPlaceholder($placeholder);
+        $object->setPlaceholderName($file->getFilename());
     }
 }
