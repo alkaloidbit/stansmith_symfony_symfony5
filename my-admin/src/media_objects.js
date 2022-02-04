@@ -26,19 +26,21 @@ export const MediaObjectsList = props => (
 );
 
 export const MediaObjectEdit = props => {
-    <Edit {...props}>
-        <SimpleForm>
-            <TextInput disabled source="id" />
-            <ReferenceInput
-                source=""
-                reference=""
-                allowEmpty
-                validate={required()}
-            >
-                <SelectInput optionText="title" />
-            </ReferenceInput>
-        </SimpleForm> 
-    </Edit>
+    return (
+        <Edit {...props}>
+            <SimpleForm>
+                <TextInput disabled source="id" />
+                <ReferenceInput
+                    source=""
+                    reference=""
+                    allowEmpty
+                    validate={required()}
+                >
+                    <SelectInput optionText="title" />
+                </ReferenceInput>
+            </SimpleForm> 
+        </Edit>
+    )
 }
 
 export const MediaObjectCreate = props => {
