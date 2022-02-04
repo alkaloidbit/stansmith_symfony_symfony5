@@ -323,7 +323,7 @@ class Track
      * @Groups({"track:read", "album:read"})
      * @SerializedName("thumbnail")
      */
-    public function getAlbumThumbnail(): ThumbnailObject
+    public function getAlbumThumbnail()
     {
         return $this->album->getMainThumbnail();
     }

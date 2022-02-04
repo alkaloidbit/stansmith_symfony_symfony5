@@ -94,12 +94,6 @@ class Album
      */
     private $active;
 
-    /**
-     * @ORM\OneToMany(targetEntity=ThumbnailObject::class, mappedBy="album", orphanRemoval=true)
-     * @Groups({"album:write", "album:read"})
-     */
-    private $thumbnails;
-
 
     public function __construct()
     {
@@ -255,40 +249,10 @@ class Album
     }
 
     /**
-     * @return Collection|ThumbnailObject[]
-     */
-    public function getThumbnails(): Collection
-    {
-        return $this->thumbnails;
-    }
-
-    /**
      * @SerializedName("mainThumbnail")
      */
-    public function getMainThumbnail(): ThumbnailObject
+    public function getMainThumbnail()
     {
-        return $this->getThumbnails()[0];
-    }
-
-    public function addThumbnail(ThumbnailObject $thumbnail): self
-    {
-        if (!$this->thumbnails->contains($thumbnail)) {
-            $this->thumbnails[] = $thumbnail;
-            $thumbnail->setAlbum($this);
-        }
-
-        return $this;
-    }
-
-    public function removeThumbnail(ThumbnailObject $thumbnail): self
-    {
-        if ($this->thumbnails->removeElement($thumbnail)) {
-            // set the owning side to null (unless already changed)
-            if ($thumbnail->getAlbum() === $this) {
-                $thumbnail->setAlbum(null);
-            }
-        }
-
-        return $this;
+        return $this->cover[0];
     }
 }

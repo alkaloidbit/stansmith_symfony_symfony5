@@ -53,9 +53,6 @@ class MediaImageService
             $this->em->persist($mediaObject);
             $this->em->flush();
 
-            $this->writeTrackThumbnail($album, $binaryData, $origname, $extension);
-            $this->writePlaceholderThumbnail($album, $binaryData, $origname, $extension);
-
             if ($cleanup) {
                 $this->deleteAlbumCoverFiles($album);
             }
@@ -67,100 +64,6 @@ class MediaImageService
         }
     }
 
-    public function writeAlbumCover(
-        Album $album,
-        string $binaryData,
-        $origname,
-        $extension,
-        $destination = '',
-        bool $cleanup = false
-    ) : void {
-        try {
-            $extension = trim(strtolower($extension), '. ');
-            $name = uniqid().'-'.$origname;
-            $destination = $destination ?: $this->getCoverPath($name, $extension);
-
-            // write cover in covers directory
-            $this->ImageManagerService->writeFromBinaryData($binaryData, $destination);
-
-            // Create MediaObject associated with album
-            $mediaObject = new MediaObject();
-            $mediaObject->fileName = $name.'.'.$extension;
-
-            $this->em->persist($mediaObject);
-            $this->em->flush();
-
-            $this->writeTrackThumbnail($album, $binaryData, $origname, $extension);
-            $this->writePlaceholderThumbnail($album, $binaryData, $origname, $extension);
-
-            if ($cleanup) {
-                $this->deleteAlbumCoverFiles($album);
-            }
-            
-            // Associate album with mediaObject
-            $album->addCover($mediaObject);
-        } catch (\Exception $e) {
-            // handle log exception
-        }
-    }
-
-    public function writeTrackThumbnail(
-        Album $album,
-        string $binaryData,
-        $origname,
-        $extension,
-        $destination = ''
-    ) : void {
-        try {
-            $extension = trim(strtolower($extension), '. ');
-            $name = uniqid().'-'.$origname.'-thumbnail';
-            $destination = $destination ?: $this->getThumbnailPath($name, $extension);
-
-            // write cover in thumbnail directory
-            $this->ImageManagerService->writeFromBinaryData($binaryData, $destination, array('max_width'=> 60));
-
-            // Create MediaObject associated with album
-            $thumbnailObject = new ThumbnailObject();
-            $thumbnailObject->fileName = $name.'.'.$extension;
-            // Associate album with thumbnailObject
-            $album->addThumbnail($thumbnailObject);
-
-            $this->em->persist($thumbnailObject);
-            $this->em->flush();
-        } catch (\Exception $e) {
-            dd($e);
-            // handle log exception
-        }
-    }
-    
-    public function writePlaceholderThumbnail(
-        Album $album,
-        string $binaryData,
-        $origname,
-        $extension,
-        $destination = ''
-    ) : void {
-        try {
-            $extension = trim(strtolower($extension), '. ');
-            $name = uniqid().'-'.$origname.'-thumbnail';
-            $destination = $destination ?: $this->getThumbnailPath($name, $extension);
-
-            // write cover in thumbnail directory
-            $this->ImageManagerService->writeFromBinaryData($binaryData, $destination, array('max_width'=> 3));
-
-            // Create MediaObject associated with album
-            $thumbnailObject = new ThumbnailObject();
-            $thumbnailObject->fileName = $name.'.'.$extension;
-            // Associate album with placeholderThumbnail
-            $album->addThumbnail($thumbnailObject);
-
-            $this->em->persist($thumbnailObject);
-            $this->em->flush();
-        } catch (\Exception $e) {
-            dd($e);
-            // handle log exception
-        }
-    }
     /**
      * undocumented function
      *
