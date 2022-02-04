@@ -29,17 +29,17 @@ class MediaImageService
         try {
             $extension = trim(strtolower($extension), '. ');
 
-            $name = uniqid().'-'.$origname;
+            $name = uniqid().'_'.$origname;
             $destination = $destination ?: $this->getCoverPath($name, $extension);
             // write cover in covers directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $destination);
 
-            $thumbnailName = uniqid().'-'.$origname.'-thumbnail';
+            $thumbnailName = uniqid().'_'.$origname.'_thumbnail';
             $thumbnailDestination = $this->getThumbnailPath($thumbnailName, $extension);
             // write thumbnail in thumbnails directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $thumbnailDestination, array('max_width'=> 60));
 
-            $placeholderName = uniqid().'-'.$origname.'-placeholder-thumbnail';
+            $placeholderName = uniqid().'_'.$origname.'_placeholder_thumbnail';
             $placeholderDestination = $this->getPlaceholderPath($placeholderName, $extension);
             // write placeholder in placeholders directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $placeholderDestination, array('max_width' => 3));
