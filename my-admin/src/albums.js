@@ -25,8 +25,8 @@ export const AlbumsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
             <TextField source="id"/>
-            <ReferenceField label="Cover" source="mainThumbnail" reference="thumbnail_objects">
-                <ThumbnailField source="contentUrl" />
+            <ReferenceField label="Cover" source="cover" reference="media_objects">
+                <ThumbnailField source="thumbnailContentUrl" />
             </ReferenceField>
             <TextField source="title" />
             <ReferenceField label="Artist" source="artist" reference="artists">
