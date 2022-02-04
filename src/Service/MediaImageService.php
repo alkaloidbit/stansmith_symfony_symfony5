@@ -39,7 +39,7 @@ class MediaImageService
             // write thumbnail in thumbnails directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $thumbnailDestination, array('max_width'=> 60));
 
-            $placeholderName = uniqid().'_'.$origname.'_placeholder_thumbnail';
+            $placeholderName = uniqid().'_'.$origname.'_placeholder';
             $placeholderDestination = $this->getPlaceholderPath($placeholderName, $extension);
             // write placeholder in placeholders directory
             $this->ImageManagerService->writeFromBinaryData($binaryData, $placeholderDestination, array('max_width' => 3));

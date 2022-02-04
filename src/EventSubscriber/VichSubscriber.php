@@ -6,17 +6,13 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Vich\UploaderBundle\Event\Event;
-use Intervention\Image\Constraint;
-use Intervention\Image\ImageManager;
+use App\Service\ImageManagerService;
 
 class VichSubscriber implements EventSubscriberInterface
 {
-
-    private const DEFAULT_QUALITY = 80;
-
     private $imageManager;
 
-    public function __construct(ImageManager $imageManager)
+    public function __construct(ImageManagerService $imageManager)
     {
         $this->imageManager = $imageManager;
     }
@@ -34,37 +30,23 @@ class VichSubscriber implements EventSubscriberInterface
             return;
         }
 
+        /** @var \App\Entity\MediaObject $object */
         $object = $event->getObject();
 
-        if ($object instanceof MediaObject) {
-            $format = sprintf('%s.jpg', $object->getFile()->getRealPath());
 
-            $file = $object->getFile();
+        /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $uploadedFile */
+        $uploadedFile = $object->getFile();
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $format = sprintf('%s_thumbnail.%s', $originalFilename, $uploadedFile->guessExtension());
 
-            // file content
-            $data = file_get_contents($file->getPathname());
+        $this->imageManager->writeFromBinaryData(file_get_contents($uploadedFile->getPathname()), $format, array('max_width' => 60));
 
-            // new Img Object
-            $img = $this->imageManager
-                    ->make($data)
-                    ->resize(
-                        60,
-                        null,
-                        static function (Constraint $constraint): void {
-                            $constraint->upsize();
-                            $constraint->aspectRatio();
-                        }
-                    );
+        $file = new File($format);
 
-            $img->save($format, $config['quality'] ?? self::DEFAULT_QUALITY);
+        $thumbnail = new UploadedFile($file->getPathname(), $file->getFilename(), null, null, true);
 
-            $file = new File($format);
+        $object->setThumbnail($thumbnail);
 
-            $thumbnail = new UploadedFile($file->getPathname(), $file->getFilename(), null, null, true);
-
-            $object->setThumbnail($thumbnail);
-
-            $object->setThumbnailName($file->getFilename());
-        }
+        $object->setThumbnailName($file->getFilename());
     }
 }
