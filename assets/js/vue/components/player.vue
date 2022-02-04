@@ -50,7 +50,7 @@
                     </div>
                     <img
                         v-if="currentTrack !== undefined && !isLoading"
-                        :src="getCurrentTrackInfo.thumbnail.coverContentUrl"
+                        :src="getCurrentTrackInfo.thumbnail.thumbnailContentUrl"
                     >
                     <div
                         v-if="currentTrack !== undefined && !isLoading"
