@@ -11,7 +11,7 @@ import ArtistIcon from '@material-ui/icons/PersonSharp';
 import ImageIcon from '@material-ui/icons/Image';
 import { AlbumsList, AlbumEdit } from './albums';
 import { ArtistsList, ArtistsEdit } from './artists';
-import { MediaObjectsList } from './media_objects';
+import { MediaObjectsList, MediaObjectCreate } from './media_objects';
 
 const entrypoint = process.env.REACT_APP_ADMIN_ENTRYPOINT;
 
@@ -30,7 +30,7 @@ const App =  () => (
         <Resource name="artists" list={ArtistsList} edit={ArtistsEdit} icon={ArtistIcon}/>
         <Resource name="albums" list={AlbumsList} edit={AlbumEdit} icon={AlbumIcon} />
         <Resource name="thumbnail_objects" />
-        <Resource name="media_objects" list={MediaObjectsList} icon={ImageIcon} />
+        <Resource name="media_objects" list={MediaObjectsList} create={MediaObjectCreate} icon={ImageIcon} />
     </HydraAdmin>
 );
 
