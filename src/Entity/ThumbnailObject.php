@@ -70,14 +70,6 @@ class ThumbnailObject
     protected $id;
 
     /**
-     * @var string|null
-     *
-     * @ApiProperty(iri="http://schema.org/contentUrl")
-     * @Groups({"thumbnail_object_read", "album:read"})
-     */
-    public $contentUrl;
-
-    /**
      * @var File|null
      *
      * @Assert\NotNull(groups={"thumbnail_object_create"})
