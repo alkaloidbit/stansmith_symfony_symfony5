@@ -7,8 +7,8 @@ import {
 import { parseHydraDocumentation } from '@api-platform/api-doc-parser';
 import { Resource, EditGuesser } from 'react-admin';
 import AlbumIcon from '@material-ui/icons/AlbumTwoTone';
-import ArtistIcon from '@material-ui/icons/PersonSharp';
-import ImageIcon from '@material-ui/icons/Image';
+import ArtistIcon from '@material-ui/icons/PersonOutlineTwoTone';
+import ImageIcon from '@material-ui/icons/ImageTwoTone';
 import { AlbumsList, AlbumEdit } from './albums';
 import { ArtistsList, ArtistsEdit } from './artists';
 import { MediaObjectsList, MediaObjectCreate, MediaObjectEdit } from './media_objects';
