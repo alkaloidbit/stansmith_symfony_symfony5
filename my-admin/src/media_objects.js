@@ -8,54 +8,51 @@ import {
     EditButton,
     SimpleForm,
     ReferenceInput,
+    ReferenceField,
     TextInput,
+    ImageInput,
+    ImageField,
     SelectInput,
     required
 } from 'react-admin';
 
 import ThumbnailField from './ThumbnailField';
+import CustomTextField from './CustomTextField';
 
 export const MediaObjectsList = props => (
     <List {...props}>
         <Datagrid >
+            <TextField source="id" label="Id" />
             <ThumbnailField label="Cover" source="thumbnailContentUrl" />
-            <TextField source="fileName" label="Cover filename" />
+            <TextField source="fileName" label="Filename" />
+            <ReferenceField label="Album" source="album" reference="albums">
+                <CustomTextField source="title" />
+            </ReferenceField>
             <EditButton />
         </Datagrid>
     </List>
 );
+
+export const MediaObjectCreate = props => {
+    return (
+        <Create {...props}>
+            <SimpleForm addLabel={false}>
+                <ImageInput source="file" accept="image/*" >
+                    <ImageField source="src" title="" />
+                </ImageInput>
+            </SimpleForm>
+        </Create>
+    );
+}
 
 export const MediaObjectEdit = props => {
     return (
         <Edit {...props}>
             <SimpleForm>
                 <TextInput disabled source="id" />
-                <ReferenceInput
-                    source=""
-                    reference=""
-                    allowEmpty
-                    validate={required()}
-                >
-                    <SelectInput optionText="title" />
-                </ReferenceInput>
+                <TextInput disabled source="album" />
+                <ThumbnailField label="Cover" source="coverContentUrl" />
             </SimpleForm> 
         </Edit>
-    )
-}
-
-export const MediaObjectCreate = props => {
-    return (
-        <Create {... props}>
-            <SimpleForm>
-                <ReferenceInput 
-                    source=""
-                    reference=""
-                    allowEmpty
-                    validate={required()}
-                >
-                    <SelectInput optionText="title" />
-                </ReferenceInput>
-            </SimpleForm>
-        </Create>
-    )
+    );
 }

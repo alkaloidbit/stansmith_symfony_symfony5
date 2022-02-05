@@ -32,7 +32,6 @@ export const AlbumsList = props => (
             <ReferenceField label="Artist" source="artist" reference="artists">
                 <CustomTextField source="name" />
             </ReferenceField>
-            <TextField label="Artist" source={"artist.name"} />
             <DateField source={"date"} label="Year" options={{ year: 'numeric' }} />
             <BooleanField source={"active"} />
             <DateField source={"created_date"} locales="fr-FR" />
@@ -60,9 +59,9 @@ export const AlbumEdit = props => (
                 <AutocompleteInput optionText="name" />
             </ReferenceInput>*/}
             <TextInput source="date" />
-            {/*<ReferenceArrayInput source="cover" reference="media_objects">
+            <ReferenceArrayInput source="cover" reference="media_objects">
                 <SelectArrayInput optionText="@id" />
-            </ReferenceArrayInput>*/}
+            </ReferenceArrayInput>
             <BooleanInput source="active" />
         </SimpleForm>
     </Edit>
