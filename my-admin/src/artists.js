@@ -15,6 +15,7 @@ import {
 export const ArtistsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
+            <TextField source="id"/>
             <TextField source="name" />
             <ReferenceArrayField label="Albums" reference="albums" source="albums">
                 <SingleFieldList>

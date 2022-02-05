@@ -43,8 +43,8 @@
                         >
                             <img
                                 v-if="album.cover[0]"
-                                :data-src="album.cover[0].contentUrl"
-                                :data-loading="album.thumbnails[0].contentUrl"
+                                :data-src="album.cover[0].coverContentUrl"
+                                :data-loading="album.cover[0].placeholderContentUrl"
                                 alt=""
                                 class="img-cover"
                             >

@@ -41,4 +41,23 @@ vich_uploader:
             # default true, should the file be deleted when entity is removed;
             delete_on_remove: true 
 
+        placeholder_object:
+            # The webpath to the upload directory
+            uri_prefix: /uploads/covers/thumbnails/placeholders
+            # Where the upload will be stored in filesystem
+            upload_destination: '%kernel.project_dir%/public/uploads/covers/thumbnails/placeholders'
+            # Will rename uploaded files using a uniqueid as a prefix.
+            namer: Vich\UploaderBundle\Naming\OrignameNamer
+
+            # default false, should the file be injected into uploadable entity
+            # when it is loaded from the data store. The object will be an inst-
+            # ance of Symfony\Component\HttpFoundation\File\File.
+            inject_on_load: true
+
+            # default true, should the file be deleted when entity is updated
+            delete_on_update: true
+
+            # default true, should the file be deleted when entity is removed;
+            delete_on_remove: true 
+
 

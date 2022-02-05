@@ -7552,6 +7552,13 @@ ra-core@^3.19.6:
     query-string "^5.1.1"
     reselect "~3.0.0"
 
+ra-data-simple-rest@^3.19.7:
+  version "3.19.7"
+  resolved "https://registry.yarnpkg.com/ra-data-simple-rest/-/ra-data-simple-rest-3.19.7.tgz#270baa691c3c4d902b029255245e3b00e387ef0d"
+  integrity sha512-Uyf/ZptHSoej0bb79a8VA26B5OG+xTSDVVlKDaA5L/DsvaydtV1Kp4sYGVyheXrsUtYGqxjDdZVKwb37c+6TeA==
+  dependencies:
+    query-string "^5.1.1"
+
 ra-i18n-polyglot@^3.19.6:
   version "3.19.6"
   resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.19.6.tgz#fd38ab1d663dd096719d26e3e2a6323f405fdd4c"

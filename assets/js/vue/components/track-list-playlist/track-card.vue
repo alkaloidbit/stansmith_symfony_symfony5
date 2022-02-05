@@ -27,7 +27,7 @@
                 <i class="mdi mdi-36px mdi-play" />
             </span>
             <img
-                :src="track.thumbnail.contentUrl"
+                :src="track.thumbnail.thumbnailContentUrl"
                 alt=""
             >
             <!-- <span class="sound-bars" /> -->

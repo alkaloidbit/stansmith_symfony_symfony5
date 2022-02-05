@@ -126,12 +126,6 @@ class Track
      */
     private $fileformat;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=ThumbnailObject::class, inversedBy="tracks")
-     * @Groups({"track:read", "album:read"})
-     */
-    private $thumbnail;
-
 
     public function getPath(): ?string
     {
@@ -325,15 +319,12 @@ class Track
         return $this;
     }
 
-    public function getThumbnail(): ?ThumbnailObject
+    /**
+     * @Groups({"track:read", "album:read"})
+     * @SerializedName("thumbnail")
+     */
+    public function getAlbumThumbnail()
     {
-        return $this->thumbnail;
-    }
-
-    public function setThumbnail(?ThumbnailObject $thumbnail): self
-    {
-        $this->thumbnail = $thumbnail;
-
-        return $this;
+        return $this->album->getMainThumbnail();
     }
 }

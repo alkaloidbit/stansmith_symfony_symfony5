@@ -19,7 +19,7 @@ export default {
     computed: {
         newAlbumCover () {
             if (this.cover) {
-                return this.readFile(this.cover.contentUrl)
+                return this.readFile(this.cover.coverContentUrl)
             }
 
             return 'http://via.placeholder.com/400x400/fefefe'

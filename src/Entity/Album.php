@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter;
@@ -37,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiFilter(SearchFilter::class, properties={"artist": "exact", "title": "partial", "id": "exact"})
  * @ApiFilter(BooleanFilter::class, properties={"active"})
  * @ApiFilter(PropertyFilter::class)
- *
+ * @ApiFilter(OrderFilter::class, properties={"id": "ASC"})
  */
 class Album
 {
@@ -92,12 +93,6 @@ class Album
      * @Groups({"album:write", "album:read"})
      */
     private $active;
-
-    /**
-     * @ORM\OneToMany(targetEntity=ThumbnailObject::class, mappedBy="album", orphanRemoval=true)
-     * @Groups({"album:write", "album:read"})
-     */
-    private $thumbnails;
 
 
     public function __construct()
@@ -254,32 +249,10 @@ class Album
     }
 
     /**
-     * @return Collection|ThumbnailObject[]
+     * @SerializedName("mainThumbnail")
      */
-    public function getThumbnails(): Collection
+    public function getMainThumbnail()
     {
-        return $this->thumbnails;
-    }
-
-    public function addThumbnail(ThumbnailObject $thumbnail): self
-    {
-        if (!$this->thumbnails->contains($thumbnail)) {
-            $this->thumbnails[] = $thumbnail;
-            $thumbnail->setAlbum($this);
-        }
-
-        return $this;
-    }
-
-    public function removeThumbnail(ThumbnailObject $thumbnail): self
-    {
-        if ($this->thumbnails->removeElement($thumbnail)) {
-            // set the owning side to null (unless already changed)
-            if ($thumbnail->getAlbum() === $this) {
-                $thumbnail->setAlbum(null);
-            }
-        }
-
-        return $this;
+        return $this->cover[0];
     }
 }

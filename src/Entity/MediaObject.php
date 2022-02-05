@@ -73,13 +73,30 @@ class MediaObject
      */
     protected $id;
 
+
     /**
      * @var string|null
      *
      * @ApiProperty(iri="http://schema.org/contentUrl")
      * @Groups({"media_object_read", "album:read"})
      */
-    public $contentUrl;
+    public $coverContentUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ApiProperty(iri="http://schema.org/contentUrl")
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $thumbnailContentUrl;
+
+    /**
+     * @var string|null
+     *
+     * @ApiProperty(iri="http://schema.org/contentUrl")
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $placeholderContentUrl;
 
     /**
      * @var File|null
@@ -89,6 +106,21 @@ class MediaObject
      */
     public $file;
 
+    /**
+     * @var File|null
+     *
+     * @Groups({"media_object_create"})
+     * @Vich\UploadableField(mapping="thumbnail_object", fileNameProperty="thumbnailName")
+     */
+    public $thumbnail;
+
+    /**
+     * @var File|null
+     *
+     * @Groups({"media_object_create"})
+     * @Vich\UploadableField(mapping="placeholder_object", fileNameProperty="placeholderName")
+     */
+    public $placeholder;
 
     /**
      * @var string|null
@@ -98,13 +130,26 @@ class MediaObject
     public $fileName;
 
     /**
+     * @var string|null
+     * @ORM\Column(nullable=true)
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $thumbnailName;
+
+    /**
+     * @var string|null
+     * @ORM\Column(nullable=true)
+     * @Groups({"media_object_read", "album:read"})
+     */
+    public $placeholderName;
+
+    /**
      * "Many MediaObject to One Album"
      * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="cover")
      * @ORM\JoinColumn(nullable=true)
      * @Groups({"media_object_read"})
      */
     private $album;
-
 
     public function getId(): ?int
     {
@@ -131,5 +176,81 @@ class MediaObject
         $this->album = $album;
 
         return $this;
+    }
+
+    public function setFile(?File $file)
+    {
+        $this->file = $file;
+
+        if ($file) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+    }
+
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    public function setThumbnail(?File $thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        if ($thumbnail) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getThumbnail(): ?File
+    {
+        return $this->thumbnail;
+    }
+
+
+    public function setThumbnailName($thumbnailName)
+    {
+        $this->thumbnailName = $thumbnailName;
+    }
+
+    public function getThumbnailName(): ?string
+    {
+        return $this->thumbnailName;
+    }
+
+
+    public function setPlaceholder(?File $placeholder)
+    {
+        $this->placeholder = $placeholder;
+
+        if ($placeholder) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPlaceholder(): ?File
+    {
+        return $this->placeholder;
+    }
+
+
+    public function setPlaceholderName($placeholderName)
+    {
+        $this->placeholderName = $placeholderName;
+    }
+
+    public function getPlaceholderName(): ?string
+    {
+        return $this->placeholderName;
     }
 }
