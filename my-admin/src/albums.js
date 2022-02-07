@@ -7,10 +7,15 @@ import {
     DateField,
     BooleanField,
     EditButton,
+    ShowButton,
     Edit,
+    Show,
     SimpleForm,
     BooleanInput,
+    TabbedShowLayout,
+    Tab,
     ReferenceInput,
+    ReferenceArrayField,
     ReferenceArrayInput,
     SelectArrayInput,
     AutocompleteInput,
@@ -20,6 +25,7 @@ import {
 
 import CustomTextField from './CustomTextField';
 import ThumbnailField from './ThumbnailField';
+import AddMediaObjectButton from './AddMediaObjectButton';
 
 export const AlbumsList = props => (
     <List {...props}>
@@ -36,6 +42,7 @@ export const AlbumsList = props => (
             <BooleanField source={"active"} />
             <DateField source={"created_date"} locales="fr-FR" />
             <EditButton />
+            <ShowButton />
         </Datagrid>
     </List>
 )
@@ -48,16 +55,6 @@ export const AlbumEdit = props => (
         <SimpleForm>
             <TextInput disabled source="id" />
             <TextInput source="title" />
-            {/*<ReferenceInput 
-                disabled
-                label="artist"
-                source="artist" 
-                reference="artists"
-                filterToQuery={searchText => ({ name: searchText })}
-                format={v => v['@id'] || v}
-            >
-                <AutocompleteInput optionText="name" />
-            </ReferenceInput>*/}
             <TextInput source="date" />
             <ReferenceArrayInput source="cover" reference="media_objects">
                 <SelectArrayInput optionText="@id" />
@@ -65,4 +62,33 @@ export const AlbumEdit = props => (
             <BooleanInput source="active" />
         </SimpleForm>
     </Edit>
+);
+
+export const AlbumShow = props => (
+    <Show {...props}>
+        <TabbedShowLayout>
+            <Tab label="Summary">
+                <TextField source="id" />
+                <TextField source="title" />
+                <DateField source="date" />
+                <BooleanField source="active" />
+            </Tab>
+            <Tab label="Cover" path="media_objects">
+                <ReferenceArrayField
+                  addLabel={false}
+                  reference="media_objects"
+                    source="cover"
+                  target="post_id"
+                >
+                  <Datagrid>
+                    <TextField source="id" />
+                    <ThumbnailField source="coverContentUrl" />
+                    <DateField source="created_date" />
+                    <ShowButton />
+                  </Datagrid>
+                </ReferenceArrayField>
+                <AddMediaObjectButton />
+              </Tab>
+        </TabbedShowLayout>
+    </Show>
 );

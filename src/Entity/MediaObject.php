@@ -157,7 +157,7 @@ class MediaObject
     }
 
     /**
-     * @Groups({"media_object_read"})
+     * @Groups({"media_object_read", "album:read"})
      * @SerializedName("created_date")
      */
     public function getCreatedAtTimestampable(): ?\DateTimeInterface

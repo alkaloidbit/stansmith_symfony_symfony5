@@ -77,7 +77,7 @@ class Album
 
     /**
      * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="album", orphanRemoval=true)
-     * @Groups({"album:write", "album:read"})
+     * @Groups({"album:write", "album:read", "track:read"})
      */
     private $cover;
 
