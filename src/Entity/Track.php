@@ -323,8 +323,8 @@ class Track
      * @Groups({"track:read", "album:read"})
      * @SerializedName("thumbnail")
      */
-    public function getAlbumThumbnail()
+    public function getAlbumCoverMediaObject()
     {
-        return $this->album->getMainThumbnail();
+        return $this->album->getCoverMediaObject();
     }
 }

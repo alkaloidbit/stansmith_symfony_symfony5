@@ -251,7 +251,7 @@ class Album
     /**
      * @SerializedName("mainThumbnail")
      */
-    public function getMainThumbnail()
+    public function getCoverMediaObject()
     {
         return $this->cover[0];
     }
