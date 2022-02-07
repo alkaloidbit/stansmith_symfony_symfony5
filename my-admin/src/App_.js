@@ -9,8 +9,10 @@ import { Resource, EditGuesser } from 'react-admin';
 import AlbumIcon from '@material-ui/icons/AlbumTwoTone';
 import ArtistIcon from '@material-ui/icons/PersonOutlineTwoTone';
 import ImageIcon from '@material-ui/icons/ImageTwoTone';
+import AudioTrackIcon from '@material-ui/icons/AudiotrackTwoTone';
 import { AlbumsList, AlbumEdit } from './albums';
 import { ArtistsList, ArtistsEdit } from './artists';
+import { TracksList } from './tracks';
 import { MediaObjectsList, MediaObjectCreate, MediaObjectEdit } from './media_objects';
 
 const entrypoint = process.env.REACT_APP_ADMIN_ENTRYPOINT;
@@ -31,6 +33,7 @@ const App =  () => (
         <Resource name="albums" list={AlbumsList} edit={AlbumEdit} icon={AlbumIcon} />
         <Resource name="thumbnail_objects" />
         <Resource name="media_objects" edit={MediaObjectEdit} list={MediaObjectsList} create={MediaObjectCreate} icon={ImageIcon} />
+        <Resource name="tracks" list={TracksList} icon={AudioTrackIcon}/>
     </HydraAdmin>
 );
 
