@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { 
     List,
@@ -7,12 +8,10 @@ import {
     ReferenceArrayField,
     SingleFieldList,
     EditButton,
-    Edit,
-    SimpleForm,
-    TextInput,
 } from 'react-admin';
 
-export const ArtistsList = props => (
+
+const ArtistsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id"/>
@@ -27,12 +26,4 @@ export const ArtistsList = props => (
     </List>
 );
 
-export const ArtistsEdit = props => (
-    <Edit {...props}>
-        <SimpleForm>
-            <TextInput source="name" />
-
-        </SimpleForm>
-    </Edit>
-)
-
+export default ArtistsList;

@@ -1,28 +1,14 @@
-
 import * as React from 'react';
 import { 
     List,
     Datagrid,
     TextField,
     ReferenceField,
-    DateField,
-    BooleanField,
-    EditButton,
-    Edit,
-    SimpleForm,
-    BooleanInput,
-    ReferenceInput,
-    ReferenceArrayInput,
-    SelectArrayInput,
-    AutocompleteInput,
-    SelectInput,
-    TextInput,
 } from 'react-admin';
 
-import CustomTextField from './CustomTextField';
-import ThumbnailField from './ThumbnailField';
+import ThumbnailField from '../components/ThumbnailField';
 
-export const TracksList = props => (
+const TracksList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
             <TextField source="id"/>
@@ -34,3 +20,5 @@ export const TracksList = props => (
         </Datagrid>
     </List>
 );
+
+export default TracksList;
