@@ -9,6 +9,7 @@ import {
     EditButton,
     ShowButton,
     Edit,
+    Create,
     Show,
     SimpleForm,
     BooleanInput,
@@ -50,6 +51,21 @@ export const AlbumsList = props => (
 const AlbumTitle = ({ record }) => {
     return <span>Album {record ? `"${record.title}"` : ''}</span>
 }
+
+export const AlbumCreate = props => (
+    <Create title={<AlbumTitle />} {...props}>
+        <SimpleForm>
+            <TextInput disabled source="id" />
+            <TextInput source="title" />
+            <TextInput source="date" />
+            <ReferenceArrayInput source="cover" reference="media_objects">
+                <SelectArrayInput optionText="@id" />
+            </ReferenceArrayInput>
+            <BooleanInput source="active" />
+        </SimpleForm>
+    </Create>
+);
+
 export const AlbumEdit = props => (
     <Edit title={<AlbumTitle />} {...props}>
         <SimpleForm>
@@ -77,8 +93,7 @@ export const AlbumShow = props => (
                 <ReferenceArrayField
                   addLabel={false}
                   reference="media_objects"
-                    source="cover"
-                  target="post_id"
+                  source="cover"
                 >
                   <Datagrid>
                     <TextField source="id" />
