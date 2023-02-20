@@ -20,9 +20,9 @@ After posting the data we receive a response like that:
 
 ```json
 {
-	"@type": "https://shema.org/MediaObject",
-	"@id": "/media_objects/<id>",
-	"contentUrl": "<url>"
+  "@type": "https://shema.org/MediaObject",
+  "@id": "/media_objects/<id>",
+  "contentUrl": "<url>"
 }
 ```
 
