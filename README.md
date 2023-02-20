@@ -34,7 +34,7 @@ After posting the data we receive a response like that:
 
 ```json
 {
-	"title": "BlaBla",
+  "title": "BlaBla",
   "artist": "/api/artists/5",
   "cover": [
     "/api/media_objects/68",
