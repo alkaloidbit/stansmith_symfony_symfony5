@@ -72,8 +72,8 @@ class MediaImageService
             
             // Associate album with mediaObject
             $album->addCover($mediaObject);
-            // handle log exception
         } catch (\Exception $e) {
+            // handle log exception
         }
     }
 
