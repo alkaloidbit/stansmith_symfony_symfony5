@@ -4,6 +4,9 @@ import {
     Datagrid,
     TextField,
     ReferenceField,
+    ReferenceArrayField,
+    SingleFieldList,
+    ChipField,
     DateField,
     BooleanField,
     EditButton,
@@ -17,6 +20,11 @@ const AlbumsList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
             <TextField source="id"/>
+            <ReferenceArrayField label="Covers" reference="media_objects" source="cover">
+                <SingleFieldList>
+                    <ChipField source="thumbnailContentUrl"/>
+                </SingleFieldList>
+            </ReferenceArrayField>
             <ReferenceField label="Cover" source="cover" reference="media_objects">
                 <ThumbnailField source="thumbnailContentUrl" />
             </ReferenceField>
