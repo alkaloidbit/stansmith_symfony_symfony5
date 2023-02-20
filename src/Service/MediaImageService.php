@@ -11,6 +11,19 @@ use App\Service\ImageManagerService;
 
 class MediaImageService
 {
+    /**
+     * @var ImageManagerService
+     */
+    private $ImageManagerService;
+    /**
+     * @var string
+     */
+    private $mediaPathCover;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
     public function __construct(ImageManagerService $imageService, EntityManagerInterface $em, string $mediaPathCover)
     {
         $this->ImageManagerService = $imageService;
