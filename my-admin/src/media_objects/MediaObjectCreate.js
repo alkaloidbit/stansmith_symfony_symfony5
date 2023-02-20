@@ -9,7 +9,7 @@ import {
 const MediaObjectCreate = props => {
     return (
         <Create {...props}>
-            <SimpleForm addLabel={false}>
+            <SimpleForm addlabel="false">
                 <ImageInput source="file" accept="image/*" >
                     <ImageField source="src" title="" />
                 </ImageInput>
@@ -19,3 +19,4 @@ const MediaObjectCreate = props => {
 }
 
 export default MediaObjectCreate;
+

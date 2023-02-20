@@ -55,6 +55,22 @@ thanks to https://github.com/dustin10/VichUploaderBundle/blob/master/docs/events
 
 thumbnail and placeholder are property of the MediaObject entity.
 
+## My-Admin related
+
+We have successfully uploaded a cover, a MediaObject entity was created
+`/api/media_objects/68`
+
+We have successfully linked this to a new album, created via a POST request
+`/api/albums/68`
+
+Now in react my-admin:
+
+- [ ] Try edit the album object and change the cover with another MediaObject
+
+object : Surprise ! it add a new cover associated with the album
+
+- [X] Try create a MediaObject via http://localhost:3000/#/media_objects/create
+
 
 
 
