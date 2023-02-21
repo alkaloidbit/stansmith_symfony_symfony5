@@ -23,6 +23,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *          "groups"={"media_object_read"}
  *      },
  *      collectionOperations={
+ *          "get",
  *          "post"={
  *              "controller"=CreateMediaObjectAction::class,
  *              "deserialize"=false,
@@ -45,14 +46,14 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *                  }
  *              }
  *          },
- *          "get"
  *      },
  *      itemOperations={
  *          "get",
+ *          "put",
  *          "delete"
  *      },
  *      attributes={
- *          "pagination_items_per_page"=10
+ *          "pagination_items_per_page"=100
  *      }
  * )
  *

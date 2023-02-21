@@ -36,7 +36,7 @@ const AlbumShow = props => (
                   </Datagrid>
                 </ReferenceArrayField>
                 <AddMediaObjectButton />
-              </Tab>
+            </Tab>
         </TabbedShowLayout>
     </Show>
 );

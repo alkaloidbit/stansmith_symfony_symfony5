@@ -71,7 +71,7 @@ object : Surprise ! it add a new cover associated with the album
 
 - [X] Try create a MediaObject via http://localhost:3000/#/media_objects/create
 
-
+# API Platform
 
 
 
