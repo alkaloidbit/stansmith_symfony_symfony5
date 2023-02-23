@@ -26,7 +26,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *      iri="http://schema.org/MusicAlbum",
- *      collectionOperations={"get", "post"},
+ *      collectionOperations={
+ *          "get",
+ *          "post"={"security"="is_granted('ROLE_USER')"}
+ *      },
  *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
  *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"},
