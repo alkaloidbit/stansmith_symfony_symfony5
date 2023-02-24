@@ -2,11 +2,15 @@
 
 namespace App\Tests\Functional;
 
+use Zenstruck\Foundry\Test\Factories;
+use Zenstruck\Foundry\Test\ResetDatabase;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\User;
 
 class AlbumResourceTest extends ApiTestCase
 {
+    use ResetDatabase, Factories;
+
     public function testLogin():void
     {
         $client = self::createClient();
