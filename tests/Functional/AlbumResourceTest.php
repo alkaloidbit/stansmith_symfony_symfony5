@@ -4,10 +4,9 @@ namespace App\Tests\Functional;
 
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use App\Entity\User;
+use App\Test\CustomApiTestCase;
 
-class AlbumResourceTest extends ApiTestCase
+class AlbumResourceTest extends CustomApiTestCase
 {
     use ResetDatabase, Factories;
 
@@ -15,28 +14,16 @@ class AlbumResourceTest extends ApiTestCase
     {
         $client = self::createClient();
         $client->request('POST', '/api/albums', [
-            'headers' => ['Content-Type' => 'application/json'],
             'json' => [],
         ]);
         $this->assertResponseStatusCodeSame(401);
 
-        $user = new User();
-        $user->setEmail('testalbum@example.com');
-        $user->setUsername('testalbum');
-        $user->setPassword('$argon2id$v=19$m=65536,t=4,p=1$RHBOcjNJRTZkdWh5TXlRTw$Gzsz02Ef3fducRPvQtx4s3qPrCAZSIJJTwGRLcTkhIU');
+        $this->createUserAndLogIn($client, 'testalbum@example.com', 'foo');
 
-        $em = self::$container->get('doctrine')->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        $client->request('POST', '/api/security/login', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json' => [
-                'email' => 'testalbum@example.com',
-                'password' => 'foo'
-            ],
+        $client->request('POST', '/api/albums', [
+            'json' => [],
         ]);
+        $this->assertResponseStatusCodeSame(400);
 
-        $this->assertResponseStatusCodeSame(204);
     }
 }
