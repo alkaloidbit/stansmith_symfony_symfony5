@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        ArtistFactory::new()->create();
+        ArtistFactory::new()->createMany(20);
         UserFactory::new()->create();
         $manager->flush();
     }
