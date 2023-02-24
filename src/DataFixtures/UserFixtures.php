@@ -7,6 +7,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class UserFixtures extends Fixture
 {
@@ -17,7 +18,16 @@ final class UserFixtures extends Fixture
     public const USER_EMAIL_ROLE_BAR = 'bar@example.com';
 
     public const USER_PASSWORD_ROLE_BAR = 'foo';
-    
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    public $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         $this->createUser($manager, self::DEFAULT_USER_EMAIL, self::DEFAULT_USER_PASSWORD, ['ROLE_FOO']);
@@ -28,7 +38,10 @@ final class UserFixtures extends Fixture
     {
         $userEntity = new User();
         $userEntity->setEmail($email);
-        $userEntity->setPassword($password);
+        $userEntity->setPassword($this->passwordEncoder->encodePassword(
+            $userEntity,
+            $password
+        ));
         $userEntity->setUsername(substr($userEntity->getEmail(), 0, strpos($userEntity->getEmail(), '@')));
         $userEntity->setRoles($roles);
         $manager->persist($userEntity);
