@@ -49,7 +49,7 @@ class Artist
      * The name of this artist
      *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"artist:read", "album:read"})
+     * @Groups({"artist:read", "artist:write", "album:read"})
      * @ApiProperty(iri="http://schema.org/name")
      * @Assert\NotBlank
      */

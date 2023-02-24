@@ -3,6 +3,7 @@
 namespace App\Tests\Functional;
 
 use Zenstruck\Foundry\Test\Factories;
+use App\Factory\ArtistFactory;
 use Zenstruck\Foundry\Test\ResetDatabase;
 use App\Test\CustomApiTestCase;
 
@@ -25,5 +26,6 @@ class AlbumResourceTest extends CustomApiTestCase
         ]);
         $this->assertResponseStatusCodeSame(400);
 
+        ArtistFactory::new()->create();
     }
 }
