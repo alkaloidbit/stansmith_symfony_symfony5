@@ -73,5 +73,13 @@ object : Surprise ! it add a new cover associated with the album
 
 # API Platform
 
+## Tests
+
+- Creating first functional test: testCreateAlbum
+
+- Use Foundry to load Fixtures 
+  
+    - ArtistFactory create one artist
+    - UserFixtures create foo@example.com and bar@example.com users.
 
 
