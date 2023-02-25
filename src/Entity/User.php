@@ -14,6 +14,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource(
+ *      collectionOperations={
+ *          "get",
+ *          "post"={
+ *              "validation_groups"={"Default", "create"}
+ *          },
+ *      },
  *      normalizationContext={"groups"={"user:read"}},
  *      denormalizationContext={"groups"={"user:write"}}
  * )
@@ -57,6 +63,7 @@ class User implements UserInterface
      *
      * @Groups({"user:write"})
      * @SerializedName("password")
+     * @Assert\NotBlank(groups={"create"})
      */
     private $plainPassword;
 
@@ -106,6 +113,10 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * @return User
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -144,7 +155,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
+    public function getSalt(): void
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
@@ -152,7 +163,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
