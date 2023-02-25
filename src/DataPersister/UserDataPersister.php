@@ -45,7 +45,7 @@ class UserDataPersister implements DataPersisterInterface
      * {@inheritDoc}
      * @param User $data
      */
-    public function persist($data)
+    public function persist($data): void
     {
         if ($data->getPlainPassword()) {
             $data->setPassword(
@@ -60,7 +60,7 @@ class UserDataPersister implements DataPersisterInterface
     /**
      * {@inheritDoc}
      */
-    public function remove($data)
+    public function remove($data): void
     {
         $this->entityManager->remove($data);
         $this->entityManager->flush();
