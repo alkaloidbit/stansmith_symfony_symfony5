@@ -26,11 +26,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource(
  *      iri="http://schema.org/MusicAlbum",
+ *      itemOperations={
+ *          "get",
+ *          "put"={"security"="is_granted('ROLE_USER')"},
+ *          "delete"={"security"="is_granted('ROLE_ADMIN')"},
+ *      },
  *      collectionOperations={
  *          "get",
  *          "post"={"security"="is_granted('ROLE_USER')"}
  *      },
- *      itemOperations={"get", "put"},
  *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
  *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"},
  *      attributes={
@@ -102,7 +106,6 @@ class Album
     {
         $this->tracks = new ArrayCollection();
         $this->cover = new ArrayCollection();
-        $this->thumbnails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,7 +175,7 @@ class Album
     /* { */
     /*     return 'uploads/covers/'.$this->getCover(); */
     /* } */
-    
+
     /**
      * @Groups({"album:read"})
      * @SerializedName("created_date")
