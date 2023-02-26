@@ -2,14 +2,22 @@
 
 namespace App\Tests\Functional;
 
-use Zenstruck\Foundry\Test\Factories;
-use App\Factory\ArtistFactory;
 use Zenstruck\Foundry\Test\ResetDatabase;
 use App\Test\CustomApiTestCase;
 
 class AlbumResourceTest extends CustomApiTestCase
 {
-    use ResetDatabase, Factories;
+    /* {
+        "title": "string",
+        "artist": "string",
+        "cover": [
+            "string"
+        ],
+        "date": "string",
+        "active": true
+    } */
+
+    use ResetDatabase;
 
     public function testCreateAlbum(): void
     {
@@ -17,6 +25,8 @@ class AlbumResourceTest extends CustomApiTestCase
         $client->request('POST', '/api/albums', [
             'json' => [],
         ]);
+
+        // test for authorization error
         $this->assertResponseStatusCodeSame(401);
 
         $this->createUserAndLogIn($client, 'testalbum@example.com', 'foo');
@@ -24,8 +34,8 @@ class AlbumResourceTest extends CustomApiTestCase
         $client->request('POST', '/api/albums', [
             'json' => [],
         ]);
-        $this->assertResponseStatusCodeSame(400);
 
-        ArtistFactory::new()->create();
+        // Test for validation error
+        $this->assertResponseStatusCodeSame(400);
     }
 }

@@ -2,13 +2,12 @@
 
 namespace App\Tests\Functional;
 
-use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 use App\Test\CustomApiTestCase;
 
 class UserResourceTest extends CustomApiTestCase
 {
-    use ResetDatabase, Factories;
+    use ResetDatabase;
 
     public function testCreateUser(): void
     {
@@ -16,21 +15,23 @@ class UserResourceTest extends CustomApiTestCase
 
         $client->request('POST', '/api/users', [
             'json' => [
-                'email' => 'testalbum@example.com',
-                'username' => 'testalbum',
+                'email' => 'testuserresource@example.com',
+                'username' => 'testuserresource',
                 'password' => 'foo'
             ],
         ]);
 
         $this->assertResponseStatusCodeSame(201);
 
-        $this->logIn($client, 'testalbum@example.com', 'foo');
+        // use base class shortcut method to logIn
+        $this->logIn($client, 'testuserresource@example.com', 'foo');
     }
 
     public function testUpdateUser(): void
     {
         $client = self::createClient();
-        $user = $this->createUserAndLogIn($client, 'testalbum@example.com', 'foo');
+        // use base class shortcut method 
+        $user = $this->createUserAndLogIn($client, 'testuserresource@example.com', 'foo');
 
         $client->request('PUT', '/api/users/'.$user->getId(), [
             'json' => [
