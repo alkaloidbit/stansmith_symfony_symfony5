@@ -4,7 +4,8 @@ const authProvider = {
         const request = new Request('/api/security/login', {
             method: 'POST',
             body: JSON.stringify({ username, password }),
-            headers: new Headers({ 'Content-Type': 'application/json' }),
+            credentials: 'include',
+            headers: new Headers({ 'Content-Type': 'application/json' })
         });
         return fetch(request)
             .then(response => {
