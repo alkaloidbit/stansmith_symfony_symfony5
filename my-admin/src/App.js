@@ -9,6 +9,7 @@ import media_objects from './media_objects';
 import artists from './artists';
 import albums from './albums';
 import tracks from './tracks';
+import authProvider from './authProvider';
 
 const entrypoint = process.env.REACT_APP_ADMIN_ENTRYPOINT;
 
@@ -21,9 +22,10 @@ const dataProvider = hydraDataProvider({
 });
 
 const App = () => (
-    <HydraAdmin 
+    <HydraAdmin
+        authProvider={authProvider}
         dataProvider={dataProvider}
-        entrypoint={entrypoint} 
+        entrypoint={entrypoint}
     >
         <Resource name="media_objects" {...media_objects} icon={ImageTwoTone} />
         <Resource name="artists" {...artists} icon={PersonTwoTone}/>
