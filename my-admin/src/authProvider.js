@@ -1,7 +1,7 @@
 // in src/authProvider.js
 const authProvider = {
     login: ({ username, password }) =>  {
-        const request = new Request('/api/security/login', {
+        const request = new Request('http://localhost:8000/api/security/login', {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             credentials: 'include',
