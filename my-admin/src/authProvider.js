@@ -1,9 +1,9 @@
 // in src/authProvider.js
 const authProvider = {
-    login: ({ username, password }) =>  {
+    login: ({ email, password }) =>  {
         const request = new Request('http://localhost:8000/api/security/login', {
             method: 'POST',
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ email, password }),
             credentials: 'include',
             headers: new Headers({ 'Content-Type': 'application/json' })
         });
@@ -12,7 +12,7 @@ const authProvider = {
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
                 }
-                return response.json();
+                return { redirectTo: '/' };
             })
             .catch(() => {
                 throw new Error('Network error')
