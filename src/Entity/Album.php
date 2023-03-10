@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      iri="http://schema.org/MusicAlbum",
  *      itemOperations={
  *          "get",
- *          "put"={"security"="is_granted('ROLE_USER')"},
+ *          "put",
  *          "delete"={"security"="is_granted('ROLE_ADMIN')"},
  *      },
  *      collectionOperations={
