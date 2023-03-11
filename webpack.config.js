@@ -95,8 +95,8 @@ Encore
 // .enableReactPreset()
 //.addEntry('admin', './assets/admin.js');
 
-if (!Encore.isProduction()) {
-    Encore.disableCssExtraction();
-}
+// if (!Encore.isProduction()) {
+// Encore.disableCssExtraction();
+// }
 
 module.exports = Encore.getWebpackConfig();
