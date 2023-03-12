@@ -48,7 +48,7 @@
         "moment": "^2.29.1",
         "music-metadata-browser": "^2.2.6",
         "node-sass": "^5.0.0",
-        "sass-loader": "^10.0.5",
+        "sass-loader": "^13.2.0",
         "spinkit": "^2.0.1",
         "vue": "^2.6.12",
         "vue-howler": "^0.7.0",
