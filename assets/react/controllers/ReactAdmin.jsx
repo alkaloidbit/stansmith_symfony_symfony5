@@ -6,6 +6,3 @@ export default (props) => (
 	<HydraAdmin entrypoint={props.entrypoint} />
 );
 
-
-
-
