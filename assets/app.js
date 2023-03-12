@@ -1,4 +1,3 @@
-// webpackEntryConfig('app')
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -7,11 +6,7 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import 'styles/app.scss';
+import './styles/app.css';
 
-// import getNiceMessage from './get_nice_message';
-
-// console.log(getNiceMessage(10, 'front'));
-
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from 'jquery';
+// start the Stimulus application
+import './bootstrap';
