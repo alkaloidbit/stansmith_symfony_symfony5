@@ -25,6 +25,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *      collectionOperations={
  *          "get",
  *          "post"={
+ *              "security"="is_granted('ROLE_USER')",
  *              "controller"=CreateMediaObjectAction::class,
  *              "deserialize"=false,
  *              "validation_groups"={"Default", "media_object_create"},

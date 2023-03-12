@@ -58,7 +58,7 @@ const dataProvider = baseHydraDataProvider({
   useEmbedded: false
 });
 
-export default (props) => (
+export default () => (
   <HydraAdmin
     loginPage={MyLoginPage}
     authProvider={authProvider}
