@@ -1,8 +1,8 @@
 {
   "root": true,
   "extends": [
-    // add more generic rulesets here, such as:
     "eslint:recommended",
+    "plugin:react/recommended",
     "airbnb-base",
     "plugin:vue/recommended"
   ],
@@ -26,7 +26,6 @@
     "import/no-unresolved": 0,
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": ["error", {
-      // allow devDependencies for packages
       "devDependencies": true
     }]
   }

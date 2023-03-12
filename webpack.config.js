@@ -85,7 +85,7 @@ Encore
         if (!Encore.isProduction() && config.modules) {
             config.modules.localIdentName = '[name]_[local]_[hash:base64:5]';
         }
-    });
+    })
 // uncomment if you use TypeScript
 //.enableTypeScriptLoader()
 
@@ -97,7 +97,7 @@ Encore
 //.autoProvidejQuery()
 
 // uncomment if you use API Platform Admin (composer req api-admin)
-// .enableReactPreset()
+    .enableReactPreset();
 //.addEntry('admin', './assets/admin.js');
 
 // if (!Encore.isProduction()) {
