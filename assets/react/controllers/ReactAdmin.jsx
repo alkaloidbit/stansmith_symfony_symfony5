@@ -5,7 +5,7 @@ import {
 } from "@api-platform/admin";
 import React from 'react';
 import { Redirect, Route } from "react-router-dom";
-import { fetchUtils, Resource } from "react-admin";
+import { fetchUtils, Resource, Login } from "react-admin";
 import { parseHydraDocumentation } from "@api-platform/api-doc-parser";
 import { PersonTwoTone } from "@material-ui/icons";
 import { AlbumTwoTone } from "@material-ui/icons";
@@ -16,7 +16,7 @@ import artists from "../admin/artists";
 import albums from "../admin/albums";
 import tracks from "../admin/tracks";
 import authProvider from "../admin/authProvider";
-// import MyLoginPage from "../admin/MyLoginPage.js";
+import MyLoginPage from "../admin/MyLoginPage.js";
 
 const entrypoint = 'http://localhost:8000/api';
 const fetchHeaders = {};
@@ -51,7 +51,7 @@ const apiDocumentationParser = entrypoint =>
     );
 
 const dataProvider = baseHydraDataProvider({
-	entrypoint,
+  entrypoint,
   fetchHydra,
   apiDocumentationParser: parseHydraDocumentation,
   mercure: true,
@@ -60,7 +60,7 @@ const dataProvider = baseHydraDataProvider({
 
 export default () => (
   <HydraAdmin
-    // loginPage={MyLoginPage}
+    loginPage={MyLoginPage}
     authProvider={authProvider}
     dataProvider={dataProvider}
     entrypoint={entrypoint}
