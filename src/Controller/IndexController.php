@@ -28,7 +28,7 @@ class IndexController extends AbstractController
         $this->media_path = $media_path;
     }
     /**
-     * @Route("/{vueRouting}", requirements={"vueRouting"="^(?!api|test|admin|_(profiler|wdt)).*"},  name="app_homepage")
+     * @Route("/{vueRouting}", requirements={"vueRouting"="^(?!api|test|_(profiler|wdt)).*"},  name="app_homepage")
      * @return Response
      */
     public function homepage(SerializerInterface $serializer, ArtistRepository $artistRepository, AlbumRepository $albumRepository): Response

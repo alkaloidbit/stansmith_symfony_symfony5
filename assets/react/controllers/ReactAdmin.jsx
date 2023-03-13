@@ -16,7 +16,7 @@ import artists from "../admin/artists";
 import albums from "../admin/albums";
 import tracks from "../admin/tracks";
 import authProvider from "../admin/authProvider";
-import MyLoginPage from "../admin/MyLoginPage.js";
+// import MyLoginPage from "../admin/MyLoginPage.js";
 
 const entrypoint = 'http://localhost:8000/api';
 const fetchHeaders = {};
@@ -60,7 +60,7 @@ const dataProvider = baseHydraDataProvider({
 
 export default () => (
   <HydraAdmin
-    loginPage={MyLoginPage}
+    // loginPage={MyLoginPage}
     authProvider={authProvider}
     dataProvider={dataProvider}
     entrypoint={entrypoint}
