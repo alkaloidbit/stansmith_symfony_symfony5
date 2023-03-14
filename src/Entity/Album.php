@@ -9,7 +9,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
-use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter;
+/* use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter; */
 use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -41,7 +41,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *          "pagination_items_per_page"=100
  *      }
  * )
- * @ApiFilter(AlbumSearchSupportUnderscoreFilter::class, properties={"artist.name": "partial"})
  * @ApiFilter(SearchFilter::class, properties={"artist": "exact", "title": "partial", "id": "exact"})
  * @ApiFilter(BooleanFilter::class, properties={"active"})
  * @ApiFilter(PropertyFilter::class)
