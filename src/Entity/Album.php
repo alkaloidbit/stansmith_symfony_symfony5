@@ -2,13 +2,18 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Serializer\Filter\PropertyFilter;
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 /* use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter; */
 use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,37 +24,17 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
- *
- * @ORM\Entity(repositoryClass=AlbumRepository::class)
- *
- * @ApiResource(
- *      iri="http://schema.org/MusicAlbum",
- *      itemOperations={
- *          "get",
- *          "put"={"security"="is_granted('ROLE_USER')"},
- *          "delete"={"security"="is_granted('ROLE_ADMIN')"},
- *      },
- *      collectionOperations={
- *          "get",
- *          "post"={"security"="is_granted('ROLE_USER')"}
- *      },
- *      normalizationContext={"groups"={"album:read"}, "swagger_definition_name"="Read"},
- *      denormalizationContext={"groups"={"album:write"}, "swagger_definition_name"="Write"},
- *      attributes={
- *          "pagination_items_per_page"=100
- *      }
- * )
- * @ApiFilter(SearchFilter::class, properties={"artist": "exact", "title": "partial", "id": "exact"})
- * @ApiFilter(BooleanFilter::class, properties={"active"})
- * @ApiFilter(PropertyFilter::class)
- * @ApiFilter(OrderFilter::class, properties={"id": "ASC"})
+ * @ORM\Entity (repositoryClass=AlbumRepository::class)
  */
+#[ApiResource(operations: [new Get(), new Put(security: 'is_granted(\'ROLE_USER\')'), new Delete(security: 'is_granted(\'ROLE_ADMIN\')'), new GetCollection(), new Post(security: 'is_granted(\'ROLE_USER\')')], types: ['http://schema.org/MusicAlbum'], paginationItemsPerPage: 100, normalizationContext: ['groups' => ['album:read'], 'swagger_definition_name' => 'Read'], denormalizationContext: ['groups' => ['album:write'], 'swagger_definition_name' => 'Write'])]
+#[ApiFilter(filterClass: SearchFilter::class, properties: ['artist' => 'exact', 'title' => 'partial', 'id' => 'exact'])]
+#[ApiFilter(filterClass: BooleanFilter::class, properties: ['active'])]
+#[ApiFilter(filterClass: PropertyFilter::class)]
+#[ApiFilter(filterClass: OrderFilter::class, properties: ['id' => 'ASC'])]
 class Album
 {
     use TimestampableEntity;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -57,104 +42,85 @@ class Album
      * @Groups({"album:read"})
      */
     private $id;
-
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column (type="string", length=255, nullable=true)
      * Title of the Album
-     * @Groups({"album:read", "album:write", "artists:read"})
-     * @ApiProperty(iri="http://schema.org/name")
+     * @Groups ({"album:read", "album:write", "artists:read"})
      * @Assert\NotBlank
      */
+    #[ApiProperty(iris: ['http://schema.org/name'])]
     private $title;
-
     /**
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="albums")
      * @Groups({"album:write", "album:read"})
      * @Assert\NotNull
      */
     private $artist;
-
     /**
      * @ORM\OneToMany(targetEntity=Track::class, mappedBy="album")
      * @OrderBy({"meta_track_number"="ASC"})
      * @Groups({"album:read"})
      */
     private $tracks;
-
     /**
      * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="album", orphanRemoval=true)
      * @Groups({"album:write", "album:read", "track:read"})
      */
     private $cover;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"album:write", "album:read"})
      * @Assert\NotNull
      */
     private $date;
-
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"album:write", "album:read"})
      */
     private $active;
-
-
     public function __construct()
     {
         $this->tracks = new ArrayCollection();
         $this->cover = new ArrayCollection();
     }
-
-    public function getId(): ?int
+    public function getId() : ?int
     {
         return $this->id;
     }
-
-    public function getTitle(): ?string
+    public function getTitle() : ?string
     {
         return $this->title;
     }
-
-    public function setTitle(?string $title): self
+    public function setTitle(?string $title) : self
     {
         $this->title = $title;
-
         return $this;
     }
-
-    public function getArtist(): ?Artist
+    public function getArtist() : ?Artist
     {
         return $this->artist;
     }
-
-    public function setArtist(?Artist $artist): self
+    public function setArtist(?Artist $artist) : self
     {
         $this->artist = $artist;
-
         return $this;
     }
-
     /**
      * @return Collection|Track[]
      */
-    public function getTracks(): Collection
+    public function getTracks() : Collection
     {
         return $this->tracks;
     }
-
-    public function addTrack(Track $track): self
+    public function addTrack(Track $track) : self
     {
         if (!$this->tracks->contains($track)) {
             $this->tracks[] = $track;
             $track->setAlbum($this);
         }
-
         return $this;
     }
-
-    public function removeTrack(Track $track): self
+    public function removeTrack(Track $track) : self
     {
         if ($this->tracks->removeElement($track)) {
             // set the owning side to null (unless already changed)
@@ -162,10 +128,8 @@ class Album
                 $track->setAlbum(null);
             }
         }
-
         return $this;
     }
-
     /**
      * @Groups({"album:read"})
      * @return string
@@ -174,36 +138,31 @@ class Album
     /* { */
     /*     return 'uploads/covers/'.$this->getCover(); */
     /* } */
-
     /**
      * @Groups({"album:read"})
      * @SerializedName("created_date")
      */
-    public function getCreatedAtTimestampable(): ?\DateTimeInterface
+    public function getCreatedAtTimestampable() : ?\DateTimeInterface
     {
         // dd($this->createdAt);
         return $this->createdAt;
     }
-
     /**
      * @return Collection|MediaObject[]
      */
-    public function getCover(): Collection
+    public function getCover() : Collection
     {
         return $this->cover;
     }
-
-    public function addCover(MediaObject $cover): self
+    public function addCover(MediaObject $cover) : self
     {
         if (!$this->cover->contains($cover)) {
             $this->cover[] = $cover;
             $cover->setAlbum($this);
         }
-
         return $this;
     }
-
-    public function removeCover(MediaObject $cover): self
+    public function removeCover(MediaObject $cover) : self
     {
         if ($this->cover->removeElement($cover)) {
             // set the owning side to null (unless already changed)
@@ -211,10 +170,8 @@ class Album
                 $cover->setAlbum(null);
             }
         }
-
         return $this;
     }
-
     /**
      * @Groups({"album:read"})
      * @SerializedName("total_playtime_seconds")
@@ -225,34 +182,26 @@ class Album
         foreach ($this->getTracks() as $track) {
             $total += $track->getMetaPlaytimeSeconds();
         }
-
         return $total;
     }
-
-    public function getDate(): ?string
+    public function getDate() : ?string
     {
         return $this->date;
     }
-
-    public function setDate(?string $date): self
+    public function setDate(?string $date) : self
     {
         $this->date = $date;
-
         return $this;
     }
-
-    public function getActive(): ?bool
+    public function getActive() : ?bool
     {
         return $this->active;
     }
-
-    public function setActive(bool $active): self
+    public function setActive(bool $active) : self
     {
         $this->active = $active;
-
         return $this;
     }
-
     /**
      * @SerializedName("mainThumbnail")
      */
