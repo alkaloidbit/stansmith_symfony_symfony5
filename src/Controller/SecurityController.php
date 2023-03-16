@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use ApiPlatform\Core\Api\IriConverterInterface;
+use ApiPlatform\Api\IriConverterInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +42,7 @@ class SecurityController extends AbstractController
             ], 400);
         }
         return new Response(null, 204, [
-            'Location' => $iriConverter->getIriFromItem($this->getUser())
+            'Location' => $iriConverter->getIriFromResource($this->getUser())
         ]);
     }
 
