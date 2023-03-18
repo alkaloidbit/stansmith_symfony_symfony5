@@ -51,6 +51,8 @@
         "moment": "^2.29.1",
         "music-metadata-browser": "^2.2.6",
         "node-sass": "^5.0.0",
+        "ra-ui-materialui": "3.19.12",
+        "react-admin": "3.19.12",
         "react-select": "^5.7.0",
         "recompose": "^0.30.0",
         "redux-form": "^8.3.9",

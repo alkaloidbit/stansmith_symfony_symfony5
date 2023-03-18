@@ -17,6 +17,8 @@ import albums from "../admin/albums";
 import tracks from "../admin/tracks";
 import authProvider from "../admin/authProvider";
 import MyLoginPage from "../admin/login.js";
+// import MyLoginPage from "../admin/MyLoginPage";
+// import MyLoginPage from "../admin/MiniLogin";
 
 const entrypoint = 'http://localhost:8000/api';
 const fetchHeaders = {};
