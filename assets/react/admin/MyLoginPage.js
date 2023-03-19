@@ -54,6 +54,37 @@ const styles = (theme) => ({
   },
 });
 
+class Login extends Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.main}>
+        <Card className={classes.card}>
+          <div className={classes.avatar}>
+            <Avatar className={classes.icon}>
+              <LockIcon />
+            </Avatar>
+          </div>
+          <form>
+            <input
+              name="email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              name="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input type="submit" value="Ok" />
+          </form>
+        </Card>
+        <Notification />
+      </div>
+    );
+  }
+}
+
 const MyLoginPage = ({ theme }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -92,4 +123,4 @@ const MyLoginPage = ({ theme }) => {
 
 const enhance = compose(withStyles(styles));
 
-export default enhance(MyLoginPage);
+export default enhance(Login);
