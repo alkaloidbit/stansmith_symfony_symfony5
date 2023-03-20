@@ -16,7 +16,6 @@ import { MenuItem, Select, FormControl, InputLabel } from '@material-ui/core';
 
 import { Notification, translate, userLogin } from 'react-admin';
 
-import InstitutionSelect from "./InstitutionSelect";
 
 const styles = theme => ({
     main: {
@@ -95,12 +94,6 @@ class Login extends Component {
                     <form onSubmit={handleSubmit(this.login)}>
                         <div className={classes.form}>
                             <div className={classes.input}>
-                                <InstitutionSelect 
-                                    name="institution"
-                                    disabled={isLoading}
-                                />
-                            </div>
-                            <div className={classes.input}>
                                 <Field
                                     name="username"
                                     component={renderInput}
@@ -120,7 +113,7 @@ class Login extends Component {
                         </div>
                         <CardActions className={classes.actions}>
                             <Button
-                                variant="raised"
+                                variant="contained"
                                 type="submit"
                                 color="primary"
                                 disabled={isLoading}
@@ -160,9 +153,6 @@ const enhance = compose(
         validate: (values, props) => {
             const errors = {};
             const { translate } = props;
-            if (!values.institution) {
-                errors.institution = translate('ra.validation.required');
-            }
             if (!values.username) {
                 errors.username = translate('ra.validation.required');
             }

@@ -123,4 +123,4 @@ const MyLoginPage = ({ theme }) => {
 
 const enhance = compose(withStyles(styles));
 
-export default enhance(Login);
+export default enhance(MyLoginPage);
