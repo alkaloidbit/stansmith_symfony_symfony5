@@ -2,10 +2,7 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-  {{ parent() }}
-  
-  {# {{ encore_entry_link_tags('main') }} #}
-
+  {{ encore_entry_link_tags('vue_app') }}
 {% endblock %}
 
 {% block body %}
@@ -38,8 +35,5 @@
 {% endblock %}
 
 {% block javascripts %}
-  {{ parent() }}
-
-  {{ encore_entry_script_tags('main') }}
-
+  {{ encore_entry_script_tags('vue_app') }}
 {% endblock %}
