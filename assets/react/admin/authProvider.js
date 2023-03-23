@@ -9,11 +9,15 @@ const authProvider = {
         });
         return fetch(request)
             .then(response => {
+                // console.log(response.headers.get('Location'));
                 console.log(response);
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
                 }
-                return response;
+                return response.body;
+            })
+            .then(body => {
+                console.log(body.getReader());
             })
             .catch(() => {
                 throw new Error('Network error')
@@ -34,6 +38,16 @@ const authProvider = {
         }
         // other error code (404, 500, etc): no need to log out
         return Promise.resolve();
+    },
+    logout: () => {
+        const request = new Request('http://localhost:8000/api/security/logout', {
+            method: 'GET',
+            headers: new Headers({ 'Content-Type': 'application/json' })
+        });
+        return fetch(request)
+        .then(response => {
+            console.log(response);
+        });
     },
     // ...
 };

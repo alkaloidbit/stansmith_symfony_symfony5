@@ -21,6 +21,7 @@ import albums from "../admin/albums";
 import tracks from "../admin/tracks";
 import authProvider from "../admin/authProvider";
 import MyLoginPage from "../admin/SignIn";
+import MyLogoutButton from "../admin/MyLogoutButton";
 
 const entrypoint = 'http://localhost:8000/api';
 const fetchHeaders = {};
@@ -65,6 +66,7 @@ const dataProvider = baseHydraDataProvider({
 export default () => (
   <HydraAdmin
     loginPage={MyLoginPage}
+    logoutButton={MyLogoutButton}
     authProvider={authProvider}
     dataProvider={dataProvider}
     entrypoint={entrypoint}
