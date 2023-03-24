@@ -27,7 +27,25 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity (repositoryClass=AlbumRepository::class)
  */
-#[ApiResource(operations: [new Get(), new Put(security: 'is_granted(\'ROLE_USER\')'), new Delete(security: 'is_granted(\'ROLE_ADMIN\')'), new GetCollection(security: 'is_granted(\'ROLE_USER\')'), new Post(security: 'is_granted(\'ROLE_USER\')')], types: ['http://schema.org/MusicAlbum'], paginationItemsPerPage: 100, normalizationContext: ['groups' => ['album:read'], 'swagger_definition_name' => 'Read'], denormalizationContext: ['groups' => ['album:write'], 'swagger_definition_name' => 'Write'])]
+#[ApiResource(
+    types: ['http://schema.org/MusicAlbum'],
+    operations: [
+        new Get(), 
+        new Put(security: 'is_granted(\'ROLE_USER\')'), 
+        new Delete(security: 'is_granted(\'ROLE_ADMIN\')'),
+        new GetCollection(security: 'is_granted(\'ROLE_USER\')'),
+        new Post(security: 'is_granted(\'ROLE_USER\')')
+    ],
+    normalizationContext: [
+        'groups' => ['album:read'],
+        'swagger_definition_name' => 'Read'
+    ],
+    denormalizationContext: [
+        'groups' => ['album:write'],
+        'swagger_definition_name' => 'Write'
+    ],
+    paginationItemsPerPage: 100,
+)]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['artist' => 'exact', 'title' => 'partial', 'id' => 'exact'])]
 #[ApiFilter(filterClass: BooleanFilter::class, properties: ['active'])]
 #[ApiFilter(filterClass: PropertyFilter::class)]
