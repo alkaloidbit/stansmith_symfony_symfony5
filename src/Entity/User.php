@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\State\UserStateProcessor;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -23,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity (fields={"username"})
  * @UniqueEntity (fields={"email"})
  */
-#[ApiResource(operations: [new Get(), new Put(), new Patch(), new Delete(), new GetCollection(), new Post(validationContext: ['groups' => ['Default', 'create']])], normalizationContext: ['groups' => ['user:read']], denormalizationContext: ['groups' => ['user:write']])]
+#[ApiResource(operations: [new Get(), new Put(), new Patch(), new Delete(), new GetCollection(), new Post(processor: UserStateProcessor::class, validationContext: ['groups' => ['Default', 'create']])], normalizationContext: ['groups' => ['user:read']], denormalizationContext: ['groups' => ['user:write']])]
 class User implements UserInterface
 {
     /**
