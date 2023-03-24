@@ -24,7 +24,7 @@ const AlbumsList = props => (
       <ReferenceArrayField
         label="Covers"
         reference="media_objects"
-        source="cover"
+        source="covers"
         target="@id"
       >
         <SingleFieldList>

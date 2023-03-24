@@ -66,7 +66,7 @@ class Album
      * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="album", orphanRemoval=true)
      * @Groups({"album:write", "album:read", "track:read"})
      */
-    private $cover;
+    private $covers;
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"album:write", "album:read"})
@@ -81,7 +81,7 @@ class Album
     public function __construct()
     {
         $this->tracks = new ArrayCollection();
-        $this->cover = new ArrayCollection();
+        $this->covers = new ArrayCollection();
     }
     public function getId() : ?int
     {
@@ -150,21 +150,21 @@ class Album
     /**
      * @return Collection|MediaObject[]
      */
-    public function getCover() : Collection
+    public function getCovers() : Collection
     {
-        return $this->cover;
+        return $this->covers;
     }
     public function addCover(MediaObject $cover) : self
     {
-        if (!$this->cover->contains($cover)) {
-            $this->cover[] = $cover;
+        if (!$this->covers->contains($cover)) {
+            $this->covers[] = $cover;
             $cover->setAlbum($this);
         }
         return $this;
     }
     public function removeCover(MediaObject $cover) : self
     {
-        if ($this->cover->removeElement($cover)) {
+        if ($this->covers->removeElement($cover)) {
             // set the owning side to null (unless already changed)
             if ($cover->getAlbum() === $this) {
                 $cover->setAlbum(null);
@@ -207,6 +207,6 @@ class Album
      */
     public function getCoverMediaObject()
     {
-        return $this->cover[0];
+        return $this->covers[0];
     }
 }

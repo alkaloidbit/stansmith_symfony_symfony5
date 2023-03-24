@@ -157,7 +157,7 @@ class FileSynchronizer
                 $this->em->flush();
                 
                 // Cover collection === 0
-                if (count($album->getCover()) === 0) {
+                if (count($album->getCovers()) === 0) {
                     $this->generateAlbumCover($album, $info);
                 }
             }

@@ -128,7 +128,7 @@ class MediaObject
     public $placeholderName;
     /**
      * "Many MediaObject to One Album"
-     * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="cover")
+     * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="covers")
      * @ORM\JoinColumn(nullable=true)
      * @Groups({"media_object_read"})
      */
