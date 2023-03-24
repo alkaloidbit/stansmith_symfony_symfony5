@@ -28,7 +28,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
     ],
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            security: 'is_granted(\'ROLE_USER\')',
+        ),
         new Post(
             security: 'is_granted(\'ROLE_USER\')',
             controller: CreateMediaObjectAction::class,

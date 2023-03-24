@@ -7,7 +7,6 @@ import ExitIcon from '@material-ui/icons/PowerSettingsNew';
 
 const MyLogoutButton = forwardRef((props, ref) => {
     const logout = useLogout();
-    console.log(logout);
     const handleClick = () => logout();
     return (
         <MenuItem
