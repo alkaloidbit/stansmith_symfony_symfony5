@@ -5,7 +5,6 @@ namespace App\Entity;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Put;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
@@ -24,7 +23,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity (fields={"username"})
  * @UniqueEntity (fields={"email"})
  */
-#[ApiResource(operations: [new Get(), new Put(), new Patch(), new Delete(), new GetCollection(), new Post(processor: UserStateProcessor::class, validationContext: ['groups' => ['Default', 'create']])], normalizationContext: ['groups' => ['user:read']], denormalizationContext: ['groups' => ['user:write']])]
+#[ApiResource(
+    normalizationContext: ['groups' => ['user:read']],
+    denormalizationContext: ['groups' => ['user:write']],
+    operations: [
+        new Get(),
+        new Put(),
+        new Delete(),
+        new GetCollection(),
+        new Post(
+            processor: UserStateProcessor::class,
+            validationContext: [
+                'groups' => ['Default', 'create']
+            ]
+        )
+    ],
+)]
 class User implements UserInterface
 {
     /**
@@ -42,7 +56,6 @@ class User implements UserInterface
     private $email;
     /**
      * @ORM\Column(type="json")
-     * @Groups({"user:read", "user:write"})
      */
     private $roles = [];
     /**
