@@ -12,7 +12,7 @@ const TracksList = props => (
     <List {...props}>
         <Datagrid rowClick="edit" >
             <TextField source="id"/>
-            <ReferenceField label="Cover" source="thumbnail" reference="media_objects">
+            <ReferenceField label="Covers" source="thumbnail" reference="media_objects">
                 <ThumbnailField source="thumbnailContentUrl" />
             </ReferenceField>
             <TextField source="title" />

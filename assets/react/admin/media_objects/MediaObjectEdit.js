@@ -13,7 +13,7 @@ const MediaObjectEdit = props => {
             <SimpleForm>
                 <TextInput disabled source="id" />
                 <TextInput disabled source="album" />
-                <ThumbnailField label="Cover" source="coverContentUrl" />
+                <ThumbnailField label="Covers" source="coverContentUrl" />
             </SimpleForm> 
         </Edit>
     );

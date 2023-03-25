@@ -18,7 +18,7 @@ const AlbumCreate = props => (
             <TextInput disabled source="id" />
             <TextInput source="title" />
             <TextInput source="date" />
-            <ReferenceArrayInput source="cover" reference="media_objects">
+            <ReferenceArrayInput source="covers" reference="media_objects">
                 <SelectArrayInput optionText="@id" />
             </ReferenceArrayInput>
             <BooleanInput source="active" />

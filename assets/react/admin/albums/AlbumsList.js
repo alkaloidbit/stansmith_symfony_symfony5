@@ -11,29 +11,25 @@ import {
   DateField,
   BooleanField,
   EditButton,
-  ShowButton
+  ShowButton,
 } from "react-admin";
 
 import CustomTextField from "../components/CustomTextField";
 import ThumbnailField from "../components/ThumbnailField";
 
-const AlbumsList = props => (
+const AlbumsList = (props) => (
   <List {...props}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <ReferenceArrayField
         label="Covers"
-        reference="media_objects"
         source="covers"
-        target="@id"
+        reference="media_objects"
       >
         <SingleFieldList>
-          <ChipField source="thumbnailContentUrl" />
+          <ThumbnailField source="thumbnailContentUrl" />
         </SingleFieldList>
       </ReferenceArrayField>
-      {/*<ReferenceField label="Cover" source="cover" reference="media_objects">
-                <ThumbnailField source="thumbnailContentUrl" />
-            </ReferenceField>*/}
       <TextField source="title" />
       <ReferenceField label="Artist" source="artist" reference="artists">
         <CustomTextField source="name" />

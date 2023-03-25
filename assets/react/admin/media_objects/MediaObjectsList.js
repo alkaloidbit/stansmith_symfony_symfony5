@@ -14,7 +14,7 @@ const MediaObjectsList = props => (
     <List {...props}>
         <Datagrid >
             <TextField source="id" label="Id" />
-            <ThumbnailField label="Cover" source="thumbnailContentUrl" />
+            <ThumbnailField label="Covers" source="thumbnailContentUrl" />
             <TextField source="fileName" label="Filename" />
             <ReferenceField label="Album" source="album" reference="albums">
                 <CustomTextField source="title" />

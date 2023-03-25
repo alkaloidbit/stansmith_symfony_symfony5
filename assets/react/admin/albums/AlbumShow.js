@@ -22,11 +22,11 @@ const AlbumShow = props => (
         <DateField source="date" />
         <BooleanField source="active" />
       </Tab>
-      <Tab label="Cover" path="media_objects">
+      <Tab label="Covers" path="media_objects">
         <ReferenceArrayField
           addLabel={false}
           reference="media_objects"
-          source="cover"
+          source="covers"
         >
           <Datagrid>
             <TextField source="id" />
