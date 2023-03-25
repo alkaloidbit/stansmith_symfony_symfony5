@@ -36,6 +36,6 @@ class AlbumResourceTest extends CustomApiTestCase
         ]);
 
         // Test for validation error
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(422);
     }
 }

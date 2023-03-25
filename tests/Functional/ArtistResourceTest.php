@@ -31,7 +31,7 @@ class ArtistResourceTest extends CustomApiTestCase
         ]);
 
         // Test for validation error
-        $this->assertResponseStatusCodeSame(400);
+        $this->assertResponseStatusCodeSame(422);
 
         $client->request('POST', '/api/artists', [
             'json' => [
