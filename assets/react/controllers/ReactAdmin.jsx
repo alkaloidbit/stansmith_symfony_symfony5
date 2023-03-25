@@ -4,11 +4,7 @@ import {
   fetchHydra as baseFetchHydra
 } from "@api-platform/admin";
 import React from 'react';
-import { Redirect, Route } from "react-router-dom";
-import {
-  fetchUtils,
-  Resource
-} from "react-admin";
+import { Resource } from "react-admin";
 import { parseHydraDocumentation } from "@api-platform/api-doc-parser";
 import { PersonTwoTone } from "@material-ui/icons";
 import { AlbumTwoTone } from "@material-ui/icons";
@@ -31,28 +27,6 @@ const fetchHydra = (url, options = { credentials: "include" }) => {
     headers: new Headers(fetchHeaders)
   });
 };
-
-const apiDocumentationParser = entrypoint =>
-  parseHydraDocumentation(entrypoint, {
-    headers: new Headers(fetchHeaders)
-  }).then(
-        ({ api }) => ({ api }),
-        (result) => {
-            switch (result.status) {
-                case 401:
-                    return Promise.resolve({
-                        api: result.api,
-                        customRoutes: [
-                            <Route path="/" render={() => {
-                                return window.localStorage.getItem("loggedIn") ? window.location.reload() : <Redirect to="/login" />
-                            }} />
-                        ],
-                    });
-                default:
-                    return Promise.reject(result);
-            }
-        }
-    );
 
 const dataProvider = baseHydraDataProvider({
   entrypoint,
