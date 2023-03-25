@@ -7,7 +7,6 @@ import React from 'react';
 import { Redirect, Route } from "react-router-dom";
 import {
   fetchUtils,
-  Login,
   Resource
 } from "react-admin";
 import { parseHydraDocumentation } from "@api-platform/api-doc-parser";
