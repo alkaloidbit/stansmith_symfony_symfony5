@@ -14,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import LockIcon from '@material-ui/icons/Lock';
 import { MenuItem, Select, FormControl, InputLabel } from '@material-ui/core';
 
-import { Notification, translate, userLogin } from 'react-admin';
+import { Notification, translate, useLogin } from 'react-admin';
 
 
 const styles = theme => ({
@@ -74,7 +74,7 @@ const renderInput = ({
 
 class Login extends Component {
     login = auth =>
-        this.props.userLogin(
+        this.props.useLogin(
             auth,
             this.props.location.state
                 ? this.props.location.state.nextPathname
@@ -141,7 +141,7 @@ Login.propTypes = {
     previousRoute: PropTypes.string,
     translate: PropTypes.func.isRequired,
     // Insert Institution here?
-    userLogin: PropTypes.func.isRequired,
+    useLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({ isLoading: state.admin.loading > 0 });
@@ -164,7 +164,7 @@ const enhance = compose(
     }),
     connect(
         mapStateToProps,
-        { userLogin }
+        { useLogin }
     ),
     withStyles(styles)
 );
