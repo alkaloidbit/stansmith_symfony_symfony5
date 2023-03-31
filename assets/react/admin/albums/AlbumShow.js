@@ -29,7 +29,7 @@ const AlbumShow = props => (
       <Tab label="Summary">
         <TextField source="id" />
         <TextField source="title" />
-        <DateField source="date" />
+        <TextField source="date" />
         <BooleanField source="active" />
       </Tab>
       <Tab label="Covers" path="media_objects">
