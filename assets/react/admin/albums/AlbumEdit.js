@@ -4,9 +4,14 @@ import {
   SimpleForm,
   BooleanInput,
   ReferenceArrayInput,
+  ReferenceArrayField,
+  SingleFieldList,
   SelectArrayInput,
-  TextInput
+  TextInput,
+  ImageField,
 } from "react-admin";
+
+import ThumbnailField from "../components/ThumbnailField";
 
 const AlbumTitle = ({ record }) => {
   return <span>Album {record ? `"${record.title}"` : ""}</span>;
@@ -18,6 +23,15 @@ const AlbumEdit = props => (
       <TextInput disabled source="id" />
       <TextInput source="title" />
       <TextInput source="date" />
+      <ReferenceArrayField
+        label="Covers"
+        source="covers"
+        reference="media_objects"
+      >
+        <SingleFieldList>
+          <ImageField source="thumbnailContentUrl" title="" />
+        </SingleFieldList>
+      </ReferenceArrayField>
       <ReferenceArrayInput source="covers" reference="media_objects">
         <SelectArrayInput optionText="@id" />
       </ReferenceArrayInput>

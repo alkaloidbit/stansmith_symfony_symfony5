@@ -8,7 +8,8 @@ import {
   Show,
   TabbedShowLayout,
   Tab,
-  ReferenceArrayField
+  ReferenceArrayField,
+  ImageField,
 } from "react-admin";
 import ThumbnailField from "../components/ThumbnailField";
 import AddMediaObjectButton from "../components/AddMediaObjectButton";
@@ -30,7 +31,7 @@ const AlbumShow = props => (
         >
           <Datagrid>
             <TextField source="id" />
-            <ThumbnailField source="coverContentUrl" />
+            <ImageField source="coverContentUrl" />
             <DateField source="created_date" />
             <ShowButton />
           </Datagrid>

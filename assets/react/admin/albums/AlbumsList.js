@@ -5,17 +5,16 @@ import {
   TextField,
   ReferenceField,
   ReferenceArrayField,
-  ReferenceManyField,
   SingleFieldList,
-  ChipField,
   DateField,
   BooleanField,
   EditButton,
   ShowButton,
+  ImageField,
 } from "react-admin";
 
 import CustomTextField from "../components/CustomTextField";
-import ThumbnailField from "../components/ThumbnailField";
+// import ThumbnailField from "../components/ThumbnailField";
 
 const AlbumsList = (props) => (
   <List {...props}>
@@ -27,7 +26,7 @@ const AlbumsList = (props) => (
         reference="media_objects"
       >
         <SingleFieldList>
-          <ThumbnailField source="thumbnailContentUrl" />
+          <ImageField source="thumbnailContentUrl" title="" />
         </SingleFieldList>
       </ReferenceArrayField>
       <TextField source="title" />
