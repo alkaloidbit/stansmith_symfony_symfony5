@@ -92,7 +92,6 @@ export default function SignIn() {
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <div className={classes.input}>
             <TextField
-              variant="outlined"
               margin="normal"
               required
               fullWidth
@@ -106,7 +105,6 @@ export default function SignIn() {
           </div>
           <div className={classes.input}>
             <TextField
-              variant="outlined"
               margin="normal"
               required
               fullWidth
