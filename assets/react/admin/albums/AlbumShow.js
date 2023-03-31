@@ -4,6 +4,8 @@ import {
   TextField,
   DateField,
   BooleanField,
+  ListButton,
+  RefreshButton,
   ShowButton,
   Show,
   TabbedShowLayout,
@@ -11,11 +13,18 @@ import {
   ReferenceArrayField,
   ImageField,
 } from "react-admin";
-import ThumbnailField from "../components/ThumbnailField";
 import AddMediaObjectButton from "../components/AddMediaObjectButton";
+import CardActions from "@material-ui/core/CardActions";
+
+const AlbumShowActions =  ({ basePath, data }) => (
+  <CardActions>
+    <ListButton basePath={basePath} />
+    <RefreshButton />
+  </CardActions>
+);
 
 const AlbumShow = props => (
-  <Show {...props}>
+  <Show {...props} actions={<AlbumShowActions />}>
     <TabbedShowLayout>
       <Tab label="Summary">
         <TextField source="id" />
