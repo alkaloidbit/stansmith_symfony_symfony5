@@ -11,6 +11,7 @@ import {
   TabbedShowLayout,
   Tab,
   ReferenceArrayField,
+  ReferenceField,
   ImageField,
 } from "react-admin";
 import AddMediaObjectButton from "../components/AddMediaObjectButton";
@@ -29,6 +30,9 @@ const AlbumShow = props => (
       <Tab label="Summary">
         <TextField source="id" />
         <TextField source="title" />
+        <ReferenceField label="Artist" source="artist" reference="artists">
+          <TextField source="name" />
+        </ReferenceField>
         <TextField source="date" label="Year"/>
         <BooleanField source="active" />
       </Tab>
