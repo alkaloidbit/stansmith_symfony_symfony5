@@ -29,7 +29,7 @@ const AlbumShow = props => (
       <Tab label="Summary">
         <TextField source="id" />
         <TextField source="title" />
-        <TextField source="date" />
+        <TextField source="date" label="Year"/>
         <BooleanField source="active" />
       </Tab>
       <Tab label="Covers" path="media_objects">
@@ -40,7 +40,7 @@ const AlbumShow = props => (
         >
           <Datagrid>
             <TextField source="id" />
-            <ImageField source="coverContentUrl" />
+            <ImageField label="Cover" source="coverContentUrl" />
             <DateField source="created_date" />
             <ShowButton />
           </Datagrid>
