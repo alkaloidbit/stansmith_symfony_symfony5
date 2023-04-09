@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ApiResource(
     types: ['http://schema.org/MediaObject'],
     normalizationContext: [
-        'groups' => ['media_object_read']
+        'groups' => ['media_object:read']
     ],
     operations: [
         new Get(),
@@ -69,25 +69,25 @@ class MediaObject
      *
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
-     * @Groups({"media_object_read"})
+     * @Groups({"media_object:read"})
      * @ORM\Id
      */
     protected $id;
     /**
      * @var string|null
-     * @Groups ({"media_object_read", "album:read"})
+     * @Groups ({"media_object:read", "album:read"})
      */
     #[ApiProperty(iris: ['http://schema.org/contentUrl'])]
     public $coverContentUrl;
     /**
      * @var string|null
-     * @Groups ({"media_object_read", "album:read"})
+     * @Groups ({"media_object:read", "album:read"})
      */
     #[ApiProperty(iris: ['http://schema.org/contentUrl'])]
     public $thumbnailContentUrl;
     /**
      * @var string|null
-     * @Groups ({"media_object_read", "album:read"})
+     * @Groups ({"media_object:read", "album:read"})
      */
     #[ApiProperty(iris: ['http://schema.org/contentUrl'])]
     public $placeholderContentUrl;
@@ -115,26 +115,26 @@ class MediaObject
     /**
      * @var string|null
      * @ORM\Column(nullable=true)
-     * @Groups({"media_object_read", "album:read"})
+     * @Groups({"media_object:read", "album:read"})
      */
     public $fileName;
     /**
      * @var string|null
      * @ORM\Column(nullable=true)
-     * @Groups({"media_object_read", "album:read"})
+     * @Groups({"media_object:read", "album:read"})
      */
     public $thumbnailName;
     /**
      * @var string|null
      * @ORM\Column(nullable=true)
-     * @Groups({"media_object_read", "album:read"})
+     * @Groups({"media_object:read", "album:read"})
      */
     public $placeholderName;
     /**
      * "Many MediaObject to One Album"
      * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="covers")
      * @ORM\JoinColumn(nullable=true)
-     * @Groups({"media_object_read"})
+     * @Groups({"media_object:read"})
      */
     private $album;
     public function getId(): ?int
@@ -142,7 +142,7 @@ class MediaObject
         return $this->id;
     }
     /**
-     * @Groups({"media_object_read", "album:read"})
+     * @Groups({"media_object:read", "album:read"})
      * @SerializedName("created_date")
      */
     public function getCreatedAtTimestampable(): ?\DateTimeInterface
