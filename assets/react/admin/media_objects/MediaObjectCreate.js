@@ -18,11 +18,12 @@ const MediaObjectCreate = props => {
     const redirect  = album_id ? `/albums/${album_id}/show/media_objects` : false;
     console.log(redirect);
 
+    const redirect_test = 'https://www.google.com';
     return (
         <Create {...props}>
             <SimpleForm
                 addlabel="false"
-                redirect={redirect}
+                redirect={redirect_test}
             >
                 <ImageInput source="file" accept="image/*" >
                     <ImageField source="src" title="" />
