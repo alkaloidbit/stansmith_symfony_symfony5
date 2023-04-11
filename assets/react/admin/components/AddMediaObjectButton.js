@@ -21,7 +21,7 @@ console.log();
       to={{
         pathname: "/media_objects/create",
         // Here we specify the initial record for the create view
-        state: { record: { album_id: record['@id'] } },
+        state: { record: record }
       }}
       label="Add a MediaObject"
       title="Add a MediaObject"
