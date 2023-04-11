@@ -16,26 +16,44 @@ const MediaObjectCreate = (props) => {
   const redirect = useRedirect();
   const refresh = useRefresh();
 
-  console.log("record", location.state.record);
-  console.log("covers", location.state.record.covers);
+  const record = location.state.record;
 
   const album_id =
     location.state && location.state.record
       ? location.state.record["@id"]
       : undefined;
 
-  console.log("album_id", album_id);
-
   const albumResourceRedirectURI = album_id
     ? `/albums/${encodeURIComponent(album_id)}/show/media_objects`
     : false;
 
-  console.log("redirect", albumResourceRedirectURI);
+  const sendRequest = (url, method, body) => {
+    const options = {
+      method: method,
+      headers: new Headers({ "content-type": "application/json" }),
+    };
 
+    options.body = JSON.stringify(body);
+
+    return fetch(url, options);
+  };
   // on MediaObject creation success
   const onSuccess = ({ data }) => {
-    console.log(data);
-    redirect(albumResourceRedirectURI);
+    const newCoverURI = data["@id"];
+    const updatedRecord = {
+      ...record,
+      covers: [...record.covers, newCoverURI],
+    };
+
+    // tobe send via PUT to album endpoint
+    sendRequest(album_id, "PUT", updatedRecord)
+      .then((data) => {
+        notify("Album updated");
+        redirect(albumResourceRedirectURI);
+      })
+      .catch((e) => {
+        notify("Error: album not updated", { type: "warning" });
+      });
   };
 
   return (
