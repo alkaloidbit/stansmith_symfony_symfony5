@@ -14,10 +14,9 @@ import {
   ReferenceField,
   ImageField,
 } from "react-admin";
-import AddMediaObjectButton from "../components/AddMediaObjectButton";
 import CardActions from "@material-ui/core/CardActions";
 
-const AlbumShowActions =  ({ basePath, data }) => (
+const AlbumShowActions =  ({ basePath }) => (
   <CardActions>
     <ListButton basePath={basePath} />
     <RefreshButton />
@@ -49,7 +48,6 @@ const AlbumShow = props => (
             <ShowButton />
           </Datagrid>
         </ReferenceArrayField>
-        <AddMediaObjectButton />
       </Tab>
     </TabbedShowLayout>
   </Show>
