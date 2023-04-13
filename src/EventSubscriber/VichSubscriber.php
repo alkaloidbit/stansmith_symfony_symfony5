@@ -17,14 +17,14 @@ class VichSubscriber implements EventSubscriberInterface
         $this->imageManager = $imageManager;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return array(
             'vich_uploader.pre_upload' => 'onVichUploaderPreUpload',
         );
     }
 
-    public function onVichUploaderPreUpload(Event $event)
+    public function onVichUploaderPreUpload(Event $event): void
     {
         $filePropertyName = $event->getMapping()->getFilePropertyName();
         if ($filePropertyName  === 'thumbnail' || $filePropertyName === 'placeholder') {

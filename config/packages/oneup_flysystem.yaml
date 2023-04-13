@@ -3,7 +3,7 @@ oneup_flysystem:
     adapters:
         public_adapter:
             local:
-                directory: '%media_path%'
+                location: '%media_path%'
     filesystems:
         public_filesystem:
             adapter: public_adapter
