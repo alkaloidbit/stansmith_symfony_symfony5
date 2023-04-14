@@ -19,6 +19,7 @@ import authProvider from "../admin/authProvider";
 import MyLoginPage from "../admin/SignIn";
 import MyLogoutButton from "../admin/MyLogoutButton";
 
+import Dashboard from "../admin/Dashboard";
 const entrypoint = 'http://localhost:8000/api';
 const fetchHeaders = {};
 const fetchHydra = (url, options = { credentials: "include" }) => {
@@ -39,6 +40,7 @@ const dataProvider = baseHydraDataProvider({
 
 export default () => (
   <HydraAdmin
+    dashboard={Dashboard}
     loginPage={MyLoginPage}
     logoutButton={MyLogoutButton}
     authProvider={authProvider}
