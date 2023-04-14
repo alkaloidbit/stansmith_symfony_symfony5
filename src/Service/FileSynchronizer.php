@@ -106,7 +106,7 @@ class FileSynchronizer
      * 2 - New file synced.
      * 3 - No Metadata to sync
      */
-    public function synchronize($dryrun = false)
+    public function synchronize($dryrun = false): Synchronization
     {
         if ($dryrun) {
             return $this->getFileInfo(false);

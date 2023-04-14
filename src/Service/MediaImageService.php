@@ -80,9 +80,9 @@ class MediaImageService
     /**
      * undocumented function
      *
-     * @return void
+     * @return string
      */
-    public function getCoverPath($name, $extension)
+    public function getCoverPath($name, $extension): string
     {
         return $this->mediaPathCover.'/'.sprintf('%s.%s', $name, $extension);
     }

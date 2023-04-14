@@ -24,12 +24,12 @@ final class ThumbnailObjectContentUrlNormalizer implements NormalizerInterface, 
         $this->storage = $storage;
     }
 
-    public function supportsNormalization($data, $format = null)
+    public function supportsNormalization($data, $format = null): bool
     {
         return $this->decorated->supportsNormalization($data, $format);
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $data = $this->decorated->normalize($object, $format, $context);
         if ($object instanceof ThumbnailObject) {
@@ -39,12 +39,12 @@ final class ThumbnailObjectContentUrlNormalizer implements NormalizerInterface, 
         return $data;
     }
 
-    public function supportsDenormalization($data, $type, $format = null)
+    public function supportsDenormalization($data, $type, $format = null): bool
     {
         return $this->decorated->supportsDenormalization($data, $type, $format);
     }
 
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): mixed
     {
         return $this->decorated->denormalize($data, $class, $format, $context);
     }

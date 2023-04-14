@@ -19,7 +19,7 @@ class AlbumRepository extends ServiceEntityRepository
         parent::__construct($registry, Album::class);
     }
 
-    public function findAll()
+    public function findAll(): array
     {
         return $this->findBy(array('active'=> true));
     }
