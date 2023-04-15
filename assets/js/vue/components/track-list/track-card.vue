@@ -20,7 +20,7 @@
             </span>
             <img
                 v-if="onPlaylist "
-                :src="track.thumbnail.contentUrl"
+                :src="track.thumbnail.coverContentUrl"
                 alt=""
             >
             <span class="sound-bars" />

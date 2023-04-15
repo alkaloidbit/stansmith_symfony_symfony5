@@ -51,7 +51,7 @@ class IndexController extends AbstractController
      * @Route("/test/{id}", name="test_controller")
      * @return Response
      */
-    public function test(Track $track, FileStreamer $fileStreamer)
+    public function test(Track $track, FileStreamer $fileStreamer): Response
     {
         if (isset($_SERVER['HTTP_RANGE'])) {
         }

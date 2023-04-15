@@ -7,10 +7,9 @@
                     :to="{ path: '/player' }"
                     class="navbar__brand"
                 >
-                    <!-- https://stackoverflow.com/questions/59070216/webpack-file-loader-outputs-object-module -->
                     <img
-                        :src="require('../../../../images/gnome-music.svg').default"
-                        alt="Lightweight UI components for Vue.js based on Bulma."
+                        :src="require('../../../../images/gnome-music.svg')"
+                        alt="logo"
                     >
                     <!-- <strong class="navbar_title">StansMusic</strong> -->
                 </b-navbar-item>

@@ -2,26 +2,48 @@
 
 namespace App\Tests\Functional;
 
-use App\Tests\Functional\CustomApiTestCase;
+use Zenstruck\Foundry\Test\ResetDatabase;
+use App\Test\CustomApiTestCase;
 
-/**
- * Class UserResourceTest
- * @author yourname
- */
 class UserResourceTest extends CustomApiTestCase
 {
-    public function testCreateUser()
+    use ResetDatabase;
+
+    public function testCreateUser(): void
     {
         $client = self::createClient();
+
         $client->request('POST', '/api/users', [
             'json' => [
-                'email' => 'testingtest@example.com',
-                'username' => 'testingtest',
+                'email' => 'testuserresource@example.com',
+                'username' => 'testuserresource',
                 'password' => 'foo'
-            ]
+            ],
         ]);
+
         $this->assertResponseStatusCodeSame(201);
 
-        $this->logIn($client, 'testingtest@example.com', 'foo');
+        // use base class shortcut method to logIn
+        $this->logIn($client, 'testuserresource@example.com', 'foo');
+    }
+
+    public function testUpdateUser(): void
+    {
+        $client = self::createClient();
+        // use base class shortcut method 
+        $user = $this->createUserAndLogIn($client, 'testuserresource@example.com', 'foo');
+
+        $client->request('PUT', '/api/users/'.$user->getId(), [
+            'json' => [
+                'username' => 'newusername'
+            ]
+        ]);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertJsonContains([
+            'username' => 'newusername'
+        ]);
     }
 }
+
+

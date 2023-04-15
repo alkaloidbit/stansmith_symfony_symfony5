@@ -18,7 +18,7 @@
                 </b-table-column>
                 <b-table-column cell-class="has-no-head-mobile is-image-cell" v-slot="props">
                     <div class="image">
-                        <img :src="props.row.contentUrl" class="">
+                        <img :src="props.row.coverContentUrl" class="">
                     </div>
                 </b-table-column>
                 <b-table-column label="filename" field="name" sortable v-slot="props">

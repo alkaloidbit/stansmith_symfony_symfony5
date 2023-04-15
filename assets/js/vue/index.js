@@ -1,4 +1,4 @@
-// webpackEntryConfig('main')
+import 'styles/app.scss';
 import Vue from 'vue';
 import Buefy from 'buefy';
 /* eslint-disable-next-line no-unused-vars */
@@ -12,6 +12,7 @@ import router from './router';
 import store from './store';
 
 import loadingGif from '../../images/loading.gif';
+
 
 Vue.use(Buefy);
 Vue.use(VueLazyload, {

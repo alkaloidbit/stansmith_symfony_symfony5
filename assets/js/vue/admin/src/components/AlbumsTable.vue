@@ -18,7 +18,7 @@
             </b-table-column>
             <b-table-column cell-class="has-no-head-mobile is-image-cell" v-slot="props">
                 <div class="image">
-                    <img v-if="props.row.cover[0]" :src="props.row.cover[0].contentUrl" class="">
+                    <img v-if="props.row.cover[0]" :src="props.row.cover[0].coverContentUrl" class="">
                     <img v-else src="http://via.placeholder.com/400x400/fefefe" alt="">
                 </div>
             </b-table-column>

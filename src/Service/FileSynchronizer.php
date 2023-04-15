@@ -106,7 +106,7 @@ class FileSynchronizer
      * 2 - New file synced.
      * 3 - No Metadata to sync
      */
-    public function synchronize($dryrun = false)
+    public function synchronize($dryrun = false): Synchronization
     {
         if ($dryrun) {
             return $this->getFileInfo(false);
@@ -157,7 +157,7 @@ class FileSynchronizer
                 $this->em->flush();
                 
                 // Cover collection === 0
-                if (count($album->getCover()) === 0) {
+                if (count($album->getCovers()) === 0) {
                     $this->generateAlbumCover($album, $info);
                 }
             }
@@ -186,10 +186,6 @@ class FileSynchronizer
                 $this->trackEntity->setArtist($artist);
                 $this->trackEntity->setAlbum($album);
 
-                // get ThumbnailObject associated with album                // associate it whith trackEntity
-                $thumbnail = $album->getThumbnails()[0];
-                $this->trackEntity->setThumbnail($thumbnail);
-                
                 $this->em->persist($this->trackEntity);
                 $this->em->flush();
             }
@@ -207,8 +203,8 @@ class FileSynchronizer
         
         if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
-            $origname = $cover->getBasename('.' . $cover->getExtension());
-            $this->mediaImageService->writeAlbumCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
+            $origname = $cover->getBasename('.' .$extension);
+            $this->mediaImageService->writeCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
         }
     }
 

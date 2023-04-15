@@ -50,14 +50,14 @@
                     </div>
                     <img
                         v-if="currentTrack !== undefined && !isLoading"
-                        :src="getCurrentTrackInfo.thumbnail.contentUrl"
+                        :src="getCurrentTrackInfo.thumbnail.thumbnailContentUrl"
                     >
                     <div
                         v-if="currentTrack !== undefined && !isLoading"
                         class="content-info-wrapper"
                     >
-                        <strong>{{ getCurrentTrackInfo.title }}</strong>
-                        <p>{{ getCurrentTrackInfo.artist }} - {{ getCurrentTrackInfo.album }}</p>
+                        <strong>{{ getCurrentTrackInfo.tracknumber }}</strong> - <strong>{{ getCurrentTrackInfo.title }}</strong>
+                         <p>{{ getCurrentTrackInfo.artist }} - {{ getCurrentTrackInfo.album }}</p>
                     </div>
                 </div>
                 <div
@@ -127,6 +127,7 @@ export default {
     computed: {
         getCurrentTrackInfo() {
             if (this.currentTrack) {
+                const tracknumber = this.currentTrack.tracknumber;
                 const artist = this.currentTrack.artist.name;
                 const { title } = this.currentTrack;
                 const { thumbnail } = this.currentTrack;
@@ -134,6 +135,7 @@ export default {
                 return {
                     artist,
                     album,
+                    tracknumber,
                     title,
                     thumbnail,
                 };

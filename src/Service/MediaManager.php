@@ -112,7 +112,7 @@ class MediaManager
     /**
      * @return Finder
      */
-    public function getDirectoriesInMediaPath()
+    public function getDirectoriesInMediaPath(): Finder
     {
         return $this->finder
                     ->directories()

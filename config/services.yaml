@@ -30,7 +30,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-            - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -55,3 +54,10 @@ services:
         
     App\Serializer\ThumbnailObjectContentUrlNormalizer:
         decorates: 'api_platform.jsonld.normalizer.item'
+
+    Liip\ImagineBundle\Service\FilterService:
+        alias: 'liip_imagine.service.filter'
+        
+    # App\EventListener\VichUploadListener:
+    # tags:
+    # - { name: kernel.event_listener, event: vich_uploader.post_upload }
