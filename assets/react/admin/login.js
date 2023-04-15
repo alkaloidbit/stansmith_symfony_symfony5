@@ -4,15 +4,15 @@ import { propTypes, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import LockIcon from '@material-ui/icons/Lock';
-import { MenuItem, Select, FormControl, InputLabel } from '@material-ui/core';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import withStyles from '@mui/styles/withStyles';
+import LockIcon from '@mui/icons-material/Lock';
+import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
 import { Notification, translate, useLogin } from 'react-admin';
 

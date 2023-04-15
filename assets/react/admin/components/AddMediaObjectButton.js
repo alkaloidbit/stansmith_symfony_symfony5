@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ImageIcon from "@material-ui/icons/ImageTwoTone";
-import { withStyles } from "@material-ui/core/styles";
+import ImageIcon from "@mui/icons-material/ImageTwoTone";
+import withStyles from '@mui/styles/withStyles';
 import { Button } from "react-admin";
 
 const styles = {

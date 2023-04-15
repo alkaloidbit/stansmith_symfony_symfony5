@@ -6,10 +6,10 @@ import {
 import React from 'react';
 import { Resource } from "react-admin";
 import { parseHydraDocumentation } from "@api-platform/api-doc-parser";
-import { PersonTwoTone } from "@material-ui/icons";
-import { AlbumTwoTone } from "@material-ui/icons";
-import { ImageTwoTone } from "@material-ui/icons";
-import { MusicNoteTwoTone } from "@material-ui/icons";
+import { PersonTwoTone } from "@mui/icons-material";
+import { AlbumTwoTone } from "@mui/icons-material";
+import { ImageTwoTone } from "@mui/icons-material";
+import { MusicNoteTwoTone } from "@mui/icons-material";
 import media_objects from "../admin/media_objects";
 import artists from "../admin/artists";
 import albums from "../admin/albums";

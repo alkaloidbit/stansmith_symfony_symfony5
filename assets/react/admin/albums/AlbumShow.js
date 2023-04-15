@@ -14,7 +14,7 @@ import {
   ReferenceField,
   ImageField,
 } from "react-admin";
-import CardActions from "@material-ui/core/CardActions";
+import CardActions from "@mui/material/CardActions";
 
 const AlbumShowActions =  ({ basePath }) => (
   <CardActions>
