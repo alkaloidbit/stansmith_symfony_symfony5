@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import ImageIcon from "@mui/icons-material/ImageTwoTone";
-import { Button } from "react-admin";
+import { Button, useRecordContext } from "react-admin";
 
 const PREFIX = 'AddMediaObjectButton';
 
@@ -17,8 +17,9 @@ const StyledButton = styled(Button)({
   },
 });
 
-const AddMediaObjectButton = ({  record }) => {
-console.log();
+const AddMediaObjectButton = () => {
+  const record = useRecordContext();
+  console.log(record);
   return (
     <StyledButton
       className={classes.button}

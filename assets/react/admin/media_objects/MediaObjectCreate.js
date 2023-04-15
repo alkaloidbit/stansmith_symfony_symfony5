@@ -8,7 +8,10 @@ import {
   useNotify,
   useRedirect,
   useRefresh,
+  useRecordContext,
+  useDataProvider,
 } from "react-admin";
+import { useMutation } from "react-query";
 
 const MediaObjectCreate = (props) => {
   const location = useLocation();
@@ -38,14 +41,15 @@ const MediaObjectCreate = (props) => {
     return fetch(url, options);
   };
   // on MediaObject creation success
-  const onSuccess = ({ data }) => {
+  const onSuccess = ( data ) => {
+    // New mediaObject uri
     const newCoverURI = data["@id"];
     const updatedRecord = {
       ...record,
       covers: [...record.covers, newCoverURI],
     };
 
-    // tobe send via PUT to album endpoint
+    // Update album resource with new cover
     sendRequest(album_id, "PUT", updatedRecord)
       .then((data) => {
         notify("Album updated");
@@ -57,7 +61,7 @@ const MediaObjectCreate = (props) => {
   };
 
   return (
-    <Create {...props} mutationMode="pessimistic" onSuccess={onSuccess}>
+    <Create {...props} mutationOptions={{onSuccess}}>
       <SimpleForm addlabel="false">
         <ImageInput source="file" accept="image/*">
           <ImageField source="src" title="" />
