@@ -1,19 +1,31 @@
 // in src/MyLoginPage.js
 import * as React from "react";
+import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import { useLogin, useNotify, translate, Notification } from "react-admin";
-import Avatar from "@material-ui/core/Avatar";
-import Button from '@material-ui/core/Button';
-import Card from "@material-ui/core/Card";
-import CardActions from '@material-ui/core/CardActions';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
-import LockIcon from '@material-ui/icons/Lock';
-import { MenuItem, Select, FormControl, InputLabel } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@mui/material/Avatar";
+import Button from '@mui/material/Button';
+import Card from "@mui/material/Card";
+import CardActions from '@mui/material/CardActions';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import LockIcon from '@mui/icons-material/Lock';
+import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+const PREFIX = 'MyLoginPage';
 
-const useStyles = makeStyles({
-    main: {
+const classes = {
+    main: `${PREFIX}-main`,
+    card: `${PREFIX}-card`,
+    avatar: `${PREFIX}-avatar`,
+    icon: `${PREFIX}-icon`,
+    hint: `${PREFIX}-hint`,
+    form: `${PREFIX}-form`,
+    input: `${PREFIX}-input`,
+    actions: `${PREFIX}-actions`
+};
+
+const Root = styled('div')({
+    [`&.${classes.main}`]: {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
@@ -23,35 +35,35 @@ const useStyles = makeStyles({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
-    card: {
+    [`& .${classes.card}`]: {
         minWidth: 300,
         marginTop: "6em",
     },
-    avatar: {
+    [`& .${classes.avatar}`]: {
         margin: "1em",
         display: "flex",
         justifyContent: "center",
     },
-    icon: {
+    [`& .${classes.icon}`]: {
     },
-    hint: {
+    [`& .${classes.hint}`]: {
         marginTop: "1em",
         display: "flex",
         justifyContent: "center",
     },
-    form: {
+    [`& .${classes.form}`]: {
         padding: "0 1em 1em 1em",
     },
-    input: {
+    [`& .${classes.input}`]: {
         marginTop: "1em",
     },
-    actions: {
+    [`& .${classes.actions}`]: {
         padding: "0 1em 1em 1em",
     },
 });
 
 function MyLoginPage(props) {
-  const classes = useStyles();
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,42 +77,42 @@ function MyLoginPage(props) {
   };
 
   return (
-    <div className={classes.main}>
-      <Card className={classes.card}>
-        <div className={classes.avatar}>
-          <Avatar className={classes.icon}>
-            <LockIcon />
-          </Avatar>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            name="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        <CardActions className={classes.actions}>
-            <Button
-                variant="contained"
-                type="submit"
-                color="primary"
-                className={classes.button}
-                fullWidth
-            >
-                {translate('ra.auth.sign_in')}
-            </Button>
-            </CardActions>
-    </form>
-    </Card>
-<Notification />
-</div>
-);
+      <Root className={classes.main}>
+        <Card className={classes.card}>
+          <div className={classes.avatar}>
+            <Avatar className={classes.icon}>
+              <LockIcon />
+            </Avatar>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          <CardActions className={classes.actions}>
+              <Button
+                  variant="contained"
+                  type="submit"
+                  color="primary"
+                  className={classes.button}
+                  fullWidth
+              >
+                  {translate('ra.auth.sign_in')}
+              </Button>
+              </CardActions>
+      </form>
+      </Card>
+  <Notification />
+  </Root>
+  );
 }
 
 export default MyLoginPage;

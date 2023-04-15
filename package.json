@@ -29,7 +29,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@api-platform/admin": "2.7.2",
+        "@api-platform/admin": "^3.3.5",
         "@babel/plugin-transform-runtime": "^7.13.5",
         "@babel/runtime": "^7.13.4",
         "@fortawesome/fontawesome-free": "^5.15.1",
@@ -50,7 +50,7 @@
         "material-design-icons": "^3.0.1",
         "moment": "^2.29.1",
         "music-metadata-browser": "^2.2.6",
-        "node-sass": "^5.0.0",
+        "node-sass": "^6.0.0",
         "recompose": "^0.30.0",
         "redux-form": "^8.3.10",
         "sass-loader": "^13.2.0",

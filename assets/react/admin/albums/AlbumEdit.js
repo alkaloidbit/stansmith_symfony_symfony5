@@ -8,11 +8,13 @@ import {
   SingleFieldList,
   TextInput,
   ImageField,
+  useRecordContext,
 } from "react-admin";
 
 import AddMediaObjectButton from "../components/AddMediaObjectButton";
 
-const AlbumTitle = ({ record }) => {
+const AlbumTitle = () => {
+  const record =  useRecordContext();
   return <span>Album {record ? `"${record.title}"` : ""}</span>;
 };
 

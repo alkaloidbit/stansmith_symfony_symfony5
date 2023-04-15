@@ -1,20 +1,27 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
-import ImageIcon from "@material-ui/icons/ImageTwoTone";
-import { withStyles } from "@material-ui/core/styles";
-import { Button } from "react-admin";
+import ImageIcon from "@mui/icons-material/ImageTwoTone";
+import { Button, useRecordContext } from "react-admin";
 
-const styles = {
-  button: {
+const PREFIX = 'AddMediaObjectButton';
+
+const classes = {
+  button: `${PREFIX}-button`
+};
+
+const StyledButton = styled(Button)({
+  [`&.${classes.button}`]: {
     marginTop: "1em",
     marginBottom: "1em",
   },
-};
+});
 
-const AddMediaObjectButton = ({ classes, record }) => {
-console.log();
+const AddMediaObjectButton = () => {
+  const record = useRecordContext();
+  console.log(record);
   return (
-    <Button
+    <StyledButton
       className={classes.button}
       variant="contained"
       component={Link}
@@ -27,8 +34,8 @@ console.log();
       title="Add a MediaObject"
     >
       <ImageIcon />
-    </Button>
+    </StyledButton>
   );
 };
 
-export default withStyles(styles)(AddMediaObjectButton);
+export default (AddMediaObjectButton);
