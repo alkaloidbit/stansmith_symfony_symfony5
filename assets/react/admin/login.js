@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { propTypes, reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
@@ -10,15 +11,31 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
-import withStyles from '@mui/styles/withStyles';
 import LockIcon from '@mui/icons-material/Lock';
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
 import { Notification, translate, useLogin } from 'react-admin';
 
 
-const styles = theme => ({
-    main: {
+const PREFIX = 'login';
+
+const classes = {
+    main: `${PREFIX}-main`,
+    card: `${PREFIX}-card`,
+    avatar: `${PREFIX}-avatar`,
+    icon: `${PREFIX}-icon`,
+    hint: `${PREFIX}-hint`,
+    form: `${PREFIX}-form`,
+    input: `${PREFIX}-input`,
+    actions: `${PREFIX}-actions`
+};
+
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.main}`]: {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
@@ -28,34 +45,41 @@ const styles = theme => ({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
     },
-    card: {
+
+    [`& .${classes.card}`]: {
         minWidth: 300,
         marginTop: '6em',
     },
-    avatar: {
+
+    [`& .${classes.avatar}`]: {
         margin: '1em',
         display: 'flex',
         justifyContent: 'center',
     },
-    icon: {
+
+    [`& .${classes.icon}`]: {
         backgroundColor: theme.palette.secondary.main,
     },
-    hint: {
+
+    [`& .${classes.hint}`]: {
         marginTop: '1em',
         display: 'flex',
         justifyContent: 'center',
         color: theme.palette.grey[500],
     },
-    form: {
+
+    [`& .${classes.form}`]: {
         padding: '0 1em 1em 1em',
     },
-    input: {
+
+    [`& .${classes.input}`]: {
         marginTop: '1em',
     },
-    actions: {
+
+    [`& .${classes.actions}`]: {
         padding: '0 1em 1em 1em',
-    },
-});
+    }
+}));
 
 // see http://redux-form.com/6.4.3/examples/material-ui/
 const renderInput = ({
@@ -82,9 +106,9 @@ class Login extends Component {
         );
 
     render() {
-        const { classes, handleSubmit, isLoading, translate } = this.props;
+        const {  handleSubmit, isLoading, translate } = this.props;
         return (
-            <div className={classes.main}>
+            <Root className={classes.main}>
                 <Card className={classes.card}>
                     <div className={classes.avatar}>
                         <Avatar className={classes.icon}>
@@ -129,7 +153,7 @@ class Login extends Component {
                     </form>
                 </Card>
                 <Notification />
-            </div>
+            </Root>
         );
     }
 }
@@ -146,27 +170,6 @@ Login.propTypes = {
 
 const mapStateToProps = state => ({ isLoading: state.admin.loading > 0 });
 
-const enhance = compose(
-    translate,
-    reduxForm({
-        form: 'signIn',
-        validate: (values, props) => {
-            const errors = {};
-            const { translate } = props;
-            if (!values.username) {
-                errors.username = translate('ra.validation.required');
-            }
-            if (!values.password) {
-                errors.password = translate('ra.validation.required');
-            }
-            return errors;
-        },
-    }),
-    connect(
-        mapStateToProps,
-        { useLogin }
-    ),
-    withStyles(styles)
-);
+const enhance = translate;
 
 export default enhance(Login);

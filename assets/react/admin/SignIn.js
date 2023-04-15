@@ -1,4 +1,5 @@
 import React from "react";
+import { styled } from '@mui/material/styles';
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -11,10 +12,68 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import makeStyles from '@mui/styles/makeStyles';
 import Container from "@mui/material/Container";
 import { useState } from "react";
 import { useLogin, useNotify, translate, Notification } from "react-admin";
+
+const PREFIX = 'SignIn';
+
+const classes = {
+  main: `${PREFIX}-main`,
+  card: `${PREFIX}-card`,
+  paper: `${PREFIX}-paper`,
+  avatar: `${PREFIX}-avatar`,
+  icon: `${PREFIX}-icon`,
+  form: `${PREFIX}-form`,
+  submit: `${PREFIX}-submit`
+};
+
+const Root = styled('div')((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.main}`]: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    background: "url(https://source.unsplash.com/random/1600x900)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  },
+
+  [`& .${classes.card}`]: {
+    minWidth: 300,
+    marginTop: "6em",
+  },
+
+  [`& .${classes.paper}`]: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+
+  [`& .${classes.avatar}`]: {
+    margin: theme.spacing(1),
+    display: "flex",
+    justifyContent: "center",
+  },
+
+  [`& .${classes.icon}`]: {
+    backgroundColor: theme.palette.secondary.main,
+  },
+
+  [`& .${classes.form}`]: {
+    padding: "0 1em 1em 1em",
+  },
+
+  [`& .${classes.submit}`]: {
+    margin: theme.spacing(3, 0, 2),
+  }
+}));
 
 function Copyright() {
   return (
@@ -29,46 +88,8 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  main: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    background: "url(https://source.unsplash.com/random/1600x900)",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-  },
-  card: {
-    minWidth: 300,
-    marginTop: "6em",
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-
-  avatar: {
-    margin: theme.spacing(1),
-    display: "flex",
-    justifyContent: "center",
-  },
-  icon: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    padding: "0 1em 1em 1em",
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 export default function SignIn() {
-  const classes = useStyles();
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -82,7 +103,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className={classes.main}>
+    <Root className={classes.main}>
       <Card className={classes.card}>
         <div className={classes.avatar}>
           <Avatar className={classes.icon}>
@@ -128,6 +149,6 @@ export default function SignIn() {
         </form>
       </Card>
       <Notification />
-    </div>
+    </Root>
   );
 }
