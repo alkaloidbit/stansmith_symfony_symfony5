@@ -719,9 +719,6 @@
     "thecodingmachine/phpstan-safe-rule": {
         "version": "v1.0.1"
     },
-    "thecodingmachine/phpstan-strict-rules": {
-        "version": "v0.12.1"
-    },
     "thecodingmachine/safe": {
         "version": "v1.3.3"
     },
