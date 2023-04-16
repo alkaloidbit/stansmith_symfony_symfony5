@@ -59,7 +59,7 @@ class IndexController extends AbstractController
             $pathToStream = str_replace($this->media_path, '', $track->getPath());
             $fileStream = $fileStreamer->readStream($pathToStream, false);
             stream_copy_to_stream($fileStream, $outputStream);
-        }, 200, [
+        }, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [
             'Content-Disposition' => 'inline',
             'Content-Length' => filesize($track->getPath()),
             'Content-type' => $track->getMimeType(),

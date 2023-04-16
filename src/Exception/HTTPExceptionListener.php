@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-final class HTTPExceptionListener
+final class HTTPExceptionListener implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     public function onKernelException(ExceptionEvent $event): void
     {
@@ -20,5 +20,12 @@ final class HTTPExceptionListener
         $response = new JsonResponse(['error' => $exception->getMessage()]);
         $response->setStatusCode($exception->getStatusCode());
         $event->setResponse($response);
+    }
+    /**
+     * @return array<string, mixed>
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => ''];
     }
 }

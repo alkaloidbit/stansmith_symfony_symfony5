@@ -39,7 +39,7 @@ class SecurityController extends AbstractController
             ], 400);
         }
 
-        return new Response(null, 204, [
+        return new Response(null, \Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT, [
             'Location' => $iriConverter->getIriFromResource($this->getUser()),
         ]);
     }
