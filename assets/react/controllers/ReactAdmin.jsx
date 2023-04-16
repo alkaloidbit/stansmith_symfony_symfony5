@@ -18,7 +18,7 @@ import authProvider from "../admin/authProvider";
 // import MyLoginPage from "../admin/login";
 import MyLoginPage from "../admin/SignIn";
 import MyLogoutButton from "../admin/MyLogoutButton";
-
+import { MyLayout } from "../admin/MyLayout";
 import Dashboard from "../admin/Dashboard";
 const entrypoint = 'http://localhost:8000/api';
 const fetchHeaders = {};
@@ -45,6 +45,7 @@ export default () => (
     logoutButton={MyLogoutButton}
     authProvider={authProvider}
     dataProvider={dataProvider}
+    layout={MyLayout}
     entrypoint={entrypoint}
   >
     <Resource name="media_objects" {...media_objects} icon={ImageTwoTone} />
