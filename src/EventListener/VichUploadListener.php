@@ -5,7 +5,8 @@ namespace App\EventListener;
 use Vich\UploaderBundle\Event\Event;
 
 /**
- * Class VichUploadListener
+ * Class VichUploadListener.
+ *
  * @author yourname
  */
 class VichUploadListener

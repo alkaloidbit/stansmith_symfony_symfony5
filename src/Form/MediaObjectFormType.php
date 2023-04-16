@@ -4,13 +4,13 @@ namespace App\Form;
 
 use App\Entity\MediaObject;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 /**
- * Class ArticleFormType
+ * Class ArticleFormType.
+ *
  * @author yourname
  */
 class MediaObjectFormType extends AbstractType

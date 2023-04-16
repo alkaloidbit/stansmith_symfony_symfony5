@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class ArticleFormType
+ * Class ArticleFormType.
+ *
  * @author yourname
  */
 class AlbumFormType extends AbstractType

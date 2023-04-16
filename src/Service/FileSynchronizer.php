@@ -4,18 +4,16 @@ namespace App\Service;
 
 use App\Entity\Album;
 use App\Entity\Artist;
-use App\Entity\MediaObject;
 use App\Entity\Track;
 use App\Repository\AlbumRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\TrackRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\MetadataHelper;
-use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class FileSynchronizer
+ * Class FileSynchronizer.
+ *
  * @author yourname
  */
 class FileSynchronizer
@@ -41,18 +39,16 @@ class FileSynchronizer
 
     /**
      * A (MD5) hash of the file's path.
-     * This value is unique, and can be used to query a Track
+     * This value is unique, and can be used to query a Track.
      *
      * @var string
      */
     private $fileHash;
 
     /**
-     * @var SplFileInfo
-     *
+     * @var \SplFileInfo
      */
     private $splFileInfo;
-
 
     /**
      * @var int
@@ -68,7 +64,6 @@ class FileSynchronizer
 
     private $mediaImageService;
 
-
     public function __construct(MetadataHelper $metadataHelper, TrackRepository $trackRepository, ArtistRepository $artistRepository, AlbumRepository $albumRepository, HelperService $helperService, EntityManagerInterface $em, MediaImageService $mediaImageService)
     {
         $this->metadataHelper = $metadataHelper;
@@ -81,14 +76,12 @@ class FileSynchronizer
         $this->mediaImageService = $mediaImageService;
     }
 
-
-
     public function setFile($path)
     {
-        $this->splFileInfo = $path instanceof SplFileInfo ? $path : new SplFileInfo($path);
+        $this->splFileInfo = $path instanceof \SplFileInfo ? $path : new \SplFileInfo($path);
 
         // file modification time
-        $this->fileModifiedTime  = $this->splFileInfo->getMTime();
+        $this->fileModifiedTime = $this->splFileInfo->getMTime();
 
         $this->filePath = $this->splFileInfo->getPathname();
 
@@ -125,7 +118,7 @@ class FileSynchronizer
 
             // file is new.
             // get or Create new Artist
-            if (!$artist = $this->artistRepository->findOneBy(array('name' => $info['artist']))) {
+            if (!$artist = $this->artistRepository->findOneBy(['name' => $info['artist']])) {
                 $artist = new Artist();
                 $artist->setName($info['artist']);
                 $this->em->persist($artist);
@@ -133,14 +126,14 @@ class FileSynchronizer
             }
 
             // get or Create new album
-            if (!$album = $this->albumRepository->findOneBy(array('title' => $info['album']))) {
+            if (!$album = $this->albumRepository->findOneBy(['title' => $info['album']])) {
                 $album = new Album();
                 $album->setTitle($info['album']);
                 $album->setDate($info['date']);
 
                 // multi-artist album
                 if (isset($info['albumartist'])) {
-                    if (!$albumArtist = $this->artistRepository->findOneBy(array('name' => $info['albumartist']))) {
+                    if (!$albumArtist = $this->artistRepository->findOneBy(['name' => $info['albumartist']])) {
                         $albumArtist = new Artist();
                         $albumArtist->setName($info['albumartist']);
                         $this->em->persist($albumArtist);
@@ -155,7 +148,7 @@ class FileSynchronizer
 
                 $this->em->persist($album);
                 $this->em->flush();
-                
+
                 // Cover collection === 0
                 if (count($album->getCovers()) === 0) {
                     $this->generateAlbumCover($album, $info);
@@ -200,10 +193,10 @@ class FileSynchronizer
         if (array_key_exists('cover', $albumInfo)) {
             dd($albumInfo);
         }
-        
+
         if ($cover = $this->getSplFileCoverUnderSameDirectory()) {
             $extension = pathinfo($cover, PATHINFO_EXTENSION);
-            $origname = $cover->getBasename('.' .$extension);
+            $origname = $cover->getBasename('.'.$extension);
             $this->mediaImageService->writeCover($album, file_get_contents($cover->getPathname()), $origname, $extension);
         }
     }
@@ -222,7 +215,7 @@ class FileSynchronizer
         }
 
         if (!isset($info['comments'])) {
-            return ;
+            return;
         }
 
         $props = [];
@@ -230,18 +223,18 @@ class FileSynchronizer
         try {
             $props = $this->extractPropsFromCommentsHtml($info['comments']);
         } catch (\Exception $e) {
-            echo $this->filePath . 'extractPropsFromCommentsHtml is throwing exception handling this file: '. $e->getMessage();
+            echo $this->filePath.'extractPropsFromCommentsHtml is throwing exception handling this file: '.$e->getMessage();
         }
 
         $props = array_merge(
             $props,
-            array(
+            [
                 'filesize' => $info['filesize'],
                 'playtime_seconds' => $info['playtime_seconds'],
                 'playtime_string' => $info['playtime_string'],
                 'mime_type' => $info['mime_type'],
-                'fileformat' => $info['fileformat']
-            )
+                'fileformat' => $info['fileformat'],
+            ]
         );
 
         return $props;
@@ -258,8 +251,9 @@ class FileSynchronizer
                     ->name('/(cov|fold)er|\.(jpe?g|png)$/i')
             )
         );
-        
+
         $splinfo = $result ? $result[0] : null;
+
         return $splinfo;
     }
 
@@ -276,6 +270,7 @@ class FileSynchronizer
         );
 
         $cover = $matches ? $matches[0] : null;
+
         return $cover && $this->isImage($cover) ? $cover : null;
     }
 
@@ -299,14 +294,14 @@ class FileSynchronizer
         }
 
         if (isset($comments['track_number'][0]) && $comments['track_number'][0]) {
-             $track_number = $comments['track_number'][0];
+            $track_number = $comments['track_number'][0];
         } elseif (isset($comments['tracknumber'][0]) && $comments['tracknumber'][0]) {
             $track_number = $comments['tracknumber'][0];
         } else {
             $track_number = '';
         }
 
-        return array(
+        return [
             'title' => isset($comments['title']) ? $comments['title'][0] : '',
             'artist' => $comments['artist'][0],
             'albumartist' => isset($comments['albumartist']) ? $comments['albumartist'][0] : null,
@@ -314,6 +309,6 @@ class FileSynchronizer
             'genre' => (isset($comments['genre'][0]) && $comments['genre'][0]) ? $comments['genre'][0] : '',
             'date' => $date,
             'track_number' => $track_number,
-        );
+        ];
     }
 }

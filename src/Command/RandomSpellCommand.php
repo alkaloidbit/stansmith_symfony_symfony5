@@ -16,16 +16,12 @@ class RandomSpellCommand extends Command
 
     private $logger;
 
-    /**
-     * @param LoggerInterface $logger
-     */
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
 
         parent::__construct();
     }
-    
 
     protected function configure()
     {
@@ -52,7 +48,7 @@ class RandomSpellCommand extends Command
             'expecto patronum',
             'expelliarmus',
             'impedimenta',
-            'reparo'
+            'reparo',
         ];
 
         $spell = $spells[array_rand($spells)];

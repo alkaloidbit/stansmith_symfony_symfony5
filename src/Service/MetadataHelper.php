@@ -4,10 +4,9 @@ namespace App\Service;
 
 use JamesHeinrich\GetID3\GetID3;
 
-use JamesHeinrich\GetID3\GetID3_Lib;
-
 /**
- * Class MetadataHelper
+ * Class MetadataHelper.
+ *
  * @author yourname
  */
 class MetadataHelper
@@ -17,10 +16,9 @@ class MetadataHelper
      */
     private $getID3;
 
-
     public function __construct()
     {
-        $this->getID3 = new \getID3;
+        $this->getID3 = new \getID3();
     }
 
     public function analyze($filePath)

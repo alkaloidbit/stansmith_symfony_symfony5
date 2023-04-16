@@ -2,12 +2,12 @@
 
 namespace App\State;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserStateProcessor implements ProcessorInterface
 {
@@ -30,11 +30,13 @@ class UserStateProcessor implements ProcessorInterface
         $this->userPasswordEncoder = $userPasswordEncoder;
         $this->userPasswordEncoder = $userPasswordEncoder;
     }
+
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): void
     {
         // Handle the state
-        if (!$data instanceof User)
+        if (!$data instanceof User) {
             return;
+        }
 
         if ($data->getPlainPassword()) {
             $data->setPassword(

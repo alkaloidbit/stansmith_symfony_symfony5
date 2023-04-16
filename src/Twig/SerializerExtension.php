@@ -2,9 +2,9 @@
 
 namespace App\Twig;
 
+use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class SerializerExtension extends AbstractExtension
 {

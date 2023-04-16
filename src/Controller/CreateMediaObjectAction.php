@@ -9,7 +9,8 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
- * Class CreateMediaObjectAction
+ * Class CreateMediaObjectAction.
+ *
  * @author yourname
  */
 #[AsController]
@@ -18,7 +19,7 @@ final class CreateMediaObjectAction extends AbstractController
     public function __invoke(Request $request): MediaObject
     {
         $uploadedFile = $request->files->get('file');
-        if (! $uploadedFile) {
+        if (!$uploadedFile) {
             throw new BadRequestHttpException('"file" is required');
         }
 

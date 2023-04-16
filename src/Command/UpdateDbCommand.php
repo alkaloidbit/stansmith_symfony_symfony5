@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Service\MediaManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,13 +11,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-use App\Service\MediaManager;
-use Symfony\Component\Finder\SplFileInfo;
-
 class UpdateDbCommand extends Command
 {
     protected static $defaultName = 'app:update-db';
-
 
     private $mediaManager;
 
@@ -60,7 +57,7 @@ class UpdateDbCommand extends Command
         $show_table = $input->getOption('show_table');
 
         $results = $this->mediaManager->synchronize($input->getOption('dir'), $this, $dryrun);
-        
+
         // results
         if ($show_table && !$dryrun) {
             $this->buildTable($output, $results);
@@ -71,11 +68,10 @@ class UpdateDbCommand extends Command
         ]);
 
         $this->io->warning('You have '.$this->invalid.' invalid file(s)');
-        $this->io->success('Completed! '.$this->success. ' new track(s), '.$this->ignored.' unchanged track(s)');
+        $this->io->success('Completed! '.$this->success.' new track(s), '.$this->ignored.' unchanged track(s)');
 
         return Command::SUCCESS;
     }
-
 
     public function buildTable($output, $data)
     {
@@ -91,18 +87,17 @@ class UpdateDbCommand extends Command
             $table->setRows($rows);
         }
 
-
         $table->render();
     }
 
     public function statsSynchronizationResult($result)
     {
         if ($result === 1) {
-            $this->ignored++;
+            ++$this->ignored;
         } elseif ($result === 2) {
-            $this->success++;
+            ++$this->success;
         } else {
-            $this->invalid++;
+            ++$this->invalid;
         }
     }
 
@@ -115,7 +110,7 @@ class UpdateDbCommand extends Command
     {
         $this->io->progressAdvance();
     }
-     
+
     public function finishProgress()
     {
         $this->io->progressFinish();

@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Rest\Route("/api")
+ *
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 final class PostController extends AbstractController
@@ -38,12 +39,13 @@ final class PostController extends AbstractController
      * @throws BadRequestHttpException
      *
      * @Rest\Post("/posts",name="createPost")
+     *
      * @IsGranted("ROLE_FOO")
      */
     public function createAction(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-            
+
         if (empty($data['message'])) {
             throw new BadRequestHttpException('message cannot be empty');
         }
@@ -52,7 +54,6 @@ final class PostController extends AbstractController
         $this->em->persist($post);
         $this->em->flush();
         $data = $this->serializer->serialize($post, JsonEncoder::FORMAT);
-
 
         return new JsonResponse($data, Response::HTTP_CREATED, [], true);
     }

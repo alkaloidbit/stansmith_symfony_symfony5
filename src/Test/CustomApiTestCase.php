@@ -31,7 +31,7 @@ class CustomApiTestCase extends ApiTestCase
         $client->request('POST', '/api/security/login', [
             'json' => [
                 'email' => $email,
-                'password' => $password
+                'password' => $password,
             ],
         ]);
 
@@ -52,6 +52,3 @@ class CustomApiTestCase extends ApiTestCase
         return self::$container->get('doctrine')->getManager();
     }
 }
-
-
-

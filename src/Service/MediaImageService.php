@@ -1,13 +1,10 @@
 <?php
 
-
 namespace App\Service;
 
 use App\Entity\Album;
 use App\Entity\MediaObject;
-use App\Entity\ThumbnailObject;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\ImageManagerService;
 
 class MediaImageService
 {
@@ -38,7 +35,7 @@ class MediaImageService
         $extension,
         $destination = '',
         bool $cleanup = false
-    ) : void {
+    ): void {
         try {
             $extension = trim(strtolower($extension), '. ');
 
@@ -50,12 +47,12 @@ class MediaImageService
             $thumbnailName = uniqid().'_'.$origname.'_thumbnail';
             $thumbnailDestination = $this->getThumbnailPath($thumbnailName, $extension);
             // write thumbnail in thumbnails directory
-            $this->ImageManagerService->writeFromBinaryData($binaryData, $thumbnailDestination, array('max_width'=> 60));
+            $this->ImageManagerService->writeFromBinaryData($binaryData, $thumbnailDestination, ['max_width' => 60]);
 
             $placeholderName = uniqid().'_'.$origname.'_placeholder';
             $placeholderDestination = $this->getPlaceholderPath($placeholderName, $extension);
             // write placeholder in placeholders directory
-            $this->ImageManagerService->writeFromBinaryData($binaryData, $placeholderDestination, array('max_width' => 3));
+            $this->ImageManagerService->writeFromBinaryData($binaryData, $placeholderDestination, ['max_width' => 3]);
 
             // Create MediaObject associated with album
             $mediaObject = new MediaObject();
@@ -69,7 +66,7 @@ class MediaImageService
             if ($cleanup) {
                 $this->deleteAlbumCoverFiles($album);
             }
-            
+
             // Associate album with mediaObject
             $album->addCover($mediaObject);
         } catch (\Exception $e) {
@@ -78,9 +75,7 @@ class MediaImageService
     }
 
     /**
-     * undocumented function
-     *
-     * @return string
+     * undocumented function.
      */
     public function getCoverPath($name, $extension): string
     {

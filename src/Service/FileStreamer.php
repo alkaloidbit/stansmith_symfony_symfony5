@@ -5,7 +5,7 @@ namespace App\Service;
 use League\Flysystem\Filesystem;
 
 /**
- * Class FileStreamer
+ * Class FileStreamer.
  */
 class FileStreamer
 {
@@ -16,9 +16,8 @@ class FileStreamer
     {
         $this->filesystem = $publicFilesystem;
     }
-    
+
     /**
-     *
      * @return resource
      */
     public function readStream(string $path)

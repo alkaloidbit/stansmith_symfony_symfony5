@@ -6,8 +6,8 @@ use Intervention\Image\Constraint;
 use Intervention\Image\ImageManager;
 
 /**
+ * Class ImageManagerService.
  *
- * Class ImageManagerService
  * @author yourname
  */
 class ImageManagerService
@@ -15,7 +15,6 @@ class ImageManagerService
     private const DEFAULT_QUALITY = 80;
     private const DEFAULT_MAX_WIDTH = 600;
     private $imageManager;
-
 
     public function __construct(ImageManager $imageManager)
     {

@@ -3,7 +3,8 @@
 namespace App\Service;
 
 /**
- * Class HelperService
+ * Class HelperService.
+ *
  * @author yourname
  */
 class HelperService
@@ -11,8 +12,6 @@ class HelperService
     /**
      * Get a unique hash from a file path.
      * Can be used as the Track record ID.
-     *
-     * @return string
      */
     public function getFileHash(string $path): string
     {

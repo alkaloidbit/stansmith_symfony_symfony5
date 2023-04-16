@@ -7,11 +7,9 @@ use App\Service\FileStreamer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class PlayerController
- *
+ * Class PlayerController.
  */
 class PlayerController extends AbstractController
 {
@@ -24,7 +22,7 @@ class PlayerController extends AbstractController
     {
         $this->media_path = $media_path;
     }
-    
+
     /**
      * @Route("/api/player/{id}/stream", name="player")
      */
@@ -36,7 +34,7 @@ class PlayerController extends AbstractController
             $fileStream = $fileStreamer->readStream($pathToStream, false);
             stream_copy_to_stream($fileStream, $outputStream);
         }, 200, [
-            'Content-Disposition'=> 'inline',
+            'Content-Disposition' => 'inline',
             'Content-Length' => filesize($track->getPath()),
             'Content-type' => $track->getMimeType(),
             'Accept-Ranges' => 'bytes',

@@ -6,7 +6,8 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * Class BaseController
+ * Class BaseController.
+ *
  * @author yourname
  */
 abstract class BaseController extends AbstractController

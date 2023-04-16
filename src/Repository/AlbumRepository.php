@@ -21,7 +21,7 @@ class AlbumRepository extends ServiceEntityRepository
 
     public function findAll(): array
     {
-        return $this->findBy(array('active'=> true));
+        return $this->findBy(['active' => true]);
     }
     // /**
     //  * @return Album[] Returns an array of Album objects

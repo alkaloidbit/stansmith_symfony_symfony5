@@ -1,14 +1,13 @@
 <?php
 
-
 namespace App\Service;
 
 use App\Command\UpdateDbCommand;
-use App\Service\FileSynchronizer;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class MediaManager
+ * Class MediaManager.
+ *
  * @author yourname
  */
 class MediaManager
@@ -22,7 +21,7 @@ class MediaManager
     private $pathOption;
 
     /**
-     * Init MediaManager
+     * Init MediaManager.
      *
      * @param string mediaLibrary
      */
@@ -35,9 +34,7 @@ class MediaManager
 
     /**
      * Configure Finder with path option to match
-     * files containing $path in their path (files or directories)
-     *
-     * @param string $path
+     * files containing $path in their path (files or directories).
      */
     public function setPathOption(string $path)
     {
@@ -45,8 +42,7 @@ class MediaManager
     }
 
     /**
-     * Perform medias synchronization
-     *
+     * Perform medias synchronization.
      */
     public function synchronize(string $mediaLibrary = null, ?UpdateDbCommand $command = null, $dryrun = false)
     {
@@ -61,7 +57,7 @@ class MediaManager
                 $result = $this->fileSynchronizer->setFile($fileInfo)->synchronize(true);
                 dump($result);
             }
-            // $command->finishProgress();
+        // $command->finishProgress();
         } else {
             $results = [];
             foreach ($files as $fileInfo) {
@@ -90,7 +86,6 @@ class MediaManager
         }
     }
 
-
     /**
      * Return an array of SplFileInfo Objects regarding all files contained in a given directory.
      *
@@ -109,9 +104,6 @@ class MediaManager
         );
     }
 
-    /**
-     * @return Finder
-     */
     public function getDirectoriesInMediaPath(): Finder
     {
         return $this->finder
