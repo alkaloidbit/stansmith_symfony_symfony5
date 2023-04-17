@@ -27,9 +27,7 @@ class IndexController extends AbstractController
         $this->media_path = $media_path;
     }
 
-    /**
-     * @Route("/{vueRouting}", requirements={"vueRouting"="^(?!api|test|admin|_(profiler|wdt)).*"},  name="app_homepage")
-     */
+    #[Route(path: '/{vueRouting}', requirements: ['vueRouting' => '^(?!api|test|admin|_(profiler|wdt)).*'], name: 'app_homepage')]
     public function homepage(SerializerInterface $serializer, ArtistRepository $artistRepository, AlbumRepository $albumRepository): Response
     {
         $user = $this->getUser();
@@ -46,9 +44,7 @@ class IndexController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/test/{id}", name="test_controller")
-     */
+    #[Route(path: '/test/{id}', name: 'test_controller')]
     public function test(Track $track, FileStreamer $fileStreamer): Response
     {
         if (isset($_SERVER['HTTP_RANGE'])) {

@@ -18,9 +18,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Rest\Route("/api")
- *
- * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 final class PostController extends AbstractController
 {
     /** @var EntityManagerInterface */
@@ -39,9 +38,8 @@ final class PostController extends AbstractController
      * @throws BadRequestHttpException
      *
      * @Rest\Post("/posts",name="createPost")
-     *
-     * @IsGranted("ROLE_FOO")
      */
+    #[IsGranted('ROLE_FOO')]
     public function createAction(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);

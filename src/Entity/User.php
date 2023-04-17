@@ -18,12 +18,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity (repositoryClass=UserRepository::class)
- *
- * @UniqueEntity (fields={"username"})
- * @UniqueEntity (fields={"email"})
- */
 #[ApiResource(
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
@@ -40,59 +34,41 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
     ],
 )]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['username'])]
+#[UniqueEntity(fields: ['email'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue
-     *
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     *
-     * @Groups({"user:read", "user:write"})
-     *
-     * @Assert\NotBlank()
-     *
-     * @Assert\Email()
-     */
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private $email;
-    /**
-     * @Groups({"user:read", "user:write"})
-     *
-     * @ORM\Column(type="json")
-     */
+    #[Groups(['user:read', 'user:write'])]
+    #[ORM\Column(type: 'json')]
     private $roles = [];
     /**
      * @var string The hashed password
-     *
-     * @ORM\Column(type="string")
-     *
-     * @Groups({"user:write"})
      */
+    #[ORM\Column(type: 'string')]
+    #[Groups(['user:write'])]
     private $password;
     /**
      * This field will not be persisted
      * to Doctrine: it exists just as a
      * temporary storage.
-     *
-     * @Groups({"user:write"})
-     *
-     * @SerializedName("password")
-     *
-     * @Assert\NotBlank(groups={"create"})
      */
+    #[Groups(['user:write'])]
+    #[SerializedName('password')]
+    #[Assert\NotBlank(groups: ['create'])]
     private $plainPassword;
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     *
-     * @Groups({"user:read", "user:write"})
-     *
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank]
     private $username;
 
     public function getUserIdentifier(): string

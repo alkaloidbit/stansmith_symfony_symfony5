@@ -13,116 +13,62 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-/**
- * @ORM\Entity (repositoryClass=TrackRepository::class)
- */
 #[ApiResource(operations: [new Get(), new Put(), new GetCollection(), new Post()], types: ['http://schema.org/MusicRecording'], normalizationContext: ['groups' => ['track:read']])]
+#[ORM\Entity(repositoryClass: TrackRepository::class)]
 class Track
 {
     use TimestampableEntity;
-    /**
-     * @ORM\Id
-     *
-     * @ORM\Column(type="string", length=255)
-     *
-     * @Groups({"track:read"})
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['track:read'])]
     private $id;
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private $path;
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @Groups({"track:read", "album:read"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['track:read', 'album:read'])]
     private $title;
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Groups({"track:read", "album:read"})
-     *
-     * @SerializedName("album")
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['track:read', 'album:read'])]
+    #[SerializedName('album')]
     private $meta_album;
-    /**
-     * @ORM\Column(type="string", length=255)
-     *
-     * @Groups({"track:read"})
-     *
-     * @SerializedName("artist")
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['track:read'])]
+    #[SerializedName('artist')]
     private $meta_artist;
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     *
-     * @Groups({"track:read", "album:read"})
-     *
-     * @SerializedName("tracknumber")
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['track:read', 'album:read'])]
+    #[SerializedName('tracknumber')]
     private $meta_track_number;
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Groups({"track:read"})
-     *
-     * @SerializedName("date")
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['track:read'])]
+    #[SerializedName('date')]
     private $meta_date;
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Groups({"track:read"})
-     *
-     * @SerializedName("genre")
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['track:read'])]
+    #[SerializedName('genre')]
     private $meta_genre;
-    /**
-     * @Groups({"track:read", "album:read"})
-     *
-     * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="tracks")
-     */
+    #[Groups(['track:read', 'album:read'])]
+    #[ORM\ManyToOne(targetEntity: Artist::class, inversedBy: 'tracks')]
     private $artist;
-    /**
-     * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="tracks")
-     */
+    #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: 'tracks')]
     private $album;
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private $mtime;
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $mimeType;
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @Groups({"track:read", "album:read"})
-     *
-     * @SerializedName("playtime_string")
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups(['track:read', 'album:read'])]
+    #[SerializedName('playtime_string')]
     private $meta_playtime_string;
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     *
-     * @Groups({"track:read", "album:read"})
-     *
-     * @SerializedName("playtime_seconds")
-     */
+    #[ORM\Column(type: 'float', nullable: true)]
+    #[Groups(['track:read', 'album:read'])]
+    #[SerializedName('playtime_seconds')]
     private $meta_playtime_seconds;
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     *
-     * @Groups({"track:read", "album:read"})
-     */
+    #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['track:read', 'album:read'])]
     private $meta_filesize;
-    /**
-     * @Groups({"track:read", "album:read"})
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[Groups(['track:read', 'album:read'])]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $fileformat;
 
     public function getPath(): ?string
@@ -317,11 +263,8 @@ class Track
         return $this;
     }
 
-    /**
-     * @Groups({"track:read", "album:read"})
-     *
-     * @SerializedName("thumbnail")
-     */
+    #[Groups(['track:read', 'album:read'])]
+    #[SerializedName('thumbnail')]
     public function getAlbumCoverMediaObject()
     {
         return $this->album->getCoverMediaObject();

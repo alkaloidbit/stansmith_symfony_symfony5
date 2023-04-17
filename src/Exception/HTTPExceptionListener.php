@@ -21,6 +21,7 @@ final class HTTPExceptionListener implements \Symfony\Component\EventDispatcher\
         $response->setStatusCode($exception->getStatusCode());
         $event->setResponse($response);
     }
+
     /**
      * @return array<string, mixed>
      */

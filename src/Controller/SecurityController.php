@@ -12,9 +12,8 @@ use Symfony\Component\Serializer\SerializerInterface;
  * Class SecurityController.
  *
  * @author yourname
- *
- * @Route("/api")
  */
+#[Route(path: '/api')]
 class SecurityController extends AbstractController
 {
     /**
@@ -27,9 +26,7 @@ class SecurityController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    /**
-     * @Route("/security/login", name="app_login", methods={"POST"})
-     */
+    #[Route(path: '/security/login', name: 'app_login', methods: ['POST'])]
     public function login(IriConverterInterface $iriConverter)
     {
         // json_login did nothing
@@ -44,9 +41,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/security/logout", name="app_logout")
-     */
+    #[Route(path: '/security/logout', name: 'app_logout')]
     public function logout(): void
     {
         throw new \Exception('should not be reached');

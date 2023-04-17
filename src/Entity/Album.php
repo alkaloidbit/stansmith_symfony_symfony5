@@ -16,6 +16,7 @@ use ApiPlatform\Metadata\Put;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 /* use App\ApiPlatform\AlbumSearchSupportUnderscoreFilter; */
 use App\Repository\AlbumRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,9 +26,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity (repositoryClass=AlbumRepository::class)
- */
 #[ApiResource(
     types: ['http://schema.org/MusicAlbum'],
     operations: [
@@ -51,64 +49,44 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(filterClass: BooleanFilter::class, properties: ['active'])]
 #[ApiFilter(filterClass: PropertyFilter::class)]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id' => 'ASC'])]
+#[ORM\Entity(repositoryClass: AlbumRepository::class)]
 class Album
 {
     use TimestampableEntity;
-    /**
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue
-     *
-     * @ORM\Column(type="integer")
-     *
-     * @Groups({"album:read"})
-     */
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['album:read'])]
     private $id;
-    /**
-     * @ORM\Column (type="string", length=255, nullable=true)
-     * Title of the Album
-     *
-     * @Groups ({"album:read", "album:write", "artists:read"})
-     *
-     * @Assert\NotBlank
-     */
+
     #[ApiProperty(iris: ['http://schema.org/name'])]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['album:read', 'album:write', 'artists:read'])]
+    #[Assert\NotBlank]
     private $title;
-    /**
-     * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="albums")
-     *
-     * @Groups({"album:write", "album:read"})
-     *
-     * @Assert\NotNull
-     */
+
+    #[ORM\ManyToOne(targetEntity: Artist::class, inversedBy: 'albums')]
+    #[Groups(['album:write', 'album:read'])]
+    #[Assert\NotNull]
     private $artist;
-    /**
-     * @ORM\OneToMany(targetEntity=Track::class, mappedBy="album")
-     *
-     * @OrderBy({"meta_track_number"="ASC"})
-     *
-     * @Groups({"album:read"})
-     */
+
+    #[ORM\OneToMany(targetEntity: Track::class, mappedBy: 'album')]
+    #[OrderBy(['meta_track_number' => 'ASC'])]
+    #[Groups(['album:read'])]
     private $tracks;
-    /**
-     * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="album", orphanRemoval=true)
-     *
-     * @Groups({"album:write", "album:read", "track:read"})
-     */
+
+    #[ORM\OneToMany(targetEntity: MediaObject::class, mappedBy: 'album', orphanRemoval: true)]
+    #[Groups(['album:write', 'album:read', 'track:read'])]
     private $covers;
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Groups({"album:write", "album:read"})
-     *
-     * @Assert\NotNull
-     */
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['album:write', 'album:read'])]
+    #[Assert\NotNull]
     private $date;
-    /**
-     * @ORM\Column(type="boolean")
-     *
-     * @Groups({"album:write", "album:read"})
-     */
+
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(['album:write', 'album:read'])]
     private $active;
 
     public function __construct()
@@ -185,11 +163,8 @@ class Album
     /* { */
     /*     return 'uploads/covers/'.$this->getCover(); */
     /* } */
-    /**
-     * @Groups({"album:read"})
-     *
-     * @SerializedName("created_date")
-     */
+    #[Groups(['album:read'])]
+    #[SerializedName('created_date')]
     public function getCreatedAtTimestampable(): ?\DateTimeInterface
     {
         // dd($this->createdAt);
@@ -226,12 +201,9 @@ class Album
         return $this;
     }
 
-    /**
-     * @Groups({"album:read"})
-     *
-     * @SerializedName("total_playtime_seconds")
-     */
-    public function getTotalTracksPlaytime()
+    #[Groups(['album:read'])]
+    #[SerializedName('total_playtime_seconds')]
+    public function getTotalTracksPlaytime(): int
     {
         $total = 0;
         foreach ($this->getTracks() as $track) {
@@ -265,9 +237,7 @@ class Album
         return $this;
     }
 
-    /**
-     * @SerializedName("mainThumbnail")
-     */
+    #[SerializedName('mainThumbnail')]
     public function getCoverMediaObject()
     {
         return $this->covers[0];

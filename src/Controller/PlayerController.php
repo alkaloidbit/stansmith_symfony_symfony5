@@ -23,9 +23,7 @@ class PlayerController extends AbstractController
         $this->media_path = $media_path;
     }
 
-    /**
-     * @Route("/api/player/{id}/stream", name="player")
-     */
+    #[Route(path: '/api/player/{id}/stream', name: 'player')]
     public function streamResponse(Track $track, FileStreamer $fileStreamer)
     {
         $response = new StreamedResponse(function () use ($track, $fileStreamer) {

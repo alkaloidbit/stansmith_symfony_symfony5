@@ -19,47 +19,33 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity (repositoryClass=ArtistRepository::class)
- */
 #[ApiResource(operations: [new Get(), new Put(), new GetCollection(security: 'is_granted(\'ROLE_USER\')'), new Post(security: 'is_granted(\'ROLE_USER\')')], types: ['http://schema.org/MusicGroup'], paginationItemsPerPage: 10, normalizationContext: ['groups' => ['artist:read']], denormalizationContext: ['groups' => ['artist:write']])]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['name' => 'partial'])]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id' => 'ASC', 'name' => 'ASC'])]
+#[ORM\Entity(repositoryClass: ArtistRepository::class)]
 class Artist
 {
     use TimestampableEntity;
-    /**
-     * @ORM\Id
-     *
-     * @ORM\GeneratedValue
-     *
-     * @ORM\Column(type="integer")
-     *
-     * @Groups({"artist:read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['artist:read'])]
     private $id;
     /**
      * The name of this artist.
-     *
-     * @ORM\Column (type="string", length=255)
-     *
-     * @Groups ({"artist:read", "artist:write", "album:read"})
-     *
-     * @Assert\NotBlank
      */
     #[ApiProperty(iris: ['http://schema.org/name'])]
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['artist:read', 'artist:write', 'album:read'])]
+    #[Assert\NotBlank]
     private $name;
     /**
      * The albums produced by this artist.
-     *
-     * @ORM\OneToMany(targetEntity=Album::class, mappedBy="artist")
-     *
-     * @Groups({"artist:read"})
      */
+    #[ORM\OneToMany(targetEntity: Album::class, mappedBy: 'artist')]
+    #[Groups(['artist:read'])]
     private $albums;
-    /**
-     * @ORM\OneToMany(targetEntity=Track::class, mappedBy="artist")
-     */
+    #[ORM\OneToMany(targetEntity: Track::class, mappedBy: 'artist')]
     private $tracks;
 
     public function __construct()

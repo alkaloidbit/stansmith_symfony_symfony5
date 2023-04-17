@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity
- *
  * @Vich\Uploadable
  */
 #[ApiResource(
@@ -61,99 +59,81 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     ],
     paginationItemsPerPage: 100,
 )]
+#[ORM\Entity]
 class MediaObject
 {
     use TimestampableEntity;
     /**
      * @var int|null
-     *
-     * @ORM\Column(type="integer")
-     *
-     * @ORM\GeneratedValue
-     *
-     * @Groups({"media_object:read"})
-     *
-     * @ORM\Id
      */
+    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue]
+    #[Groups(['media_object:read'])]
+    #[ORM\Id]
     protected $id;
     /**
      * @var string|null
-     *
-     * @Groups ({"media_object:read", "album:read"})
      */
     #[ApiProperty(iris: ['http://schema.org/contentUrl'])]
+    #[Groups(['media_object:read', 'album:read'])]
     public $coverContentUrl;
     /**
      * @var string|null
-     *
-     * @Groups ({"media_object:read", "album:read"})
      */
     #[ApiProperty(iris: ['http://schema.org/contentUrl'])]
+    #[Groups(['media_object:read', 'album:read'])]
     public $thumbnailContentUrl;
     /**
      * @var string|null
-     *
-     * @Groups ({"media_object:read", "album:read"})
      */
     #[ApiProperty(iris: ['http://schema.org/contentUrl'])]
+    #[Groups(['media_object:read', 'album:read'])]
     public $placeholderContentUrl;
     /**
      * @var File|null
      *
-     * @Assert\NotNull(groups={"media_object_create"})
-     *
      * @Vich\UploadableField(mapping="media_object", fileNameProperty="fileName")
      */
+    #[Assert\NotNull(groups: ['media_object_create'])]
     public $file;
     /**
      * @var File|null
      *
-     * @Groups({"media_object_create"})
-     *
      * @Vich\UploadableField(mapping="thumbnail_object", fileNameProperty="thumbnailName")
      */
+    #[Groups(['media_object_create'])]
     public $thumbnail;
     /**
      * @var File|null
      *
-     * @Groups({"media_object_create"})
-     *
      * @Vich\UploadableField(mapping="placeholder_object", fileNameProperty="placeholderName")
      */
+    #[Groups(['media_object_create'])]
     public $placeholder;
     /**
      * @var string|null
-     *
-     * @ORM\Column(nullable=true)
-     *
-     * @Groups({"media_object:read", "album:read"})
      */
+    #[ORM\Column(nullable: true)]
+    #[Groups(['media_object:read', 'album:read'])]
     public $fileName;
     /**
      * @var string|null
-     *
-     * @ORM\Column(nullable=true)
-     *
-     * @Groups({"media_object:read", "album:read"})
      */
+    #[ORM\Column(nullable: true)]
+    #[Groups(['media_object:read', 'album:read'])]
     public $thumbnailName;
     /**
      * @var string|null
-     *
-     * @ORM\Column(nullable=true)
-     *
-     * @Groups({"media_object:read", "album:read"})
      */
+    #[ORM\Column(nullable: true)]
+    #[Groups(['media_object:read', 'album:read'])]
     public $placeholderName;
     /**
      * "Many MediaObject to One Album".
-     *
-     * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="covers")
-     *
-     * @ORM\JoinColumn(nullable=true)
-     *
-     * @Groups({"media_object:read"})
      */
+    #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: 'covers')]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['media_object:read'])]
     private $album;
 
     public function getId(): ?int
@@ -161,11 +141,8 @@ class MediaObject
         return $this->id;
     }
 
-    /**
-     * @Groups({"media_object:read", "album:read"})
-     *
-     * @SerializedName("created_date")
-     */
+    #[Groups(['media_object:read', 'album:read'])]
+    #[SerializedName('created_date')]
     public function getCreatedAtTimestampable(): ?\DateTimeInterface
     {
         // dd($this->createdAt);
