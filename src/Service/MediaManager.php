@@ -30,6 +30,7 @@ class MediaManager
         $this->finder = new Finder();
         $this->fileSynchronizer = $fileSynchronizer;
         $this->mediaLibrary = $mediaLibrary;
+        $this->pathOption = [];
     }
 
     /**
@@ -38,7 +39,7 @@ class MediaManager
      */
     public function setPathOption(string $path)
     {
-        $this->pathOption = $path;
+        $this->pathOption[] = $path;
     }
 
     /**

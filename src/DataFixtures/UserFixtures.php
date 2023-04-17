@@ -19,7 +19,7 @@ final class UserFixtures extends Fixture
 
     public const USER_PASSWORD_ROLE_BAR = 'foo';
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordHasherInterface
      */
     public $passwordEncoder;
 

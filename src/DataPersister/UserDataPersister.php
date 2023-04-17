@@ -6,7 +6,6 @@ use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserDataPersister.
@@ -21,14 +20,14 @@ class UserDataPersister implements DataPersisterInterface
     private $entityManager;
 
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordHasherInterface
      */
-    private $userPasswordEncoder;
+    private $userPasswordHasher;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->entityManager = $entityManager;
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     /**
@@ -48,7 +47,7 @@ class UserDataPersister implements DataPersisterInterface
     {
         if ($data->getPlainPassword()) {
             $data->setPassword(
-                $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
+                $this->userPasswordHasher->hashPassword($data, $data->getPlainPassword())
             );
             $data->eraseCredentials();
         }

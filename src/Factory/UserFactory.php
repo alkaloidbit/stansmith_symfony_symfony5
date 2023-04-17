@@ -5,7 +5,6 @@ namespace App\Factory;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -26,17 +25,17 @@ use function Zenstruck\Foundry\Faker;
 final class UserFactory extends ModelFactory
 {
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordHasherInterface
      */
-    private $passwordEncoder;
+    private $passwordHasher;
 
     public const DEFAULT_PASSWORD = 'foo';
 
-    public function __construct(UserPasswordHasherInterface $passwordEncoder)
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         parent::__construct();
 
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     protected function getDefaults(): array
@@ -57,7 +56,7 @@ final class UserFactory extends ModelFactory
         // see https://github.com/zenstruck/foundry#initialization
         return $this
             ->afterInstantiate(function (User $user) {
-                $user->setPassword($this->passwordEncoder->hashPassword($user, $user->getPlainPassword()));
+                $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPlainPassword()));
             })
         ;
     }
