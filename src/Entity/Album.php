@@ -43,7 +43,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'groups' => ['album:write'],
         'swagger_definition_name' => 'Write',
     ],
-    paginationItemsPerPage: 100,
 )]
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['artist' => 'exact', 'title' => 'partial', 'id' => 'exact'])]
 #[ApiFilter(filterClass: BooleanFilter::class, properties: ['active'])]
