@@ -7,7 +7,6 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserStateProcessor implements ProcessorInterface
 {
@@ -15,20 +14,16 @@ class UserStateProcessor implements ProcessorInterface
      * @var EntityManagerInterface
      */
     private $entityManager;
-    /**
-     * @var UserPasswordEncoderInterface
-     */
 
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordHasherInterface
      */
     private $userPasswordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->entityManager = $entityManager;
-        $this->userPasswordEncoder = $userPasswordEncoder;
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     public function process($data, Operation $operation, array $uriVariables = [], array $context = []): void
@@ -40,7 +35,7 @@ class UserStateProcessor implements ProcessorInterface
 
         if ($data->getPlainPassword()) {
             $data->setPassword(
-                $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
+                $this->userPasswordHasher->hashPassword($data, $data->getPlainPassword())
             );
             $data->eraseCredentials();
         }

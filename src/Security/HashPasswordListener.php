@@ -7,16 +7,16 @@ namespace App\Security;
 use App\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class HashPasswordListener implements EventSubscriber
 {
-    /** @var UserPasswordEncoderInterface */
-    private $passwordEncoder;
+    /** @var UserPasswordHasherInterface */
+    private $passwordHasher;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function prePersist(LifecycleEventArgs $args): void
@@ -26,7 +26,7 @@ final class HashPasswordListener implements EventSubscriber
             return;
         }
 
-        $this->encodePassword($entity);
+        $this->hashPassword($entity);
     }
 
     public function preUpdate(LifecycleEventArgs $args): void
@@ -36,7 +36,7 @@ final class HashPasswordListener implements EventSubscriber
             return;
         }
 
-        $this->encodePassword($entity);
+        $this->hashPassword($entity);
         // necessary to force the update to see the change
         $em = $args->getEntityManager();
         $meta = $em->getClassMetadata(\get_class($entity));
@@ -51,14 +51,14 @@ final class HashPasswordListener implements EventSubscriber
         return ['prePersist', 'preUpdate'];
     }
 
-    private function encodePassword(User $entity): void
+    private function hashPassword(User $entity): void
     {
         $plainPassword = $entity->getPlainPassword();
         if ($plainPassword === null) {
             return;
         }
 
-        $encoded = $this->passwordEncoder->encodePassword(
+        $encoded = $this->passwordHasher->hashPassword(
             $entity,
             $plainPassword
         );

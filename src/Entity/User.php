@@ -43,20 +43,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
+
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Groups(['user:read', 'user:write'])]
     #[Assert\NotBlank]
     #[Assert\Email]
     private $email;
+
     #[Groups(['user:read', 'user:write'])]
     #[ORM\Column(type: 'json')]
     private $roles = [];
+
     /**
      * @var string The hashed password
      */
     #[ORM\Column(type: 'string')]
     #[Groups(['user:write'])]
     private $password;
+
     /**
      * This field will not be persisted
      * to Doctrine: it exists just as a
@@ -66,15 +70,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[SerializedName('password')]
     #[Assert\NotBlank(groups: ['create'])]
     private $plainPassword;
+
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     #[Groups(['user:read', 'user:write'])]
     #[Assert\NotBlank]
     private $username;
-
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->username;
-    }
 
     public function getId(): ?int
     {
@@ -98,7 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUserIdentifier(): string
     {
         return (string) $this->username;
     }
@@ -114,8 +114,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-
-    public function setRoles(array $roles): self
+    /**
+     * @param array<int,mixed> $roles
+     */
+    public function setRoles(array $roles): User
     {
         $this->roles = $roles;
 
