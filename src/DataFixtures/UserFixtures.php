@@ -38,7 +38,7 @@ final class UserFixtures extends Fixture
     {
         $userEntity = new User();
         $userEntity->setEmail($email);
-        $userEntity->setPassword($this->passwordEncoder->encodePassword(
+        $userEntity->setPassword($this->passwordEncoder->hashPassword(
             $userEntity,
             $password
         ));

@@ -41,7 +41,7 @@ final class UserFactory extends ModelFactory
 
     protected function getDefaults(): array
     {
-        $email = faker()->email();
+        $email = 'fredbadlieutenant@gmail.com';
         $username = substr($email, 0, strpos($email, '@'));
         $password = UserFactory::DEFAULT_PASSWORD;
 
@@ -57,7 +57,7 @@ final class UserFactory extends ModelFactory
         // see https://github.com/zenstruck/foundry#initialization
         return $this
             ->afterInstantiate(function (User $user) {
-                $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+                $user->setPassword($this->passwordEncoder->hashPassword($user, $user->getPlainPassword()));
             })
         ;
     }
