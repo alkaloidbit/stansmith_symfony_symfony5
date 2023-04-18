@@ -34,7 +34,7 @@ const AlbumEdit = (props) => (
           reference="media_objects"
         >
           <SingleFieldList>
-            <ImageField source="thumbnailContentUrl" title="" />
+            <ImageField source="coverContentUrl" title="" />
           </SingleFieldList>
         </ReferenceArrayField>
         <AddMediaObjectButton />

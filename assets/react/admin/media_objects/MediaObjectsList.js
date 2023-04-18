@@ -3,18 +3,18 @@ import {
     List,
     Datagrid,
     TextField,
+    ImageField,
     ReferenceField,
     EditButton,
 } from 'react-admin';
 
-import ThumbnailField from '../components/ThumbnailField';
 import CustomTextField from '../components/CustomTextField';
 
 const MediaObjectsList = props => (
     <List {...props}>
         <Datagrid >
             <TextField source="id" label="Id" />
-            <ThumbnailField label="Covers" source="thumbnailContentUrl" />
+            <ImageField label="Covers" source="coverContentUrl" />
             <TextField source="fileName" label="Filename" />
             <ReferenceField label="Album" source="album" reference="albums">
                 <CustomTextField source="title" />

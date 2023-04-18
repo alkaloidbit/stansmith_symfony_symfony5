@@ -14,7 +14,6 @@ import {
 } from "react-admin";
 
 import CustomTextField from "../components/CustomTextField";
-// import ThumbnailField from "../components/ThumbnailField";
 
 const AlbumsList = (props) => (
   <List {...props}>
@@ -26,7 +25,7 @@ const AlbumsList = (props) => (
         reference="media_objects"
       >
         <SingleFieldList>
-          <ImageField source="thumbnailContentUrl" title="" />
+          <ImageField source="coverContentUrl" title="" />
         </SingleFieldList>
       </ReferenceArrayField>
       <TextField source="title" />
