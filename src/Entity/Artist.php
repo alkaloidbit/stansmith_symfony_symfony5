@@ -41,11 +41,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Artist
 {
     use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups(['artist:read'])]
     private $id;
+
     /**
      * The name of this artist.
      */
@@ -54,12 +56,14 @@ class Artist
     #[Groups(['artist:read', 'artist:write', 'album:read'])]
     #[Assert\NotBlank]
     private $name;
+
     /**
      * The albums produced by this artist.
      */
     #[ORM\OneToMany(targetEntity: Album::class, mappedBy: 'artist')]
     #[Groups(['artist:read'])]
     private $albums;
+
     #[ORM\OneToMany(targetEntity: Track::class, mappedBy: 'artist')]
     private $tracks;
 
