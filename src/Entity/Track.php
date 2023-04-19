@@ -13,8 +13,18 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
-#[ApiResource(operations: [new Get(), new Put(), new GetCollection(), new Post()], types: ['http://schema.org/MusicRecording'], normalizationContext: ['groups' => ['track:read']])]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new Put(),
+        new GetCollection(),
+        new Post()
+    ],
+    types: ['http://schema.org/MusicRecording'],
+    normalizationContext: ['groups' => ['track:read']]
+)]
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
+#
 class Track
 {
     use TimestampableEntity;

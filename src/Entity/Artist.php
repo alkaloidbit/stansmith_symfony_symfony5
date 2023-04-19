@@ -19,7 +19,22 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ApiResource(operations: [new Get(), new Put(), new GetCollection(security: 'is_granted(\'ROLE_USER\')'), new Post(security: 'is_granted(\'ROLE_USER\')')], types: ['http://schema.org/MusicGroup'], paginationItemsPerPage: 10, normalizationContext: ['groups' => ['artist:read']], denormalizationContext: ['groups' => ['artist:write']])]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new Put(),
+        new GetCollection(
+            security: 'is_granted(\'ROLE_USER\')'
+        ),
+        new Post(
+            security: 'is_granted(\'ROLE_USER\')'
+        )
+    ],
+    types: ['http://schema.org/MusicGroup'],
+    normalizationContext: ['groups' => ['artist:read']],
+    denormalizationContext: ['groups' => ['artist:write']],
+) ]
+
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['name' => 'partial'])]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id' => 'ASC', 'name' => 'ASC'])]
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]

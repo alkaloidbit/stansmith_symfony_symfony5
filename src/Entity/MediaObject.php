@@ -57,7 +57,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             security: 'is_granted(\'ROLE_ADMIN\')'
         ),
     ],
-    paginationItemsPerPage: 100,
 )]
 #[ORM\Entity]
 class MediaObject
