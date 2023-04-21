@@ -24,30 +24,36 @@ use function Zenstruck\Foundry\Faker;
  */
 final class UserFactory extends ModelFactory
 {
-    /**
-     * @var UserPasswordHasherInterface
-     */
-    private $passwordHasher;
+    const USERNAMES = [
+        'FlamingInferno',
+        'ScaleSorcerer',
+        'TheDragonWithBadBreath',
+        'BurnedOut',
+        'ForgotMyOwnName',
+        'ClumsyClaws',
+        'HoarderOfUselessTrinkets',
+    ];
 
     public const DEFAULT_PASSWORD = 'foo';
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    /**
+     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
+     *
+     * @todo inject services if required
+     */
+    public function __construct(
+        private UserPasswordHasherInterface $passwordHasher
+    )
     {
         parent::__construct();
-
-        $this->passwordHasher = $passwordHasher;
     }
 
     protected function getDefaults(): array
     {
-        $email = 'fredbadlieutenant@gmail.com';
-        $username = substr($email, 0, strpos($email, '@'));
-        $password = UserFactory::DEFAULT_PASSWORD;
-
         return [
-            'email' => $email,
-            'username' => $username,
-            'plainpassword' => $password,
+            'email' => self::faker()->email(),
+            'password' => 'password',
+            'username' => self::faker()->randomElement(self::USERNAMES) . self::faker()->randomNumber(3),
         ];
     }
 
@@ -56,7 +62,10 @@ final class UserFactory extends ModelFactory
         // see https://github.com/zenstruck/foundry#initialization
         return $this
             ->afterInstantiate(function (User $user) {
-                $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPlainPassword()));
+                $user->setPassword($this->passwordHasher->hashPassword(
+                    $user, 
+                    $user->getPassword()
+                ));
             })
         ;
     }
