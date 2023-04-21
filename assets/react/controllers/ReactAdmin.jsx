@@ -1,5 +1,6 @@
 import React from 'react';
 import { Resource } from "react-admin";
+import { Route } from 'react-router';
 import { HydraAdmin } from '@api-platform/admin';
 
 import { PersonTwoTone } from "@mui/icons-material";
@@ -16,6 +17,7 @@ import MyLoginPage from "../admin/SignIn";
 import MyLogoutButton from "../admin/MyLogoutButton";
 import { MyLayout } from "../admin/MyLayout";
 import Dashboard from "../admin/Dashboard";
+import { ProfileEdit } from "../admin/profile";
 
 import dataProvider from '../admin/dataProvider';
 import authProvider from "../admin/authProvider";
@@ -30,6 +32,13 @@ export default () => (
     dataProvider={dataProvider}
     layout={MyLayout}
     entrypoint={entrypoint}
+    customRoutes={[
+      <Route
+        key="my-profile"
+        path="/my-profile"
+        component={ProfileEdit}
+      />
+    ]}
   >
     <Resource name="media_objects" {...media_objects} icon={ImageTwoTone} />
     <Resource name="artists" {...artists} icon={PersonTwoTone} />
