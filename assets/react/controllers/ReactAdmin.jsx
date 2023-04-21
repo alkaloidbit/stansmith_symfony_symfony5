@@ -1,6 +1,6 @@
 import React from 'react';
-import { Resource } from "react-admin";
-import { Route } from 'react-router';
+import { Resource, CustomRoutes } from "react-admin";
+import { Route } from 'react-router-dom';
 import { HydraAdmin } from '@api-platform/admin';
 
 import { PersonTwoTone } from "@mui/icons-material";
@@ -32,18 +32,14 @@ export default () => (
     dataProvider={dataProvider}
     layout={MyLayout}
     entrypoint={entrypoint}
-    customRoutes={[
-      <Route
-        key="my-profile"
-        path="/my-profile"
-        component={ProfileEdit}
-      />
-    ]}
   >
     <Resource name="media_objects" {...media_objects} icon={ImageTwoTone} />
     <Resource name="artists" {...artists} icon={PersonTwoTone} />
     <Resource name="albums" {...albums} icon={AlbumTwoTone} />
     <Resource name="tracks" {...tracks} icon={MusicNoteTwoTone} />
+    <CustomRoutes>
+      <Route path="/profile" element={<ProfileEdit />} />
+    </CustomRoutes>
   </HydraAdmin>
 );
 

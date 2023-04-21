@@ -1,13 +1,15 @@
 // in profile.js
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+import { SaveContextProvider, useDataProvider, useRefresh, useNotify, useGetIdentity } from 'react-admin';
 import { FileInput, TextInput, SimpleForm, required } from 'react-admin';
 
 export const ProfileEdit = ({ staticContext, ...props }) => {
   const dataProvider = useDataProvider();
   const notify = useNotify();
+  const refresh = useRefresh();
   const [saving, setSaving] = useState();
 
-  const { loaded, identity } = useGetIdentity();
+  const { identity, isLoading, error} = useGetIdentity();
 
   const handleSave = useCallback((values) => {
     setSaving(true);
@@ -40,10 +42,6 @@ export const ProfileEdit = ({ staticContext, ...props }) => {
     saving
   }), [saving, handleSave]);
 
-  if (!user.loaded) {
-		console.log('hello');
-    return null;
-  }
 
   return (
     <SaveContextProvider value={saveContext}>
