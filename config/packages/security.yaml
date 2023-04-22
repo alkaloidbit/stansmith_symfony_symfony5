@@ -36,7 +36,9 @@ security:
 
             logout:
                 path: app_logout
-                target: '/admin'
+
+                # where to redirect after logout
+                # target: '/admin'
 
             access_token:
                 token_handler: App\Security\ApiTokenHandler
