@@ -34,6 +34,9 @@ security:
                 path: app_logout
                 target: '/admin'
 
+            access_token:
+                token_handler: App\Security\ApiTokenHandler
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
             #

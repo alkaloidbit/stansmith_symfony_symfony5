@@ -121,7 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     /**
@@ -226,9 +226,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
     /**
-    * @return sting[]
+    * @return string[]
     * */
     #[Groups(['user:read'])]
     public function getValidTokenStrings(): array

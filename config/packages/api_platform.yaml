@@ -6,3 +6,8 @@ api_platform:
     collection:
         pagination:
             items_per_page_parameter_name: itemsPerPage
+    swagger:
+        api_keys:
+            access_token:
+                name: Authorization
+                type: header
