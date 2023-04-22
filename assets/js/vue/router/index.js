@@ -4,6 +4,7 @@ import store from '../store';
 // import Home from '../views/Home';
 import Player from '../views/Player';
 import Login from '../views/Login';
+import Profile from '../views/Profile';
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,7 @@ const router = new VueRouter({
     routes: [
         // { path: '/home', component: Home },
         { path: '/login', component: Login },
+        { path: '/profile', component: Profile, meta: { requiresAuth: true} },
         { path: '/admin/:entitytype' },
         {
             path: '/playlist',

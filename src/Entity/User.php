@@ -226,6 +226,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+    /**
+    * @return sting[]
+    * */
+    #[Groups(['user:read'])]
     public function getValidTokenStrings(): array
     {
         return $this->getApiTokens()
