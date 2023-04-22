@@ -42,9 +42,9 @@
                             class="is-album-cover"
                         >
                             <img
-                                v-if="album.cover[0]"
-                                :data-src="album.cover[0].coverContentUrl"
-                                :data-loading="album.cover[0].placeholderContentUrl"
+                                v-if="album.covers[0]"
+                                :data-src="album.covers[0].coverContentUrl"
+                                :data-loading="album.covers[0].placeholderContentUrl"
                                 alt=""
                                 class="img-cover"
                             >
@@ -108,6 +108,7 @@ export default {
     async created() {
         try {
             this.album = (await fetchOneAlbum(this.albumId)).data;
+            console.log(this.album);
         } finally {
             this.loading = false;
         }
