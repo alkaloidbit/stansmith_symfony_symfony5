@@ -22,12 +22,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
-        new Put(),
+        new Put(
+            security: 'is_granted("ROLE_TREASURE_EDIT")'
+        ),
         new GetCollection(
-            /* security: 'is_granted(\'ROLE_USER\')' */
         ),
         new Post(
-            security: 'is_granted(\'ROLE_USER\')'
+            security: 'is_granted("ROLE_TREASURE_CREATE")'
         )
     ],
     types: ['http://schema.org/MusicGroup'],
