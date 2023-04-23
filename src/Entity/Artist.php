@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Get(),
         new Put(),
         new GetCollection(
-            security: 'is_granted(\'ROLE_USER\')'
+            /* security: 'is_granted(\'ROLE_USER\')' */
         ),
         new Post(
             security: 'is_granted(\'ROLE_USER\')'

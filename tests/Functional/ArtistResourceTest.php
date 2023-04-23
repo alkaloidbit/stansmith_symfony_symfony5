@@ -2,46 +2,25 @@
 
 namespace App\Tests\Functional;
 
+use App\Factory\ArtistFactory;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Zenstruck\Foundry\Test\ResetDatabase;
-use App\Test\CustomApiTestCase;
+use Zenstruck\Browser\Test\HasBrowser;
 
-class ArtistResourceTest extends CustomApiTestCase
+class ArtistResourceTest extends KernelTestCase
 {
-    /* {
-        "name": "string"
-    } */
-
     use ResetDatabase;
 
-    public function testCreateArtist(): void
+    use HasBrowser;
+
+    public function testGetCollectionofArtists(): void
     {
-        $client = self::createClient();
-        $client->request('POST', '/api/artists', [
-            'json' => [
-                'name' => 'testartistresource'
-            ]
-        ]);
-        // Fist test we cannot create an artist if not loggedin
-        $this->assertResponseStatusCodeSame(401);
+        ArtistFactory::createMany(5);
 
-        $this->createUserAndLogIn($client, 'testartistresource@example.com', 'foo');
-
-        $client->request('POST', '/api/albums', [
-            'json' => [],
-        ]);
-
-        // Test for validation error
-        $this->assertResponseStatusCodeSame(422);
-
-        $client->request('POST', '/api/artists', [
-            'json' => [
-                'name' => 'testartist'
-            ]
-        ]);
-        $this->assertResponseStatusCodeSame(201);
-
-        $this->assertJsonContains([
-            '@id' => '/api/artists/1'
-        ]);
+        $this->browser()
+            ->get('/api/artists')
+            ->dump()
+            ->assertJsonMatches('"hydra:totalItems"', 5)
+        ;
     }
 }
