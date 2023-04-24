@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\UserRepository;
@@ -24,8 +25,13 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['user:write']],
     operations: [
         new Get(),
-        new Put(),
+        new Put(
+            security: 'is_granted("ROLE_USER_EDIT")'
+        ),
         new Delete(),
+        new Patch(
+            security: 'is_granted("ROLE_USER_EDIT")'
+        ),
         new GetCollection(),
         new Post(
             validationContext: [
@@ -251,6 +257,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     /**
      * @return void
+     * @param array<int,mixed> $scopes
      */
     public function markAsTokenAuthenticated(array $scopes): void
     {

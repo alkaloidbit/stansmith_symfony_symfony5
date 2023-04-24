@@ -2,6 +2,7 @@
 
 namespace App\Tests\Functional;
 
+use App\Factory\UserFactory;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
 class UserResourceTest extends ApiTestCase
@@ -25,7 +26,21 @@ class UserResourceTest extends ApiTestCase
                     'password' => 'password',
                 ]
             ])
-            ->assertSuccessful()
-        ;
+            ->assertSuccessful();
+    }
+
+    public function testPatchToUpdateUser(): void
+    {
+        $user = UserFactory::createOne();
+
+        $this->browser()
+            ->actingAs($user)
+            ->patch('/api/users/' . $user->getId(), [
+                'json' => [
+                    'username' => 'changed',
+                ],
+                'headers' => ['Content-Type' => 'application/merge-patch+json']
+            ])
+            ->assertStatus(200);
     }
 }

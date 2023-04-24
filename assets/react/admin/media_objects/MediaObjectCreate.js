@@ -31,7 +31,7 @@ const MediaObjectCreate = (props) => {
   const sendRequest = (url, method, body) => {
     const options = {
       method: method,
-      headers: new Headers({ "content-type": "application/json" }),
+      headers: new Headers({ "content-type": "application/merge-patch+json" }),
     };
 
     options.body = JSON.stringify(body);
@@ -45,11 +45,10 @@ const MediaObjectCreate = (props) => {
     {
       // New mediaObject uri
       const updatedRecord = {
-        ...record,
         covers: [...record.covers, newCoverURI],
       };
       // Update album resource with new cover
-      sendRequest(album_id, "PUT", updatedRecord)
+      sendRequest(album_id, "PATCH", updatedRecord)
         .then((data) => {
           notify("Album updated");
           redirect(albumResourceRedirectURI);
