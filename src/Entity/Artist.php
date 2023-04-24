@@ -31,6 +31,9 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'is_granted("ROLE_TREASURE_CREATE")'
         )
     ],
+    extraProperties: [
+        'standard_put' => true,
+    ],
     types: ['http://schema.org/MusicGroup'],
     normalizationContext: ['groups' => ['artist:read']],
     denormalizationContext: ['groups' => ['artist:write']],

@@ -20,6 +20,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         new GetCollection(),
         new Post()
     ],
+    extraProperties: [
+        'standard_put' => true,
+    ],
     types: ['http://schema.org/MusicRecording'],
     normalizationContext: ['groups' => ['track:read']]
 )]

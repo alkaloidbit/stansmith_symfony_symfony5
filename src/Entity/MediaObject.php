@@ -57,6 +57,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             security: 'is_granted(\'ROLE_ADMIN\')'
         ),
     ],
+    extraProperties: [
+        'standard_put' => true,
+    ],
 )]
 #[ORM\Entity]
 class MediaObject

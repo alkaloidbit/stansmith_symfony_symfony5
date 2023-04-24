@@ -45,6 +45,7 @@ const MediaObjectCreate = (props) => {
     {
       // New mediaObject uri
       const updatedRecord = {
+        ...record,
         covers: [...record.covers, newCoverURI],
       };
       // Update album resource with new cover

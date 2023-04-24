@@ -33,6 +33,9 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
     ],
+    extraProperties: [
+        'standard_put' => true,
+    ],
 )]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['username'])]
