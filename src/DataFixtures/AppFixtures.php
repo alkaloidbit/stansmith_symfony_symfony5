@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Factory\AlbumFactory;
 use App\Factory\ApiTokenFactory;
 use App\Factory\ArtistFactory;
 use App\Factory\UserFactory;
@@ -13,14 +14,21 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         UserFactory::createOne([
-            'email' => 'bernie@dragonmail.com',
-            'password' => 'roar',
+            'email' => 'fredbadlieutenant@gmail.com',
+            'password' => 'foo',
         ]);
 
-        UserFactory::new()->createMany(10);
-        ArtistFactory::new()->createMany(40);
+        ArtistFactory::new()->createOne(['name' => 'Grems']);
+        ArtistFactory::new()->createOne(['name' => 'Para One']);
+        ArtistFactory::new()->createOne(['name' => 'Marcel Dettmann']);
 
-        ApiTokenFactory::createMany(30, function () {
+        AlbumFactory::new()->createOne([
+            'title' => 'Vampire',
+            'artist' => ArtistFactory::random()
+        ]);
+
+
+        ApiTokenFactory::createMany(10, function () {
             return [
                 'ownedBy' => UserFactory::random(),
             ];
