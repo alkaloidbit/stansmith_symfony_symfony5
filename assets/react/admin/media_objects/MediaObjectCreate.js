@@ -18,9 +18,7 @@ const MediaObjectCreate = (props) => {
   const notify = useNotify();
   const redirect = useRedirect();
   const refresh = useRefresh();
-
   const record = location.state.record;
-
   const album_id =
     location.state && location.state.record
       ? location.state.record["@id"]
@@ -41,24 +39,28 @@ const MediaObjectCreate = (props) => {
     return fetch(url, options);
   };
   // on MediaObject creation success
-  const onSuccess = ( data ) => {
-    // New mediaObject uri
+  const onSuccess = (data) => {
     const newCoverURI = data["@id"];
-    const updatedRecord = {
-      ...record,
-      covers: [...record.covers, newCoverURI],
-    };
+    if (typeof record !== "undefined")
+    {
+      // New mediaObject uri
+      const updatedRecord = {
+        covers: [...record.covers, newCoverURI],
+      };
+      // Update album resource with new cover
+      sendRequest(album_id, "PUT", updatedRecord)
+        .then((data) => {
+          notify("Album updated");
+          redirect(albumResourceRedirectURI);
+        })
+        .catch((e) => {
+          notify("Error: album not updated", { type: "warning" });
+        });
+    }else{
+      redirect(`/media_objects/${encodeURIComponent(newCoverURI)}`);
+    }
 
-    // Update album resource with new cover
-    sendRequest(album_id, "PUT", updatedRecord)
-      .then((data) => {
-        notify("Album updated");
-        redirect(albumResourceRedirectURI);
-      })
-      .catch((e) => {
-        notify("Error: album not updated", { type: "warning" });
-      });
-  };
+  }
 
   return (
     <Create {...props} mutationOptions={{onSuccess}}>

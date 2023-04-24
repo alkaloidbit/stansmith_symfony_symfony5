@@ -19,7 +19,6 @@ const StyledButton = styled(Button)({
 
 const AddMediaObjectButton = () => {
   const record = useRecordContext();
-  console.log(record);
   return (
     <StyledButton
       className={classes.button}
