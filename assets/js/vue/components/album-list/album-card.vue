@@ -1,5 +1,5 @@
 <template>
-    <div class="albumListalbumCardRootContainer column is-third">
+    <div class="albumListalbumCardRootContainer column is-2">
         <div
             :class="$style.image"
             class="is-album-cover"
