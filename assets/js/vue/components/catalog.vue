@@ -1,6 +1,6 @@
 <template>
     <section class="catalogRootContainer">
-        <div class="container is-fluid">
+        <div class="container is-max-widescreen">
             <div class="columns">
                 <div class="column is-3">
                     <title-component :text="artistName" />

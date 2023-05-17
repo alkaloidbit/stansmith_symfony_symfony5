@@ -49,7 +49,7 @@ export default {
     computed: {
         albumsChunks() {
             /* eslint-disable-next-line no-undef */
-            return _.chunk(Object.values(this.albums), 4);
+            return _.chunk(Object.values(this.albums), 6);
         },
     },
 };
