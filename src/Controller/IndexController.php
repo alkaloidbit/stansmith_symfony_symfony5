@@ -27,7 +27,7 @@ class IndexController extends AbstractController
         $this->media_path = $media_path;
     }
 
-    #[Route(path: '/{vueRouting}', requirements: ['vueRouting' => '^(?!api|test|admin|_(profiler|wdt)).*'], name: 'app_homepage')]
+    #[Route(path: '/{vueRouting}', requirements: ['vueRouting' => '^(?!api|stream|admin|develop|_(profiler|wdt)).*'], name: 'app_homepage')]
     public function homepage(SerializerInterface $serializer, ArtistRepository $artistRepository, AlbumRepository $albumRepository): Response
     {
         $user = $this->getUser();
@@ -44,8 +44,11 @@ class IndexController extends AbstractController
         return $response;
     }
 
-    #[Route(path: '/test/{id}', name: 'test_controller')]
-    public function test(Track $track, FileStreamer $fileStreamer): Response
+    /**
+    * 06c1fe6bb730efaec032231d848ced5d Saltimbanque Alkapote
+    */
+    #[Route(path: '/stream/{id}', name: 'stream_controller')]
+    public function streamedResponse(Track $track, FileStreamer $fileStreamer): Response
     {
         if (isset($_SERVER['HTTP_RANGE'])) {
         }
@@ -62,6 +65,13 @@ class IndexController extends AbstractController
             'Accept-Ranges' => 'bytes',
         ]);
 
+        return $response;
+    }
+
+    #[Route(path: '/develop', name: 'develop_controller')]
+    public function develop(): Response
+    {
+        $response = new Response($this->renderView('develop/index.html.twig'));
         return $response;
     }
 }
