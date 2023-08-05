@@ -13,8 +13,6 @@ export function fetchAlbums(artistIri, searchTerm) {
         params.artist = artistIri;
     }
 
-    console.log('searchTerm: ', searchTerm);
-
     if (searchTerm) {
         params.artist__name = searchTerm;
     }
@@ -34,7 +32,7 @@ export function fetchAlbums(artistIri, searchTerm) {
     params.active = true;
 
     // Only get those fields in the response
-    const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=cover&properties[]=thumbnails&properties[]=date';
+    const propertiesFilter = 'properties[]=id&properties[]=title&properties[]=artist&properties[]=covers&properties[]=date';
     return axios.get(`/api/albums?${propertiesFilter}`, {
         params,
     });

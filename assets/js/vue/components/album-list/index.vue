@@ -7,7 +7,7 @@
                     v-show="!loading && albums.length === 0"
                     class="ml-4"
                 >
-                    Whoopsie Daisy, no products found!
+                    Whoopsie Daisy, no items found!
                 </h5>
             </div>
         </div>
@@ -32,6 +32,11 @@ import Loading from '@/components/loading';
 
 export default {
     name: 'AlbumList',
+    data() {
+        return {
+        itemsPerRow: 6,
+        }
+    },
     components: {
         AlbumCard,
         Loading,
@@ -49,7 +54,7 @@ export default {
     computed: {
         albumsChunks() {
             /* eslint-disable-next-line no-undef */
-            return _.chunk(Object.values(this.albums), 6);
+            return _.chunk(Object.values(this.albums), this.itemsPerRow);
         },
     },
 };
