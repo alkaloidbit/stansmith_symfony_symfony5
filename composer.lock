@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77e5b6aeee685031732003fabfbafbd1",
+    "content-hash": "cfd76d913cba875a3c63cfde9dd1fb44",
     "packages": [
         {
             "name": "api-platform/core",
@@ -3240,68 +3240,6 @@
                 "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.2"
             },
             "time": "2022-10-14T12:47:21+00:00"
-        },
-        {
-            "name": "phpstan/phpstan",
-            "version": "1.10.15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/762c4dac4da6f8756eebb80e528c3a47855da9bd",
-                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0"
-            },
-            "conflict": {
-                "phpstan/phpstan-shim": "*"
-            },
-            "bin": [
-                "phpstan",
-                "phpstan.phar"
-            ],
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "PHPStan - PHP Static Analysis Tool",
-            "keywords": [
-                "dev",
-                "static analysis"
-            ],
-            "support": {
-                "docs": "https://phpstan.org/user-guide/getting-started",
-                "forum": "https://github.com/phpstan/phpstan/discussions",
-                "issues": "https://github.com/phpstan/phpstan/issues",
-                "security": "https://github.com/phpstan/phpstan/security/policy",
-                "source": "https://github.com/phpstan/phpstan-src"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ondrejmirtes",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/phpstan",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-05-09T15:28:01+00:00"
         },
         {
             "name": "psr/cache",
@@ -9197,63 +9135,6 @@
             "time": "2023-02-02T15:11:33+00:00"
         },
         {
-            "name": "thecodingmachine/phpstan-safe-rule",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thecodingmachine/phpstan-safe-rule.git",
-                "reference": "8a7b88e0d54f209a488095085f183e9174c40e1e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/phpstan-safe-rule/zipball/8a7b88e0d54f209a488095085f183e9174c40e1e",
-                "reference": "8a7b88e0d54f209a488095085f183e9174c40e1e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": "^1.0",
-                "thecodingmachine/safe": "^1.0 || ^2.0"
-            },
-            "require-dev": {
-                "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "^7.5.2 || ^8.0",
-                "squizlabs/php_codesniffer": "^3.4"
-            },
-            "type": "phpstan-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
-                },
-                "phpstan": {
-                    "includes": [
-                        "phpstan-safe-rule.neon"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TheCodingMachine\\Safe\\PHPStan\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David Négrier",
-                    "email": "d.negrier@thecodingmachine.com"
-                }
-            ],
-            "description": "A PHPStan rule to detect safety issues. Must be used in conjunction with thecodingmachine/safe",
-            "support": {
-                "issues": "https://github.com/thecodingmachine/phpstan-safe-rule/issues",
-                "source": "https://github.com/thecodingmachine/phpstan-safe-rule/tree/v1.2.0"
-            },
-            "time": "2022-01-17T10:12:29+00:00"
-        },
-        {
             "name": "thecodingmachine/safe",
             "version": "v1.3.3",
             "source": {
@@ -11128,67 +11009,6 @@
                 }
             ],
             "time": "2023-05-11T05:14:45+00:00"
-        },
-        {
-            "name": "rector/rector",
-            "version": "0.15.25",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rectorphp/rector.git",
-                "reference": "015935c7ed9e48a4f5895ba974f337e20a263841"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/015935c7ed9e48a4f5895ba974f337e20a263841",
-                "reference": "015935c7ed9e48a4f5895ba974f337e20a263841",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.10.14"
-            },
-            "conflict": {
-                "rector/rector-doctrine": "*",
-                "rector/rector-downgrade-php": "*",
-                "rector/rector-phpunit": "*",
-                "rector/rector-symfony": "*"
-            },
-            "bin": [
-                "bin/rector"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "0.15-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
-            "keywords": [
-                "automation",
-                "dev",
-                "migration",
-                "refactoring"
-            ],
-            "support": {
-                "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.15.25"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/tomasvotruba",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-04-20T16:07:39+00:00"
         },
         {
             "name": "sebastian/cli-parser",
