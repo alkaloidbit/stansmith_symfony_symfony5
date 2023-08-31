@@ -27,6 +27,7 @@ Encore
     .addEntry('react_app', './assets/app.js')
     // .addEntry('adminapp', './assets/js/adminapp.js')
     .addEntry('vue_app', './assets/js/vue/index.js')
+    .addEntry('test_vue_app', './assets/js/vue/index_test_new_vue.js')
     // .addEntry('admin', './assets/js/vue/admin/src/main.js')
     .addEntry('stimulus_app', './assets/stimulus_app.js')
 
