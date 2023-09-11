@@ -30,6 +30,7 @@ tags.*
 /node_modules/
 /public/build/
 /public/uploads/
+/public/audio/
 /my-admin/
 npm-debug.log
 yarn-error.log
@@ -45,4 +46,3 @@ yarn-error.log
 /.php-cs-fixer.cache
 ###< php-cs-fixer ###
 
-/assets/audio/
