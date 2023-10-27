@@ -1,71 +1,72 @@
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 
 export default {
     computed: {
         currentTrack() {
-            const currentTrack = this.$store.getters['playlist/currentTrack'];
+            const currentTrack = this.$store.getters["playlist/currentTrack"];
             return currentTrack;
         },
-        ...mapState('player', [
-            'duration',
-            'loopCurrentTrack',
-            'isPlaying',
-            'isLoading',
-            'isLoaded',
+        ...mapState("player", [
+            "duration",
+            "loopCurrentTrack",
+            "isPlaying",
+            "isLoading",
+            "isLoaded",
         ]),
-        ...mapState('playlist', [
-            'playlist',
-        ]),
-        ...mapState('currentIndex', [
-            'currentIndex',
-        ]),
+        ...mapState("playlist", ["playlist"]),
+        ...mapState("currentIndex", ["currentIndex"]),
     },
 
-    created() {
-    },
+    created() {},
     methods: {
         play(index) {
             if (!this.currentTrack) return;
-            index = typeof index === 'number' ? index : this.currentIndex;
+            index = typeof index === "number" ? index : this.currentIndex;
 
             // const [track1] = this.playlist;
             // console.log(track1);
 
             const track = this.playlist[index];
-            const splits = track['@id'].split('/');
+            const splits = track["@id"].split("/");
             const src = `/api/player/${splits[3]}/stream`;
 
             if (!track.howl) {
-                this.$store.dispatch('player/onLoading');
-                console.log('creating new Howl');
+                this.$store.dispatch("player/onLoading");
+                console.log("creating new Howl");
                 /* eslint-disable-next-line no-undef */
                 track.howl = new Howl({
                     src: [src],
                     format: [track.fileformat],
                     html5: true,
                     autoplay: true,
-                    preload: 'metadata',
+                    preload: "metadata",
                     loop: this.loopCurrentTrack,
                     pool: 5,
                     onload: () => {
-                        this.$store.dispatch('player/onLoadingSuccess', { duration: track.howl.duration() }, { root: true });
+                        this.$store.dispatch(
+                            "player/onLoadingSuccess",
+                            { duration: track.howl.duration() },
+                            { root: true }
+                        );
                     },
                     onplay: () => {
-                        this.$store.dispatch('player/play', { isPlaying: true });
+                        this.$store.dispatch("player/play", {
+                            isPlaying: true,
+                        });
                     },
                     onend: () => {
                         if (!this.loopCurrentTrack) {
-                            this.skip('forward');
+                            this.skip("forward");
                         } else {
                             track.howl.play();
                         }
                     },
                 });
             } else {
-                console.log('Howl exists!');
+                console.log("Howl exists!");
             }
 
-            this.$store.dispatch('currentIndex/setCurrentIndex', index);
+            this.$store.dispatch("currentIndex/setCurrentIndex", index);
 
             track.howl.play();
             this.setTitle(track);
@@ -77,7 +78,7 @@ export default {
 
         pause() {
             this.currentTrack.howl.pause();
-            this.$store.dispatch('player/pause', null, { root: true });
+            this.$store.dispatch("player/pause", null, { root: true });
         },
 
         skipTo(index) {
@@ -90,7 +91,7 @@ export default {
 
         skip(direction) {
             let index = 0;
-            if (direction === 'forward') {
+            if (direction === "forward") {
                 index = this.currentIndex + 1;
                 if (index >= this.playlist.length) {
                     index = 0;

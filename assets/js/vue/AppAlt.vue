@@ -9,13 +9,12 @@ export default {
     data() {
         return {
             audioSources: [
-                // "/api/player/06c1fe6bb730efaec032231d848ced5d/stream",
-                "./audio/audio1.mp3"
+                //"/api/player/06c1fe6bb730efaec032231d848ced5d/stream",
+                "./audio/audio2.mp3",
             ],
         };
     },
-    created() {
-    },
+    created() {},
 };
 </script>
 

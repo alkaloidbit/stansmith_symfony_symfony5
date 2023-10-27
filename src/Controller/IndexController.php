@@ -45,8 +45,8 @@ class IndexController extends AbstractController
     }
 
     /**
-    * 06c1fe6bb730efaec032231d848ced5d Saltimbanque Alkapote
-    */
+     * 06c1fe6bb730efaec032231d848ced5d Saltimbanque Alkapote
+     */
     #[Route(path: '/stream/{id}', name: 'stream_controller')]
     public function streamedResponse(Track $track, FileStreamer $fileStreamer): Response
     {

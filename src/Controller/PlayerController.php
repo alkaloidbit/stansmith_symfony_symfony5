@@ -22,9 +22,11 @@ class PlayerController extends AbstractController
     {
         $this->media_path = $media_path;
     }
-
+    /**
+     * @return StreamedResponse
+     */
     #[Route(path: '/api/player/{id}/stream', name: 'player')]
-    public function streamResponse(Track $track, FileStreamer $fileStreamer)
+    public function streamResponse(Track $track, FileStreamer $fileStreamer): StreamedResponse
     {
         $response = new StreamedResponse(function () use ($track, $fileStreamer) {
             $outputStream = fopen('php://output', 'wb');
