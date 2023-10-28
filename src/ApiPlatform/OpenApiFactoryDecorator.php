@@ -29,7 +29,4 @@ class OpenApiFactoryDecorator implements OpenApiFactoryInterface
 
         return $openApi;
     }
-
 }
-
-

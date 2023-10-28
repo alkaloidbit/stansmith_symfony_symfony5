@@ -30,5 +30,4 @@ class ApiTokenHandler implements AccessTokenHandlerInterface
 
         return new UserBadge($token->getOwnedBy()->getUserIdentifier());
     }
-
 }

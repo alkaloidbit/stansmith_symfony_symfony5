@@ -13,7 +13,6 @@ class UserHashPasswordStateProcessor implements ProcessorInterface
 {
     public function __construct(private ProcessorInterface $innerProcessor, private UserPasswordHasherInterface $userPasswordHasher)
     {
-
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void

@@ -11,7 +11,6 @@ class LogoutSubscriber implements EventSubscriberInterface
 {
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
-
     }
     public static function getSubscribedEvents(): array
     {
@@ -36,7 +35,4 @@ class LogoutSubscriber implements EventSubscriberInterface
 
         $event->setResponse($response);
     }
-
 }
-
-
