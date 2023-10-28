@@ -58,6 +58,7 @@
     "require-dev": {
         "doctrine/coding-standard": "^8.2",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "friendsofphp/php-cs-fixer": "^3.37",
         "justinrainbow/json-schema": "^5.2",
         "mtdowling/jmespath.php": "^2.6",
         "phpunit/phpunit": "^9.5",

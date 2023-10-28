@@ -21,7 +21,7 @@ class FileStreamer
     {
         $resource = $this->filesystem->readStream($path);
 
-        if ($resource === false) {
+        if (false === $resource) {
             throw new \Exception(sprintf('Error opening stream for "%s"', $path));
         }
 

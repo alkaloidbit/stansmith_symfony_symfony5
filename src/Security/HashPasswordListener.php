@@ -51,7 +51,7 @@ final class HashPasswordListener implements EventSubscriber
     private function hashPassword(User $entity): void
     {
         $plainPassword = $entity->getPlainPassword();
-        if ($plainPassword === null) {
+        if (null === $plainPassword) {
             return;
         }
 

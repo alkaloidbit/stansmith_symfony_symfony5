@@ -92,9 +92,9 @@ class UpdateDbCommand extends Command
 
     public function statsSynchronizationResult($result)
     {
-        if ($result === 1) {
+        if (1 === $result) {
             ++$this->ignored;
-        } elseif ($result === 2) {
+        } elseif (2 === $result) {
             ++$this->success;
         } else {
             ++$this->invalid;

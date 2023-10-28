@@ -27,7 +27,7 @@ class VichSubscriber implements EventSubscriberInterface
     public function onVichUploaderPreUpload(Event $event): void
     {
         $filePropertyName = $event->getMapping()->getFilePropertyName();
-        if ($filePropertyName === 'thumbnail' || $filePropertyName === 'placeholder') {
+        if ('thumbnail' === $filePropertyName || 'placeholder' === $filePropertyName) {
             return;
         }
 
