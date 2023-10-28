@@ -45,7 +45,7 @@ class MediaManager
     /**
      * Perform medias synchronization.
      */
-    public function synchronize(string $mediaLibrary = null, ?UpdateDbCommand $command = null, $dryrun = false)
+    public function synchronize(string $mediaLibrary = null, UpdateDbCommand $command = null, $dryrun = false)
     {
         // gattering all media files
         $files = $this->collectFiles($mediaLibrary ?: $this->mediaLibrary);

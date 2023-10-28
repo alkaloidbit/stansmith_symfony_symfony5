@@ -9,8 +9,6 @@ use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
 
-use function Zenstruck\Foundry\Faker;
-
 /**
  * @method static User|Proxy                     createOne(array $attributes = [])
  * @method static User[]|Proxy[]                 createMany(int $number, $attributes = [])
@@ -24,7 +22,7 @@ use function Zenstruck\Foundry\Faker;
  */
 final class UserFactory extends ModelFactory
 {
-    const USERNAMES = [
+    public const USERNAMES = [
         'FlamingInferno',
         'ScaleSorcerer',
         'TheDragonWithBadBreath',
@@ -52,7 +50,7 @@ final class UserFactory extends ModelFactory
         return [
             'email' => self::faker()->email(),
             'password' => 'password',
-            'username' => self::faker()->randomElement(self::USERNAMES) . self::faker()->randomNumber(3),
+            'username' => self::faker()->randomElement(self::USERNAMES).self::faker()->randomNumber(3),
         ];
     }
 

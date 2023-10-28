@@ -24,9 +24,8 @@ class AppFixtures extends Fixture
 
         AlbumFactory::new()->createOne([
             'title' => 'Vampire',
-            'artist' => ArtistFactory::random()
+            'artist' => ArtistFactory::random(),
         ]);
-
 
         ApiTokenFactory::createMany(10, function () {
             return [

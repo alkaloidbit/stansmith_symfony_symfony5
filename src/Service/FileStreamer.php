@@ -9,9 +9,6 @@ use League\Flysystem\Filesystem;
  */
 class FileStreamer
 {
-    /**
-     * @param Filesystem $filesystem
-     */
     public function __construct(Filesystem $publicFilesystem)
     {
         $this->filesystem = $publicFilesystem;

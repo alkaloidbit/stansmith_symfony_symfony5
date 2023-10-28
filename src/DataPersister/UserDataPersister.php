@@ -30,17 +30,12 @@ class UserDataPersister implements DataPersisterInterface
         $this->userPasswordHasher = $userPasswordHasher;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supports($data): bool
     {
         return $data instanceof User;
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param User $data
      */
     public function persist($data): void
@@ -55,9 +50,6 @@ class UserDataPersister implements DataPersisterInterface
         $this->entityManager->flush();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function remove($data): void
     {
         $this->entityManager->remove($data);

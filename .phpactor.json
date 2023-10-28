@@ -1,6 +1,6 @@
 {
-    "$schema": "/home/fred-badlieutenant/.local/share/nvim/mason/packages/phpactor/phpactor.schema.json",
-    "language_server_phpstan.enabled": false,
+    "$schema": "/usr/lib/phpactor/phpactor.schema.json",
+    "php_code_sniffer.enabled": true,
     "symfony.enabled": true,
     "indexer.exclude_patterns": [
         "/vendor/**/Tests/**/*",
@@ -8,5 +8,5 @@
         "/var/cache/**/*",
         "/vendor/composer/**/*"
     ],
-    "php_code_sniffer.enabled": true
+    "language_server_php_cs_fixer.enabled": true
 }

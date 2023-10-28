@@ -78,6 +78,7 @@ class IndexController extends AbstractController
         'isAuthenticated' => json_encode(!empty($user)),
         'albums' => $albumRepository->findOneBy(['id' => 23])
         ], 200));
+
         return $response;
     }
 }

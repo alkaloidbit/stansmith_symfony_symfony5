@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Post(
             security: 'is_granted("ROLE_TREASURE_CREATE")'
-        )
+        ),
     ],
     extraProperties: [
         'standard_put' => true,
@@ -38,7 +38,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['artist:read']],
     denormalizationContext: ['groups' => ['artist:write']],
 ) ]
-
 #[ApiFilter(filterClass: SearchFilter::class, properties: ['name' => 'partial'])]
 #[ApiFilter(filterClass: OrderFilter::class, properties: ['id' => 'ASC', 'name' => 'ASC'])]
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]

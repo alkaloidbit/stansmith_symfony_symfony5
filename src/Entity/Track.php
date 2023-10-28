@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         new Get(),
         new Put(),
         new GetCollection(),
-        new Post()
+        new Post(),
     ],
     extraProperties: [
         'standard_put' => true,
@@ -27,7 +27,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
     normalizationContext: ['groups' => ['track:read']]
 )]
 #[ORM\Entity(repositoryClass: TrackRepository::class)]
-#
 class Track
 {
     use TimestampableEntity;

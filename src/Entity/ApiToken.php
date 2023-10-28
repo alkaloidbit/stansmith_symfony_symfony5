@@ -88,6 +88,7 @@ class ApiToken
     {
         return $this->scopes;
     }
+
     /**
      * @param array<int,mixed> $scopes
      */

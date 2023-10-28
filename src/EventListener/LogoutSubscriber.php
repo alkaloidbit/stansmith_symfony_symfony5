@@ -12,6 +12,7 @@ class LogoutSubscriber implements EventSubscriberInterface
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
     }
+
     public static function getSubscribedEvents(): array
     {
         return [LogoutEvent::class => 'onLogout'];

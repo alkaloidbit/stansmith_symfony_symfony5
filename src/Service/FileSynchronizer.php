@@ -156,8 +156,8 @@ class FileSynchronizer
             }
 
             // Create new track
-            if (!$this->trackEntity ||
-                $this->trackEntity->getMTime() !== $this->fileModifiedTime) {
+            if (!$this->trackEntity
+                || $this->trackEntity->getMTime() !== $this->fileModifiedTime) {
                 $this->trackEntity = new Track();
 
                 $this->trackEntity->setId($this->fileHash);

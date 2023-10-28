@@ -15,16 +15,11 @@ class PlayerController extends AbstractController
 {
     private $media_path;
 
-    /**
-     * @param string $mediaLibrary
-     */
     public function __construct(string $media_path)
     {
         $this->media_path = $media_path;
     }
-    /**
-     * @return StreamedResponse
-     */
+
     #[Route(path: '/api/player/{id}/stream', name: 'player')]
     public function streamResponse(Track $track, FileStreamer $fileStreamer): StreamedResponse
     {

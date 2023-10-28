@@ -16,7 +16,7 @@ class ApiTokenHandler implements AccessTokenHandlerInterface
 
     public function getUserBadgeFrom(#[\SensitiveParameter] string $accessToken): UserBadge
     {
-        $token = $this->apiTokenRepository->findOneBy(['token'=>$accessToken]);
+        $token = $this->apiTokenRepository->findOneBy(['token' => $accessToken]);
 
         if (!$token) {
             throw new BadCredentialsException();
