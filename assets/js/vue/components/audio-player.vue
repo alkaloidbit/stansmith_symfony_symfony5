@@ -1,10 +1,3 @@
-<script>
-import VueHowler from "vue-howler";
-export default {
-    mixins: [VueHowler],
-};
-</script>
-
 <template>
     <div>
         <span>Total duration: {{ duration }} seconds</span>
@@ -15,3 +8,10 @@ export default {
         <button @click="stop">Stop</button>
     </div>
 </template>
+
+<script>
+import VueHowler from "vue-howler";
+export default {
+    mixins: [VueHowler],
+};
+</script>
