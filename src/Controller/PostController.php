@@ -22,10 +22,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
 final class PostController extends AbstractController
 {
-  /** @var EntityManagerInterface */
+    /** @var EntityManagerInterface */
     private $em;
 
-  /** @var SerializerInterface */
+    /** @var SerializerInterface */
     private $serializer;
 
     public function __construct(EntityManagerInterface $em, SerializerInterface $serializer)
@@ -34,11 +34,11 @@ final class PostController extends AbstractController
         $this->serializer = $serializer;
     }
 
-  /**
-   * @throws BadRequestHttpException
-   *
-   * @Rest\Post("/posts",name="createPost")
-   */
+    /**
+     * @throws BadRequestHttpException
+     *
+     * @Rest\Post("/posts",name="createPost")
+     */
     #[IsGranted('ROLE_FOO')]
     public function createAction(Request $request): JsonResponse
     {
@@ -56,9 +56,9 @@ final class PostController extends AbstractController
         return new JsonResponse($data, Response::HTTP_CREATED, [], true);
     }
 
-  /**
-   * @Rest\Get("/posts", name="findAllPosts")
-   */
+    /**
+     * @Rest\Get("/posts", name="findAllPosts")
+     */
     public function findAllAction(): JsonResponse
     {
         $posts = $this->em->getRepository(Post::class)->findBy([], ['id' => 'DESC']);
