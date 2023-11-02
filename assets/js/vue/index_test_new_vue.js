@@ -1,8 +1,18 @@
-import Vue from 'vue';
+import Vue from "vue";
+import Buefy from "buefy";
+import _ from "lodash";
+/* eslint-disable-next-line no-unused-vars */
+import { Howl, Howler } from "howler";
+/* eslint-disable-next-line no-unused-vars */
 
-import AppAlt from './AppAlt';
+import App from "./App";
+import router from "./router";
+import store from "./store";
 
+Vue.use(Buefy);
 new Vue({
-    components: {AppAlt},
-    template: '<AppAlt/>',
-}).$mount('#app');
+    components: { App },
+    template: "<App/>",
+    router,
+    store,
+}).$mount("#app");

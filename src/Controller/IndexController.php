@@ -30,10 +30,10 @@ class IndexController extends AbstractController
         $user = $this->getUser();
 
         $response = new Response($this->renderView('home/homepage.html.twig', [
-          'user' => $serializer->serialize($user, 'jsonld'),
-          'isAuthenticated' => json_encode(!empty($user)),
-          'artists' => $artistRepository->findAll(),
-          'albums' => $albumRepository->findAll(),
+        'user' => $serializer->serialize($user, 'jsonld'),
+        'isAuthenticated' => json_encode(!empty($user)),
+        'artists' => $artistRepository->findAll(),
+        'albums' => $albumRepository->findAll(),
         ], 200));
 
         $response->headers->set('accept-ranges', 'bytes');
@@ -41,9 +41,9 @@ class IndexController extends AbstractController
         return $response;
     }
 
-    /**
-     * 06c1fe6bb730efaec032231d848ced5d Saltimbanque Alkapote.
-     */
+  /**
+   * 06c1fe6bb730efaec032231d848ced5d Saltimbanque Alkapote.
+   */
     #[Route(path: '/stream/{id}', name: 'stream_controller')]
     public function streamedResponse(Track $track, FileStreamer $fileStreamer): Response
     {
@@ -56,24 +56,25 @@ class IndexController extends AbstractController
             $fileStream = $fileStreamer->readStream($pathToStream, false);
             stream_copy_to_stream($fileStream, $outputStream);
         }, \Symfony\Component\HttpFoundation\Response::HTTP_OK, [
-          'Content-Disposition' => 'inline',
-          'Content-Length' => filesize($track->getPath()),
-          'Content-type' => $track->getMimeType(),
-          'Accept-Ranges' => 'bytes',
+        'Content-Disposition' => 'inline',
+        'Content-Length' => filesize($track->getPath()),
+        'Content-type' => $track->getMimeType(),
+        'Accept-Ranges' => 'bytes',
         ]);
 
         return $response;
     }
 
-    #[Route(path: '/develop', name: 'develop_controller')]
-    public function develop(SerializerInterface $serializer, AlbumRepository $albumRepository): Response
+    #[Route(path: '/{developRouting}', requirements: ['developRouting' => '(develop).*'], name: 'develop_controller')]
+    public function develop(SerializerInterface $serializer, ArtistRepository $artistRepository, AlbumRepository $albumRepository): Response
     {
         $user = $this->getUser();
 
         $response = new Response($this->renderView('develop/index.html.twig', [
-          'user' => $serializer->serialize($user, 'jsonld'),
-          'isAuthenticated' => json_encode(!empty($user)),
-          'album' => $albumRepository->findOneBy(['id' => 23]),
+        'user' => $serializer->serialize($user, 'jsonld'),
+        'isAuthenticated' => json_encode(!empty($user)),
+        'artists' => $artistRepository->findAll(),
+        'album' => $albumRepository->findAll(),
         ], 200));
 
         return $response;

@@ -1,43 +1,50 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import store from '../store';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import store from "../store";
 // import Home from '../views/Home';
-import Player from '../views/Player';
-import Login from '../views/Login';
-import Profile from '../views/Profile';
+import Player from "../views/Player";
+import Develop from "../views/Develop";
+import Login from "../views/Login";
+import Profile from "../views/Profile";
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes: [
         // { path: '/home', component: Home },
-        { path: '/login', component: Login },
-        { path: '/profile', component: Profile, meta: { requiresAuth: true} },
-        { path: '/admin/:entitytype' },
+        { path: "/login", component: Login },
+        { path: "/profile", component: Profile, meta: { requiresAuth: true } },
+        { path: "/admin/:entitytype" },
         {
-            path: '/playlist',
+            path: "/playlist",
             component: Player,
             meta: { requiresAuth: true },
         },
         {
-            path: '/player',
+            path: "/player",
             component: Player,
             meta: { requiresAuth: true },
         },
         {
-            path: '/artist/:artistID',
+            path: "/artist/:artistID",
+            component: Player,
+            props: true,
+            meta: { requiresAuth: true },
+        },
+        {
+            path: "/album/:albumID",
             component: Player,
             props: true,
             meta: { requiresAuth: true },
         },
         {
-            path: '/album/:albumID',
-            component: Player,
+            path: "/develop/:albumID",
+            component: Develop,
             props: true,
             meta: { requiresAuth: true },
         },
-        { path: '*', redirect: '/player' },
+        { path: "*", redirect: "/player" },
     ],
 });
 
@@ -45,11 +52,11 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth)) {
         // this route requires auth, check if logged in
         // if not, redirect to login page.
-        if (store.getters['security/isAuthenticated']) {
+        if (store.getters["security/isAuthenticated"]) {
             next();
         } else {
             next({
-                path: '/login',
+                path: "/login",
                 query: { redirect: to.fullPath },
             });
         }

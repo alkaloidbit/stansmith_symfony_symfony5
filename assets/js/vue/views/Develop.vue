@@ -38,7 +38,7 @@ import { fetchArtists } from "services/artists-service";
 // import Sidebar from '../components/Sidebar';
 
 export default {
-    name: "PlayerPage",
+    name: "DevelopPage",
     components: {
         Nav,
         Player,
@@ -69,6 +69,9 @@ export default {
         return {
             sidebarCollapsed: false,
             artists: [],
+            audioSources: [
+                "/api/player/06c1fe6bb730efaec032231d848ced5d/stream",
+            ],
             prevRoute: null,
         };
     },
