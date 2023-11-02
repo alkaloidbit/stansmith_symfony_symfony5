@@ -1,6 +1,5 @@
 {
-    "$schema": "/home/fred-badlieutenant/.local/share/nvim/mason/packages/phpactor/phpactor.schema.json",
-    "language_server_php_cs_fixer.enabled": false,
+    "$schema": "/phpactor.schema.json",
     "php_code_sniffer.enabled": true,
     "symfony.enabled": true,
     "indexer.exclude_patterns": [
@@ -8,5 +7,7 @@
         "/vendor/**/tests/**/*",
         "/var/cache/**/*",
         "/vendor/composer/**/*"
-    ]
+    ],
+    "language_server_php_cs_fixer.enabled": true,
+    "language_server_php_cs_fixer.bin": "%project_root%/tools/php-cs-fixer/vendor/bin/php-cs-fixer"
 }
