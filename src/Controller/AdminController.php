@@ -20,9 +20,9 @@ class AdminController extends AbstractController
   /* 'isAuthenticated' => json_encode(!empty($user)), */
   /* ]); */
   /* } */
-  #[Route(path: '/admin', name: 'app_admin_dashboard')]
-  public function dashboard(): Response
-  {
-    return $this->render('admin/dashboard.html.twig');
-  }
+    #[Route(path: '/admin', name: 'app_admin_dashboard')]
+    public function dashboard(): Response
+    {
+        return $this->render('admin/dashboard.html.twig');
+    }
 }

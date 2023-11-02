@@ -29,7 +29,7 @@
 
 <script>
 import Nav from "@/components/partials/nav";
-import Player from "@/components/player";
+import Player from "@/components/devplayer";
 import Catalog from "@/components/catalog";
 import Playlist from "@/components/playlist";
 import Sidebar from "@/components/sidebar";

@@ -25,8 +25,11 @@ class IndexController extends AbstractController
     }
 
     #[Route(path: '/{vueRouting}', requirements: ['vueRouting' => '^(?!api|stream|admin|develop|_(profiler|wdt)).*'], name: 'app_homepage')]
-    public function homepage(SerializerInterface $serializer, ArtistRepository $artistRepository, AlbumRepository $albumRepository): Response
-    {
+    public function homepage(
+        SerializerInterface $serializer,
+        ArtistRepository $artistRepository,
+        AlbumRepository $albumRepository
+    ): Response {
         $user = $this->getUser();
 
         $response = new Response($this->renderView('home/homepage.html.twig', [
