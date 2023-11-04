@@ -1,5 +1,11 @@
 <template>
     <section>
+        <audio-player
+            :autoplay="false"
+            :html5="true"
+            :sources="audioSources"
+            :loop="true"
+        ></audio-player>
         <div
             class="container is-fluid progress-bar"
             @click="seek($event)"
@@ -96,10 +102,12 @@ import VolumeControl from "@/components/VolumeControl";
 import RepeatControl from "@/components/RepeatControl";
 import PlayButtonPlayer from "@/components/PlayButtonPlayer";
 import playerMixin from "@/mixins/playerMixin";
+import AudioPlayer from "@/components/audio-player.vue";
 
 export default {
     name: "Player",
     components: {
+        AudioPlayer,
         VolumeControl,
         RepeatControl,
         PlayButtonPlayer,
@@ -124,6 +132,10 @@ export default {
             formatedSeekPosition: 0,
             tooltipPosition: 0,
             progressWidth: 0,
+            audioSources: [
+                "/api/player/06c1fe6bb730efaec032231d848ced5d/stream",
+                // "./audio/audio2.mp3",
+            ],
         };
     },
     computed: {
